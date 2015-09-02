@@ -35,8 +35,15 @@ $app->post('/haldor/checkup', function() use ($app) {
 });
 
 $app->get('/hal/?', function() use ($app) {
-  
-  $app->render('hal.php', array());
+  $json = "[[ 'Front Door', '', new Date(0,0,0,12,0,0), new Date(0,0,0,13,30,0) ]]";
+  $latest = array('Front Door' => ['Open', time()-1000], 'Back Door' => ['Closed', time()-3049]);
+  $app->render('hal/index.php', array('title' => 'HAL',
+    'graphJSON' => $json,
+    'isOpen' => true,
+    'latestStatus' => $latest,
+    'currentTime' => time()
+    )
+  );
 });
 
 $app->run();

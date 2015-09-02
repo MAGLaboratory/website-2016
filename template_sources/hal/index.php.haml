@@ -1,0 +1,56 @@
+.container{:style => 'margin-top: 100px;'}
+  .row
+    .col-md-12
+      - panel_body = capture_haml do
+        .panel-body
+          %table.table-striped.table-hover{:style => 'width: 100%;'}
+            %thead
+              %tr
+                %th Sensor
+                %th Status
+                %th Last Change
+            %tbody
+              <?php foreach($this->data->latestStatus as $sensor => $v){ ?>
+              %tr
+                %td <?php echo $sensor; ?>
+                %td <?php echo $v[0]; ?>
+                %td <?php echo date('M j, Y g:i A T', $v[1]); ?>
+              <?php } ?>
+              
+              
+      <?php if($this->data->isOpen){ ?>
+      .panel.panel-success
+        .panel-heading
+          %h1.panel-title{:style => 'font-size: 16px;'}
+            We are
+            %strong OPEN
+        != panel_body
+      <?php } else { ?>
+      .panel.panel-danger
+        .panel-heading
+          %h1.panel-title{:style => 'font-size: 16px;'}
+            We are
+            %strong CLOSED
+        != panel_body
+      <? } ?>
+
+.jumbotron
+  .container#hal-graph
+
+%script(src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1','packages':['timeline']}]}")
+:javascript
+  $(function(){
+    var chart = new google.visualization.Timeline($('#hal-graph')[0]);
+    var dataTable = new google.visualization.DataTable();
+    dataTable.addColumn({type: 'string', id: 'Sensor'});
+    dataTable.addColumn({type: 'string', id: 'Time'});
+    dataTable.addColumn({type: 'date', id: 'Start'});
+    dataTable.addColumn({type: 'date', id: 'End'});
+    dataTable.addRows(<?php echo $this->data->graphJSON; ?>);
+    
+    var options = {
+      timeline: {colorByRowLabel: true}
+    };
+    
+    chart.draw(dataTable, options);
+  });

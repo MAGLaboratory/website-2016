@@ -58,7 +58,7 @@ function save_payload($app){
 function save_switches($app) {
   $post = $app->request->post();
   $session = $app->request->headers->get('X-Session');
-  $checks = ['Front Door', 'Main Door', 'Office Motion', 'Shop Motion', 'Open Switch'];
+  $checks = ['Front Door', 'Main Door', 'Office Motion', 'Shop Motion', 'Open Switch', 'Temperature'];
 
   mark_old_switches();
 
@@ -88,15 +88,15 @@ function update_switch($sensor, $session, $value){
   
   $ival = (int)$value;
   $query = null;
-  if($ival != 1){
+  if($ival < 1){
     # Item is no longer open, mark end_at
     $query = "UPDATE haldor SET progress_count = progress_count + 1, end_at = NOW() WHERE sensor = ? AND end_at IS NULL AND session = ?";
   } else {
-    $query = "UPDATE haldor SET progress_count = progress_count + 1, progress_at = NOW() WHERE sensor = ? AND end_at IS NULL AND session = ?";
+    $query = "UPDATE haldor SET last_value = ?, progress_count = progress_count + 1, progress_at = NOW() WHERE sensor = ? AND end_at IS NULL AND session = ?";
   }
   
   if($stmt = $mysqli->prepare($query)){
-    $stmt->bind_param('ss', $sensor, $session);
+    $stmt->bind_param('sss', $value, $sensor, $session);
     $stmt->execute();
     if($ival == 1 && $mysqli->$affected_rows == 0){
       insert_switch($sensor, $session);
@@ -125,6 +125,7 @@ function set_boot_switch($app, $session){
     return false;
   }
   
+  mark_old_switches();
   insert_switch('Boot', $session);
 }
 
