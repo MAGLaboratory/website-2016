@@ -58,7 +58,7 @@ function save_payload($app){
 function save_switches($app) {
   $post = $app->request->post();
   $session = $app->request->headers->get('X-Session');
-  $checks = ['Front Door', 'Main Door', 'Office Motion', 'Shop Motion', 'Open Switch', 'Temperature'];
+  $checks = ['Front_Door', 'Main_Door', 'Office_Motion', 'Shop_Motion', 'Open_Switch', 'Temperature'];
 
   mark_old_switches();
 
@@ -89,6 +89,7 @@ function update_switch($sensor, $session, $value){
   $ival = (int)$value;
   $query = null;
   if($ival < 1){
+    # TODO: Treat Motion type sensors differently because they're instantaneous
     # Item is no longer open, mark end_at
     $query = "UPDATE haldor SET progress_count = progress_count + 1, end_at = NOW() WHERE sensor = ? AND end_at IS NULL AND session = ?";
   } else {
@@ -98,7 +99,7 @@ function update_switch($sensor, $session, $value){
   if($stmt = $mysqli->prepare($query)){
     $stmt->bind_param('sss', $value, $sensor, $session);
     $stmt->execute();
-    if($ival == 1 && $mysqli->$affected_rows == 0){
+    if($ival >= 1 && $mysqli->affected_rows == 0){
       insert_switch($sensor, $session);
       # If we couldn't update when sensor is on, it means this is newly activated
       # so we'll have to do an insert.
@@ -140,4 +141,8 @@ function insert_switch($sensor, $session){
   } else {
     return false;
   }
+}
+
+function parse_halley_output($app){
+  return true;
 }

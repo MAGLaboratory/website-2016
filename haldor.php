@@ -12,12 +12,11 @@ $app = new \Slim\Slim(array(
 ));
 
 $app->get('/haldor/test', function() use ($app) {
-  authenticate($app);
+  var_dump($app->request->post());
 });
 
 $app->post('/haldor/test', function() use ($app) {
-  authenticate($app);
-  
+  var_dump($_POST);
 });
 
 $app->post('/haldor/bootup', function() use ($app) {
@@ -34,16 +33,46 @@ $app->post('/haldor/checkup', function() use ($app) {
   echo 'OK';
 });
 
+$app->post('/halley/bootup', function() use ($app) {
+  authenticate($app);
+  $session = generate_session();
+  save_payload($app);
+  echo $session;
+});
+
+$app->post('/halley/output', function() use ($app) {
+  authenticate($app);
+  save_payload($app);
+  parse_halley_output($app);
+  echo 'OK';
+});
+
 $app->get('/hal/?', function() use ($app) {
-  $json = "[[ 'Front Door', '', new Date(0,0,0,12,0,0), new Date(0,0,0,13,30,0) ]]";
-  $latest = array('Front Door' => ['Open', time()-1000], 'Back Door' => ['Closed', time()-3049]);
+  require_once 'hal_helpers.php';
+  
+  $latest = latest_changes();
   $app->render('hal/index.php', array('title' => 'HAL',
-    'graphJSON' => $json,
-    'isOpen' => true,
+    'isOpen' => is_maglabs_open($latest),
     'latestStatus' => $latest,
     'currentTime' => time()
     )
   );
+});
+
+$app->get('/hal/chart', function() use ($app) {
+  require_once 'hal_helpers.php';
+  
+  $json = timeline_graph_json(time()-604800, time());
+  $app->render('hal/chart.php', array('title' => 'HAL Charts',
+    'graphJSON' => $json
+    )
+  );
+});
+
+$app->get('/hal/test', function() use ($app) {
+  require_once 'hal_helpers.php';
+  
+  echo timeline_graph_json(time()-604800, time());
 });
 
 $app->run();

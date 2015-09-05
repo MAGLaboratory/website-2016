@@ -1,0 +1,22 @@
+.jumbotron{:style => 'margin-top: 100px;'}
+  .container#hal-graph{:style => 'height:500px;'}
+
+%script(src="https://www.google.com/jsapi?autoload={%27modules%27:[{%27name%27:%27visualization%27,%27version%27:%271%27,%27packages%27:[%27timeline%27]}]}")
+:javascript
+  google.setOnLoadCallback(drawChart);
+  
+  function drawChart(){
+    var chart = new google.visualization.Timeline($('#hal-graph')[0]);
+    var dataTable = new google.visualization.DataTable();
+    dataTable.addColumn({type: 'string', id: 'Sensor'});
+    dataTable.addColumn({type: 'string', id: 'Time'});
+    dataTable.addColumn({type: 'date', id: 'Start'});
+    dataTable.addColumn({type: 'date', id: 'End'});
+    dataTable.addRows(<?php echo $this->data->graphJSON; ?>);
+    
+    var options = {
+      timeline: {colorByRowLabel: true}
+    };
+    
+    chart.draw(dataTable, options);
+  };

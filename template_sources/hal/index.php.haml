@@ -9,12 +9,18 @@
                 %th Sensor
                 %th Status
                 %th Last Change
+                %th
             %tbody
+              <?php date_default_timezone_set('America/Los_Angeles'); ?>
               <?php foreach($this->data->latestStatus as $sensor => $v){ ?>
               %tr
                 %td <?php echo $sensor; ?>
                 %td <?php echo $v[0]; ?>
-                %td <?php echo date('M j, Y g:i A T', $v[1]); ?>
+                %td <?php echo($v[1] ? date('M j, Y g:i A T', $v[1]) : 'NEVER'); ?>
+                %td
+                  <?php if($v[1]){ ?>
+                  %time.timeago{'datetime' => "<?php echo date('c', $v[1]); ?>"}
+                  <?php } ?>
               <?php } ?>
               
               
@@ -34,23 +40,9 @@
         != panel_body
       <? } ?>
 
-.jumbotron
-  .container#hal-graph
+%script{:src => '/js/timeago.js'}
 
-%script(src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1','packages':['timeline']}]}")
 :javascript
   $(function(){
-    var chart = new google.visualization.Timeline($('#hal-graph')[0]);
-    var dataTable = new google.visualization.DataTable();
-    dataTable.addColumn({type: 'string', id: 'Sensor'});
-    dataTable.addColumn({type: 'string', id: 'Time'});
-    dataTable.addColumn({type: 'date', id: 'Start'});
-    dataTable.addColumn({type: 'date', id: 'End'});
-    dataTable.addRows(<?php echo $this->data->graphJSON; ?>);
-    
-    var options = {
-      timeline: {colorByRowLabel: true}
-    };
-    
-    chart.draw(dataTable, options);
+    $('time.timeago').timeago();
   });

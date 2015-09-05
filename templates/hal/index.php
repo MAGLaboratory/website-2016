@@ -36,6 +36,9 @@ MAG Laboratory <?php if(strlen($this->data->title) > 0){ echo '- ' . $this->data
 back to MAGLabs
 </a>
 </li>
+<li>
+<a href='/hal/chart'>Chart</a>
+</li>
 </ul>
 </div>
 </div>
@@ -58,14 +61,21 @@ We are
 <th>Sensor</th>
 <th>Status</th>
 <th>Last Change</th>
+<th></th>
 </tr>
 </thead>
 <tbody>
+<?php date_default_timezone_set('America/Los_Angeles'); ?>
 <?php foreach($this->data->latestStatus as $sensor => $v){ ?>
 <tr>
 <td><?php echo $sensor; ?></td>
 <td><?php echo $v[0]; ?></td>
-<td><?php echo date('M j, Y g:i A T', $v[1]); ?></td>
+<td><?php echo($v[1] ? date('M j, Y g:i A T', $v[1]) : 'NEVER'); ?></td>
+<td>
+<?php if($v[1]){ ?>
+<time class='timeago' datetime='<?php echo date('c', $v[1]); ?>'></time>
+<?php } ?>
+</td>
 </tr>
 <?php } ?>
 </tbody>
@@ -88,14 +98,21 @@ We are
 <th>Sensor</th>
 <th>Status</th>
 <th>Last Change</th>
+<th></th>
 </tr>
 </thead>
 <tbody>
+<?php date_default_timezone_set('America/Los_Angeles'); ?>
 <?php foreach($this->data->latestStatus as $sensor => $v){ ?>
 <tr>
 <td><?php echo $sensor; ?></td>
 <td><?php echo $v[0]; ?></td>
-<td><?php echo date('M j, Y g:i A T', $v[1]); ?></td>
+<td><?php echo($v[1] ? date('M j, Y g:i A T', $v[1]) : 'NEVER'); ?></td>
+<td>
+<?php if($v[1]){ ?>
+<time class='timeago' datetime='<?php echo date('c', $v[1]); ?>'></time>
+<?php } ?>
+</td>
 </tr>
 <?php } ?>
 </tbody>
@@ -107,25 +124,10 @@ We are
 </div>
 </div>
 </div>
-<div class='jumbotron'>
-<div class='container' id='hal-graph'></div>
-</div>
-<script src='https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1','packages':['timeline']}]}'></script>
+<script src='/js/timeago.js'></script>
 <script>
   $(function(){
-    var chart = new google.visualization.Timeline($('#hal-graph')[0]);
-    var dataTable = new google.visualization.DataTable();
-    dataTable.addColumn({type: 'string', id: 'Sensor'});
-    dataTable.addColumn({type: 'string', id: 'Time'});
-    dataTable.addColumn({type: 'date', id: 'Start'});
-    dataTable.addColumn({type: 'date', id: 'End'});
-    dataTable.addRows(<?php echo $this->data->graphJSON; ?>);
-    
-    var options = {
-      timeline: {colorByRowLabel: true}
-    };
-    
-    chart.draw(dataTable, options);
+    $('time.timeago').timeago();
   });
 </script>
 
