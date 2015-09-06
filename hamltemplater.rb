@@ -9,9 +9,11 @@ Dir.glob('template_sources/*/*.haml').each do |file|
   target_path.parent().mkpath
   target = target_path.open('w+')
   layout = Haml::Engine.new(File.read(file.split('/')[0..1].join('/')+'.haml'))
-  output = layout.render do
-    Haml::Engine.new(File.read(file)).render
-  end
+  
+  scope = Object.new
+  page = Haml::Engine.new(File.read(file)).render(scope)
+  
+  output = layout.render(scope) do page; end
   target.write output
   puts [output.length, file].join("\t")
 end

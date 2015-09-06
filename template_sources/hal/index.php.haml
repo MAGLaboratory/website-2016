@@ -8,33 +8,33 @@
               %tr
                 %th Sensor
                 %th Status
-                %th Last Change
                 %th
+                %th Last Update
             %tbody
               <?php date_default_timezone_set('America/Los_Angeles'); ?>
               <?php foreach($this->data->latestStatus as $sensor => $v){ ?>
               %tr
                 %td <?php echo $sensor; ?>
                 %td <?php echo $v[0]; ?>
-                %td <?php echo($v[1] ? date('M j, Y g:i A T', $v[1]) : 'NEVER'); ?>
                 %td
                   <?php if($v[1]){ ?>
                   %time.timeago{'datetime' => "<?php echo date('c', $v[1]); ?>"}
                   <?php } ?>
+                %td <?php echo($v[1] ? date('M j, Y g:i A T', $v[1]) : 'NEVER'); ?>
               <?php } ?>
               
               
       <?php if($this->data->isOpen){ ?>
-      .panel.panel-success
+      #activity_panel.panel.panel-success
         .panel-heading
-          %h1.panel-title{:style => 'font-size: 16px;'}
+          %h1.panel-title
             We are
             %strong OPEN
         != panel_body
       <?php } else { ?>
       .panel.panel-danger
         .panel-heading
-          %h1.panel-title{:style => 'font-size: 16px;'}
+          %h1.panel-title
             We are
             %strong CLOSED
         != panel_body
@@ -46,3 +46,9 @@
   $(function(){
     $('time.timeago').timeago();
   });
+  
+- @head_style = capture_haml do
+  :css
+    #activity_panel td { font-size: 18px; }
+    #activity_panel th { font-size: 20px; }
+    #activity_panel .panel-title { line-height: normal; font-size: 50px; }

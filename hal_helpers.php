@@ -71,6 +71,7 @@ function latest_changes(){
     if($data == null){
       array_push($value, 'No Data');
       array_push($value, null);
+      array_push($value, false);
       continue;
     }
     
@@ -79,9 +80,11 @@ function latest_changes(){
       if($data[1] == null && $data[2] == null){
         array_push($value, 'Open');
         array_push($value, $data[0]);
+        array_push($value, true);
       } else {
         array_push($value, 'Closed');
         array_push($value, $data[1] | $data[2]);
+        array_push($value, false);
       }
     }
     
@@ -89,9 +92,15 @@ function latest_changes(){
       if($data[1] == null && $data[2] == null){
         array_push($value, 'Moving');
         array_push($value, $data[0]);
+        array_push($value, true);
+      } elseif($now - 20*60 < $data[0] && ($data[1] or $data[2])){
+        array_push($value, 'Moving');
+        array_push($value, $data[0]);
+        array_push($value, true);
       } else {
         array_push($value, 'No Movement since');
-        array_push($value, $data[1] | $data[2]);
+        array_push($value, $data[0]);
+        array_push($value, false);
       }
     }
     
@@ -99,9 +108,11 @@ function latest_changes(){
       if($data[1] == null && $data[2] == null){
         array_push($value, 'Flipped ON');
         array_push($value, $data[0]);
+        array_push($value, true);
       } else {
         array_push($value, 'Flipped OFF');
         array_push($value, $data[1] | $data[2]);
+        array_push($value, false);
       }
     }
     
@@ -111,9 +122,18 @@ function latest_changes(){
     }
   }
 
+  $change_items['Page Loaded'] = ['at', $now];
+
   return $change_items;
 }
 
 function is_maglabs_open($latest){
-  return $latest['Open Switch'][0] == 'Flipped ON';
+  # Space is open when:
+  # a) a door is open (main or front)
+  # b) one of the following is true: open switch ON, movement in last 20 minutes
+  $movement = $latest['Open Switch'][2] | $latest['Office Motion'][2] | $latest['Shop Motion'][2];
+  $doors = $latest['Front Door'][2] | $latest['Main Door'][2];
+  
+  return $movement && $doors;
+  
 }
