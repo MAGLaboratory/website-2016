@@ -12,11 +12,11 @@ $app = new \Slim\Slim(array(
 ));
 
 $app->get('/haldor/test', function() use ($app) {
-  var_dump($app->request->post());
+  //var_dump(update_switch('Open_Switch', 'qFVtIGJhTep_aW3LSDMnnhRmrDhekP83wyVBLKQm', '0'));
 });
 
 $app->post('/haldor/test', function() use ($app) {
-  var_dump($_POST);
+  'ok';
 });
 
 $app->post('/haldor/bootup', function() use ($app) {

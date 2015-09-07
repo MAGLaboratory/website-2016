@@ -63,7 +63,7 @@ function save_switches($app) {
   mark_old_switches();
 
   foreach($checks as $i => $sensor){
-    if($post[$sensor]){
+    if(isset($post[$sensor])){
       update_switch($sensor, $session, $post[$sensor]);
     }
   }
@@ -91,7 +91,7 @@ function update_switch($sensor, $session, $value){
   if($ival < 1){
     # TODO: Treat Motion type sensors differently because they're instantaneous
     # Item is no longer open, mark end_at
-    $query = "UPDATE haldor SET progress_count = progress_count + 1, end_at = NOW() WHERE sensor = ? AND end_at IS NULL AND session = ?";
+    $query = "UPDATE haldor SET progress_count = progress_count + 1, end_at = NOW(), last_value = ? WHERE sensor = ? AND end_at IS NULL AND session = ?";
   } else {
     $query = "UPDATE haldor SET last_value = ?, progress_count = progress_count + 1, progress_at = NOW() WHERE sensor = ? AND end_at IS NULL AND session = ?";
   }
@@ -144,5 +144,35 @@ function insert_switch($sensor, $session){
 }
 
 function parse_halley_output($app){
+  $post = $app->request->post();
+  $session = $app->request->headers->get('X-Session');
+  
+  $mysqli = get_mysqli();
+  if(!mysqli){ return false; }
+  
+  $now = time();
+  $rfid = null;
+  
+  if(preg_match('/User (\d+) presented tag/', $post['output'], $match)){
+    $rfid = $match[1];
+  }
+  
+  $open_at = null;
+  $denied_at = null;
+  if(preg_match('/denied access at/', $denied['output'])){
+    $denied_at = $now;
+  }
+  
+  if(preg_match('/granted access at/', $accept['output'])){
+    $open_at = $now;
+  }
+  # TODO: Check case when two cards are sent in the same payload..if it ever happens
+  
+  if($stmt = $mysqli->prepare("INSERT INTO space_invaders (keycode, open_at, denied_at, created_at) VALUES (?, FROM_UNIXTIME(?), FROM_UNIXTIME(?), NOW())")){
+    $stmt->bind_param('sii', $rfid, $open_at, $denied_at);
+    $stmt->execute();
+    $stmt->close();
+  }
+  
   return true;
 }
