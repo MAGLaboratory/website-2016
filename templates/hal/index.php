@@ -39,7 +39,7 @@ MAG Laboratory <?php if(strlen($this->data->title) > 0){ echo '- ' . $this->data
 <ul class='nav navbar-nav'>
 <li>
 <a href='/'>
-back to MAGLabs
+back to MAGLab
 </a>
 </li>
 <li>

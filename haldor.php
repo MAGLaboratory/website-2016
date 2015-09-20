@@ -5,6 +5,7 @@ require_once 'Slim/Slim.php';
 
 require_once 'config.php';
 require_once 'helpers.php';
+require_once 'haldor_helpers.php';
 
 $app = new \Slim\Slim(array(
   'mode' => $slim_mode,
@@ -49,6 +50,7 @@ $app->post('/halley/output', function() use ($app) {
 
 $app->get('/hal/?', function() use ($app) {
   require_once 'hal_helpers.php';
+  mark_old_switches();
   
   $latest = latest_changes();
   $app->render('hal/index.php', array('title' => 'HAL',
