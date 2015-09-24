@@ -133,26 +133,26 @@ function parse_halley_output($app){
   if(!mysqli){ return false; }
   
   $now = time();
+  
   $rfid = null;
-  
-  if(preg_match('/User (\d+) presented tag/', $post['output'], $match)){
-    $rfid = $match[1];
-  }
-  
   $open_at = null;
   $denied_at = null;
-  if(preg_match('/denied access at/', $denied['output'])){
-    $denied_at = $now;
-  }
-  
-  if(preg_match('/granted access at/', $accept['output'])){
-    $open_at = $now;
-  }
-  # TODO: Check case when two cards are sent in the same payload..if it ever happens
+
+  preg_match_all('/User (\d+) presented tag.+?(denied|granted) access at/s', $post['output'], $matches, PREG_SET_ORDER);
   
   if($stmt = $mysqli->prepare("INSERT INTO space_invaders (keycode, open_at, denied_at, created_at) VALUES (?, FROM_UNIXTIME(?), FROM_UNIXTIME(?), NOW())")){
-    $stmt->bind_param('sii', $rfid, $open_at, $denied_at);
-    $stmt->execute();
+    foreach($matches as $match){
+      $rfid = $match[1];
+      if($match[2] == 'denied'){
+        $open_at = null;
+        $denied_at = $now;
+      } else {
+        $open_at = $now;
+        $denied_at = null;
+      }
+      $stmt->bind_param('sii', $rfid, $open_at, $denied_at);
+      $stmt->execute();
+    }
     $stmt->close();
   }
   
