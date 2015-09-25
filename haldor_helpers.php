@@ -10,6 +10,10 @@ function generate_session(){
 }
 
 function authenticate($app) {
+  if(SKIP_CHECKSUM){
+    return true;
+  }
+  
   global $secret;
   $input = file_get_contents('php://input');
   $session = $app->request->headers->get('X-Session');
