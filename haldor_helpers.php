@@ -134,7 +134,7 @@ function parse_halley_output($app){
   $session = $app->request->headers->get('X-Session');
   
   $mysqli = get_mysqli();
-  if(!mysqli){ return false; }
+  if(!$mysqli){ return false; }
   
   $now = time();
   
