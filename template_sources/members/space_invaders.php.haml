@@ -1,0 +1,41 @@
+#main-container.container
+  %h1 Space Invaders
+  != php "date_default_timezone_set('America/Los_Angeles');"
+  %table.table.table-hover
+    %thead
+      %tr
+        %th #
+        %th Keycode
+        %th Person
+        %th Open/Denied At
+    %tbody
+      <?php foreach($this->data->invaders AS $invader){ ?>
+      %tr{class: say("$invader['open_at'] ? 'success' : 'warning'")}
+        %td!= say "$invader['id']"
+        %td!= say "$invader['keycode']"
+        %td
+          != php "if((int)$invader['keyholder_id'] == 0){"
+          %button.btn.btn-info.create-keyholder{:type => "button", 'data-toggle' => "modal", 'data-target' => "#add-keyholder", 'data-keycode' => say("$invader['keycode']")} Add
+          != php "}"
+          != say "$invader['person']"
+        %td
+          :php
+            $open_msg = '?';
+            if($invader['open_at']){
+              $open_msg = 'Opened ' . date('n/j/Y g:i:s a');
+            } else if($invader['denied_at']){
+              $open_msg = 'Denied ' . date('n/j/Y g:i:s a');
+            }
+          != say "$open_msg"
+      <?php } ?>
+
+  != php "$keyholder_redirect = '/members/space_invaders';"
+  != partial 'add_keyholder'
+
+:javascript
+  $(function(){
+    $('#add-keyholder').on('show.bs.modal', function(e){
+      var $button = $(e.relatedTarget);
+      $('#keycode').val($button.data('keycode'));
+    });
+  });

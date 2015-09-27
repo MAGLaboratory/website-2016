@@ -11,24 +11,16 @@
         %th Person
         %th Start
         %th End
-        %th Actions
     %tbody
       <?php foreach($this->data->keyholders AS $keyholder){ ?>
       %tr
-        %td <?php echo $keyholder->id; ?>
-        %td <?php echo $keyholder->keycode; ?>
-        %td <?php echo $keyholder->person; ?>
-        %td <?php echo $keyholder->start_at ? date('F d, Y', $keyholder->start_at) : ' '; ?>
-        %td <?php echo $keyholder->end_at ? date('F d, Y', $keyholder->end_at) : ' '; ?>
-        %td
-          Edit
-          End
+        %td!= say "$keyholder['id']"
+        %td!= say "$keyholder['keycode']"
+        %td!= say "$keyholder['person']"
+        %td!= say "$keyholder['start_at'] ? date('F d, Y', $keyholder['start_at']) : ' '"
+        %td!= say "$keyholder['end_at'] ? date('F d, Y', $keyholder['end_at']) : ' '"
       <?php } ?>
   
-  #add-keyholder.modal.fade(tabindex="-1" role="dialog" aria-labelledby="addKeyholderLabel")
-    .modal-dialog.modal-lg
-      .modal-content
-        %form(action="/members/keyholders" method="post")
-          .form-group
-            %label(for="person") Person (Name)
-            %input.form-control#person
+  != php "$keyholder_redirect = '/members/keyholders';"
+  
+  != partial('add_keyholder')

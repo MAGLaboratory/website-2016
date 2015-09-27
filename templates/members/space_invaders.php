@@ -52,31 +52,43 @@ MAG Laboratory <?php if(strlen($this->data->title) > 0){ echo '- ' . $this->data
 </div>
 </nav>
 <div class='container' id='main-container'>
-<h1>Key Holders</h1>
-<button class='btn btn-primary' data-target='#add-keyholder' data-toggle='modal' type='button'>Add Keyholder</button>
-<table class='table table-striped'>
+<h1>Space Invaders</h1>
+<?php date_default_timezone_set('America/Los_Angeles'); ?>
+<table class='table table-hover'>
 <thead>
 <tr>
 <th>#</th>
 <th>Keycode</th>
 <th>Person</th>
-<th>Start</th>
-<th>End</th>
+<th>Open/Denied At</th>
 </tr>
 </thead>
 <tbody>
-<?php foreach($this->data->keyholders AS $keyholder){ ?>
-<tr>
-<td><?php echo filter_text($keyholder['id'], true); ?></td>
-<td><?php echo filter_text($keyholder['keycode'], true); ?></td>
-<td><?php echo filter_text($keyholder['person'], true); ?></td>
-<td><?php echo filter_text($keyholder['start_at'] ? date('F d, Y', $keyholder['start_at']) : ' ', true); ?></td>
-<td><?php echo filter_text($keyholder['end_at'] ? date('F d, Y', $keyholder['end_at']) : ' ', true); ?></td>
+<?php foreach($this->data->invaders AS $invader){ ?>
+<tr class='<?php echo filter_text($invader['open_at'] ? 'success' : 'warning', true); ?>'>
+<td><?php echo filter_text($invader['id'], true); ?></td>
+<td><?php echo filter_text($invader['keycode'], true); ?></td>
+<td>
+<?php if((int)$invader['keyholder_id'] == 0){ ?>
+<button class='btn btn-info create-keyholder' data-keycode='<?php echo filter_text($invader['keycode'], true); ?>' data-target='#add-keyholder' data-toggle='modal' type='button'>Add</button>
+<?php } ?>
+<?php echo filter_text($invader['person'], true); ?>
+</td>
+<td>
+<?php $open_msg = '?';
+if($invader['open_at']){
+  $open_msg = 'Opened ' . date('n/j/Y g:i:s a');
+} else if($invader['denied_at']){
+  $open_msg = 'Denied ' . date('n/j/Y g:i:s a');
+}
+ ?>
+<?php echo filter_text($open_msg, true); ?>
+</td>
 </tr>
 <?php } ?>
 </tbody>
 </table>
-<?php $keyholder_redirect = '/members/keyholders'; ?>
+<?php $keyholder_redirect = '/members/space_invaders'; ?>
 <div aria-labelledby='addKeyholderLabel' class='modal fade' id='add-keyholder' role='dialog' tabindex='-1'>
 <div class='modal-dialog modal-lg'>
 <div class='modal-content'>
@@ -125,6 +137,14 @@ For best results format like Year/Month/Day Hour:Minute eg: 2015/09/08 17:09 or 
 </div>
 
 </div>
+<script>
+  $(function(){
+    $('#add-keyholder').on('show.bs.modal', function(e){
+      var $button = $(e.relatedTarget);
+      $('#keycode').val($button.data('keycode'));
+    });
+  });
+</script>
 
 </body>
 </html>

@@ -58,7 +58,7 @@ $app->post('/members/login', function() use ($app){
       $user = $res->fetch_assoc();
       $res->free();
       if($user and password_verify($post['password'], $user['pwhash'])){
-        $session = members_login($user['id']);
+        $session = member_login($user['id']);
         $app->setCookie('auth', $session);
         $app->redirect('/members');
         die();
@@ -76,8 +76,7 @@ $app->get('/members/?', function() use ($app){
 
 $app->post('/members/me', function() use ($app){
   $current_user = member_authenticate($app);
-  $user = get_user_by_id($current_user['id']);
-  $response_data = array('title' => 'Members', 'current_user' => $current_user, 'user' => $user);
+  $response_data = array('title' => 'Members', 'current_user' => $current_user);
   
   if(isset($app->request->post()['current_password'])){
     $response_data['pw_success'] = change_member_password($app, $current_user);
@@ -85,19 +84,32 @@ $app->post('/members/me', function() use ($app){
     $response_data['info_success'] = save_member_info($app, $current_user);
   }
   
+  $response_data['user'] = get_user_by_id($current_user['id']);
   $app->render('members/index.php', $response_data);
 });
 
 $app->post('/members/keyholders', function() use ($app){
-  $user = admin_authenticate($app);
+  $current_user = admin_authenticate($app);
   
 });
 
 $app->get('/members/keyholders', function() use($app){
-  $user = admin_authenticate($app);
+  $current_user = admin_authenticate($app);
   set_space_invader_keyholder();
-  $app->render('members/keyholders.php', array('title' => 'Key Holders', 'current_user' => $user, 'keyholders' => get_keyholders()));
+  $app->render('members/keyholders.php', array('title' => 'Key Holders', 'current_user' => $current_user, 'keyholders' => get_keyholders()));
 });
+
+$app->get('/members/space_invaders', function() use($app){
+  $current_user = admin_authenticate($app);
+  set_space_invader_keyholder();
+  $invaders = get_space_invaders();
+  $app->render('members/space_invaders.php', array('title' => 'Space Invaders', 'current_user' => $current_user, 'invaders' => $invaders));
+});
+
+
+
+
+
 
 
 

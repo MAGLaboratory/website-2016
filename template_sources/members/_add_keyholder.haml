@@ -1,0 +1,33 @@
+#add-keyholder.modal.fade(tabindex="-1" role="dialog" aria-labelledby="addKeyholderLabel")
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button.close(type="button" data-dismiss="modal" aria-label="Close")
+          %span(aria-hidden="true") &times;
+        %h4.modal-title#addKeyholderLabel Add a keyholder
+      .modal-body
+        %form(action="/members/keyholders" method="post")
+          .form-group
+            %label(for="keycode") Keycode
+            %input.form-control#keycode(type="number" name="keycode")
+          .form-group
+            %label(for="person") Person (Name)
+            %input.form-control#person
+          .form-group
+            %label(for="start_at") Start at
+            %input.form-control#start_at(type="datetime-local" name="start_at")
+            %p.help-block
+              The day they got the key. Leave blank to default to today.
+              %br
+              For best results format like Year/Month/Day Hour:Minute eg: 2015/09/08 17:09 or 2015/01/27 5:39 pm
+          .form-group
+            %label(for="end_at") End at
+            %input.form-control#end_at(type="datetime-local" name="end_at")
+            %p.help-block
+              The day they stopped being a keyholder (gave key back). Leave blank to default to not yet.
+              %br
+              For best results format like Year/Month/Day Hour:Minute eg: 2015/09/08 17:09 or 2015/01/27 5:39 pm
+          .form-group
+            %input{type:"hidden", name:"back", value: say("$keyholder_redirect")}
+            %button.btn.btn-primary(type="submit") Submit
+              

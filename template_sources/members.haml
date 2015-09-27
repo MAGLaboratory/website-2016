@@ -28,13 +28,10 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a.navbar-brand(href='/admin') Admin
+          %a.navbar-brand(href='/members') Members Only
         
         #main-nav.collapse.navbar-collapse
           %ul.nav.navbar-nav
-            %li
-              %a(href='/')
-                back to MAGLab
             <?php if($this->data->current_user){ ?>
             %li
               %a(href="/members") Me
@@ -42,7 +39,7 @@
             %li
               %a(href='/members/keyholders') Keyholders
             %li
-              %a(href='/members/spaceinvaders') Space Invaders
+              %a(href='/members/space_invaders') Space Invaders
             <?php } ?>
             <?php } ?>
     

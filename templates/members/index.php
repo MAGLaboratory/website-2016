@@ -30,15 +30,10 @@ MAG Laboratory <?php if(strlen($this->data->title) > 0){ echo '- ' . $this->data
 <span class='icon-bar'></span>
 <span class='icon-bar'></span>
 </button>
-<a class='navbar-brand' href='/admin'>Admin</a>
+<a class='navbar-brand' href='/members'>Members Only</a>
 </div>
 <div class='collapse navbar-collapse' id='main-nav'>
 <ul class='nav navbar-nav'>
-<li>
-<a href='/'>
-back to MAGLab
-</a>
-</li>
 <?php if($this->data->current_user){ ?>
 <li>
 <a href='/members'>Me</a>
@@ -48,7 +43,7 @@ back to MAGLab
 <a href='/members/keyholders'>Keyholders</a>
 </li>
 <li>
-<a href='/members/spaceinvaders'>Space Invaders</a>
+<a href='/members/space_invaders'>Space Invaders</a>
 </li>
 <?php } ?>
 <?php } ?>

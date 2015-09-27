@@ -100,13 +100,10 @@ function set_space_invader_keyholder(){
 function get_keyholders(){
   $mysqli = get_mysqli_or_die();
   
-  $results = array();
   if($res = $mysqli->query('SELECT id, keycode, person, UNIX_TIMESTAMP(start_at) AS start_at, UNIX_TIMESTAMP(end_at) AS end_at FROM keyholders ORDER BY id DESC', MYSQLI_USE_RESULT)){
-    while($row = $res->fetch_object()){
-      array_push($results, $row);
-    }
+    return $res->fetch_all(MYSQLI_ASSOC);
   }
-  return $results;
+  return array();
 }
 
 function isAdmin($user){
@@ -151,11 +148,11 @@ function save_member_info($app, $user){
   return false;
 }
 
-function filter_email($text, $html = false){
-  $filtered = filter_var($text, FILTER_SANITIZE_EMAIL);
-  return ($html ? htmlspecialchars($filtered, ENT_QUOTES | ENT_HTML5) : $filtered);
-}
-
-function filter_text($text, $html = false){
-  return ($html ? htmlspecialchars($text, ENT_QUOTES | ENT_HTML5) : $text);
+function get_space_invaders(){
+  $mysqli = get_mysqli_or_die();
+  
+  if($res = $mysqli->query('SELECT space_invaders.id AS id, space_invaders.keyholder_id, space_invaders.keycode AS keycode, UNIX_TIMESTAMP(open_at) AS open_at, UNIX_TIMESTAMP(denied_at) AS denied_at, keyholders.person AS person FROM space_invaders LEFT JOIN keyholders ON keyholders.id = space_invaders.keyholder_id ORDER BY id DESC', MYSQLI_USE_RESULT)){
+    return $res->fetch_all(MYSQLI_ASSOC);
+  }
+  return array();
 }

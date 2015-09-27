@@ -49,23 +49,23 @@
     .form-group
       %label.col-sm-2.control-label(for="email") Email
       .col-sm-10
-        %input.form-control#user_email(type="email" name="email" value="<?php echo filter_email($this->data->user->email, true); ?>")
+        %input.form-control#user_email{type:"email", name:"email", value: echo("filter_email($this->data->user->email, true)")}
     .form-group
       %label.col-sm-2.control-label(for="first_name") First Name
       .col-sm-10
-        %input.form-control#user_first_name(type="text" name="first_name" value="<?php echo filter_text($this->data->user->first_name, true); ?>")
+        %input.form-control#user_first_name{type:"text", name:"first_name", value: say("$this->data->user->first_name")}
     .form-group
       %label.col-sm-2.control-label(for="last_name") Last Name
       .col-sm-10
-        %input.form-control#user_last_name(type="text" name="last_name" value="<?php echo filter_text($this->data->user->last_name, true); ?>")
+        %input.form-control#user_last_name{type:"text", name:"last_name", value: say("$this->data->user->last_name")}
     .form-group
       %label.col-sm-2.control-label(for="main_phone") Main Phone
       .col-sm-10
-        %input.form-control#user_main_phone(type="tel" name="main_phone" value="<?php echo filter_text($this->data->user->main_phone, true); ?>")
+        %input.form-control#user_main_phone{type:"tel", name:"main_phone", value: say("$this->data->user->main_phone")}
     .form-group
       %label.col-sm-2.control-label(for="emergency_phone") Emergency Phone
       .col-sm-10
-        %input.form-control#user_emergency_phone(type="tel" name="emergency_phone" value="<?php echo filter_text($this->data->user->emergency_phone, true); ?>")
+        %input.form-control#user_emergency_phone{type:"tel", name:"emergency_phone", value: say("$this->data->user->emergency_phone")}
     .form-group
       %label.col-sm-2.control-label(for="interests") Interests / Skills
       .col-sm-10
