@@ -1,0 +1,77 @@
+#main-container.container
+  %h2 Change Password
+  
+  <?php if($this->data->pw_success){ ?>
+  .alert.alert-info.alert-dismissible.fade.in(role="alert")
+    %button.close(type="button" data-dismiss="alert" role="alert" aria-label="Close")
+      %span(aria-hidden="true") x
+    %strong Success!
+    Successfully updated your profile info.
+  <?php } else if(isset($this->data->pw_success)){ ?>
+  .alert.alert-warning.alert-dismissible.fade.in(role="alert")
+    %button.close(type="button" data-dismiss="alert" role="alert" aria-label="Close")
+      %span(aria-hidden="true") x
+    %strong Failed.
+    Failed to update your password. Check your current password and make sure the confirmation matches the new password.
+  <?php } ?>
+  %form.form-horizontal(action="/members/me" method="post")
+    .form-group
+      %label.col-sm-2.control-label(for="current_password") Current Password
+      .col-sm-10
+        %input.form-control#current_password(type="password" name="current_password")
+    .form-group
+      %label.col-sm-2.control-label(for="new_password") New Password
+      .col-sm-10
+        %input.form-control#current_password(type="password" name="new_password")
+    .form-group
+      %label.col-sm-2.control-label(for="confirm_password") Confirm New Password
+      .col-sm-10
+        %input.form-control#current_password(type="password" name="confirm_password")
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        %button.btn.btn-default(type="submit") Change Password
+
+  %h1 Profile
+  <?php if($this->data->info_success){ ?>
+  .alert.alert-info.alert-dismissible.fade.in(role="alert")
+    %button.close(type="button" data-dismiss="alert" role="alert" aria-label="Close")
+      %span(aria-hidden="true") x
+    %strong Success!
+    Successfully updated your profile info.
+  <?php } else if(isset($this->data->info_success)){ ?>
+  .alert.alert-warning.alert-dismissible.fade.in(role="alert")
+    %button.close(type="button" data-dismiss="alert" role="alert" aria-label="Close")
+      %span(aria-hidden="true") x
+    %strong Failed.
+    Failed to update your profile info? huh...that's weird.
+  <?php } ?>
+  %form.form-horizontal(action="/members/me" method="post")
+    .form-group
+      %label.col-sm-2.control-label(for="email") Email
+      .col-sm-10
+        %input.form-control#user_email(type="email" name="email" value="<?php echo filter_email($this->data->user->email, true); ?>")
+    .form-group
+      %label.col-sm-2.control-label(for="first_name") First Name
+      .col-sm-10
+        %input.form-control#user_first_name(type="text" name="first_name" value="<?php echo filter_text($this->data->user->first_name, true); ?>")
+    .form-group
+      %label.col-sm-2.control-label(for="last_name") Last Name
+      .col-sm-10
+        %input.form-control#user_last_name(type="text" name="last_name" value="<?php echo filter_text($this->data->user->last_name, true); ?>")
+    .form-group
+      %label.col-sm-2.control-label(for="main_phone") Main Phone
+      .col-sm-10
+        %input.form-control#user_main_phone(type="tel" name="main_phone" value="<?php echo filter_text($this->data->user->main_phone, true); ?>")
+    .form-group
+      %label.col-sm-2.control-label(for="emergency_phone") Emergency Phone
+      .col-sm-10
+        %input.form-control#user_emergency_phone(type="tel" name="emergency_phone" value="<?php echo filter_text($this->data->user->emergency_phone, true); ?>")
+    .form-group
+      %label.col-sm-2.control-label(for="interests") Interests / Skills
+      .col-sm-10
+        TODO
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        %button.btn.btn-default(type="submit") Save Changes
+  
+    

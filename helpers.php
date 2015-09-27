@@ -18,4 +18,8 @@ function get_mysqli(){
   }
 }
 
-
+function get_mysqli_or_die(){
+  $mysqli = get_mysqli();
+  if($mysqli){ return $mysqli; }
+  else { die('unable to connect to database'); }
+}

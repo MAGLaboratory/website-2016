@@ -16,6 +16,9 @@ MAG Laboratory <?php if(strlen($this->data->title) > 0){ echo '- ' . $this->data
 <script src='https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js'></script>
 <script src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js'></script>
 <![endif]-->
+<style>
+  #main-container { margin-top: 75px; }
+</style>
 </head>
 <body>
 <nav class='navbar navbar-default navbar-fixed-top'>
@@ -36,20 +39,25 @@ MAG Laboratory <?php if(strlen($this->data->title) > 0){ echo '- ' . $this->data
 back to MAGLab
 </a>
 </li>
-<?php if($this->data->user){ ?>
+<?php if($this->data->current_user){ ?>
 <li>
-<a href='/admin/keyholders'>Keyholders</a>
+<a href='/members'>Me</a>
+</li>
+<?php if(isAdmin($this->data->current_user)){ ?>
+<li>
+<a href='/members/keyholders'>Keyholders</a>
 </li>
 <li>
-<a href='/admin/spaceinvaders'>Space Invaders</a>
+<a href='/members/spaceinvaders'>Space Invaders</a>
 </li>
+<?php } ?>
 <?php } ?>
 </ul>
 </div>
 </div>
 </nav>
-<div class='container' style='margin-top: 75px;'>
-<form action='/admin/login' class='form-horizontal' method='post'>
+<div class='container' id='main-container'>
+<form action='/members/login' class='form-horizontal' method='post'>
 <div class='form-group'>
 <label class='col-sm-2 control-label' for='email'>Email</label>
 <div class='col-sm-10'>
