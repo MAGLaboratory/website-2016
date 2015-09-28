@@ -69,17 +69,19 @@ MAG Laboratory <?php if(strlen($this->data->title) > 0){ echo '- ' . $this->data
 <td><?php echo filter_text($invader['id'], true); ?></td>
 <td><?php echo filter_text($invader['keycode'], true); ?></td>
 <td>
-<?php if((int)$invader['keyholder_id'] == 0){ ?>
-<button class='btn btn-info create-keyholder' data-keycode='<?php echo filter_text($invader['keycode'], true); ?>' data-target='#add-keyholder' data-toggle='modal' type='button'>Add</button>
+<?php if((int)$invader['keyholder_id'] == 0 and !$invader['current_person']){ ?>
+<button class='btn btn-info create-keyholder' data-keycode='<?php echo filter_text($invader['keycode'], true); ?>' data-target='#add-keyholder' data-toggle='modal' type='button'>Add Keyholder</button>
 <?php } ?>
 <?php echo filter_text($invader['person'], true); ?>
 </td>
 <td>
-<?php $open_msg = '?';
+<?php $open_msg = '!error!';
 if($invader['open_at']){
-  $open_msg = 'Opened ' . date('n/j/Y g:i:s a');
+  $open_msg = 'Opened ' . date('n/j/Y g:i:s a', $invader['open_at']);
 } else if($invader['denied_at']){
-  $open_msg = 'Denied ' . date('n/j/Y g:i:s a');
+  $open_msg = 'Denied ' . date('n/j/Y g:i:s a', $invader['denied_at']);
+} else if($invader['created_at']){
+  $open_msg = '(UNKNOWN) ' . date('n/j/Y g:i:s a', $invader['created_at']);
 }
  ?>
 <?php echo filter_text($open_msg, true); ?>
@@ -106,7 +108,7 @@ if($invader['open_at']){
 </div>
 <div class='form-group'>
 <label for='person'>Person (Name)</label>
-<input class='form-control' id='person'>
+<input class='form-control' id='person' name='person' type='text'>
 </div>
 <div class='form-group'>
 <label for='start_at'>Start at</label>

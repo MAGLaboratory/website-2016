@@ -90,13 +90,24 @@ $app->post('/members/me', function() use ($app){
 
 $app->post('/members/keyholders', function() use ($app){
   $current_user = admin_authenticate($app);
-  
+  add_keyholder($app);
+  $app->redirect($app->request->params('back'));
 });
 
 $app->get('/members/keyholders', function() use($app){
   $current_user = admin_authenticate($app);
   set_space_invader_keyholder();
   $app->render('members/keyholders.php', array('title' => 'Key Holders', 'current_user' => $current_user, 'keyholders' => get_keyholders()));
+});
+
+$app->put('/members/keyholders/:id', function($keyholder_id) use($app){
+  $current_user = admin_authenticate($app);
+  if($app->request->params('end_now') == '1'){
+    end_keyholder($keyholder_id);
+  } else {
+    # update_keyholder
+  }
+  $app->redirect('/members/keyholders');
 });
 
 $app->get('/members/space_invaders', function() use($app){

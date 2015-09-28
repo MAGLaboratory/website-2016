@@ -14,17 +14,19 @@
         %td!= say "$invader['id']"
         %td!= say "$invader['keycode']"
         %td
-          != php "if((int)$invader['keyholder_id'] == 0){"
-          %button.btn.btn-info.create-keyholder{:type => "button", 'data-toggle' => "modal", 'data-target' => "#add-keyholder", 'data-keycode' => say("$invader['keycode']")} Add
+          != php "if((int)$invader['keyholder_id'] == 0 and !$invader['current_person']){"
+          %button.btn.btn-info.create-keyholder{:type => "button", 'data-toggle' => "modal", 'data-target' => "#add-keyholder", 'data-keycode' => say("$invader['keycode']")} Add Keyholder
           != php "}"
           != say "$invader['person']"
         %td
           :php
-            $open_msg = '?';
+            $open_msg = '!error!';
             if($invader['open_at']){
-              $open_msg = 'Opened ' . date('n/j/Y g:i:s a');
+              $open_msg = 'Opened ' . date('n/j/Y g:i:s a', $invader['open_at']);
             } else if($invader['denied_at']){
-              $open_msg = 'Denied ' . date('n/j/Y g:i:s a');
+              $open_msg = 'Denied ' . date('n/j/Y g:i:s a', $invader['denied_at']);
+            } else if($invader['created_at']){
+              $open_msg = '(UNKNOWN) ' . date('n/j/Y g:i:s a', $invader['created_at']);
             }
           != say "$open_msg"
       <?php } ?>

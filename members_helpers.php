@@ -106,6 +106,17 @@ function get_keyholders(){
   return array();
 }
 
+function end_keyholder($keyholder_id){
+  $mysqli = get_mysqli_or_die();
+  
+  if($stmt = $mysqli->prepare('UPDATE keyholders SET end_at = NOW() WHERE id = ? AND end_at IS NULL LIMIT 1')){
+    $stmt->bind_param('i', $keyholder_id);
+    $stmt->execute();
+    return true;
+  }
+  return false;
+}
+
 function isAdmin($user){
   if(!$user or !$user['role']){ return false; }
   return (strpos($user['role'], 'Admin') > -1);
@@ -151,8 +162,30 @@ function save_member_info($app, $user){
 function get_space_invaders(){
   $mysqli = get_mysqli_or_die();
   
-  if($res = $mysqli->query('SELECT space_invaders.id AS id, space_invaders.keyholder_id, space_invaders.keycode AS keycode, UNIX_TIMESTAMP(open_at) AS open_at, UNIX_TIMESTAMP(denied_at) AS denied_at, keyholders.person AS person FROM space_invaders LEFT JOIN keyholders ON keyholders.id = space_invaders.keyholder_id ORDER BY id DESC', MYSQLI_USE_RESULT)){
+  if($res = $mysqli->query('SELECT space_invaders.id AS id, space_invaders.keyholder_id, space_invaders.keycode AS keycode, UNIX_TIMESTAMP(open_at) AS open_at, UNIX_TIMESTAMP(denied_at) AS denied_at, UNIX_TIMESTAMP(space_invaders.created_at) AS created_at, keyholders.person AS person, keyholderx.person AS current_person FROM space_invaders LEFT JOIN keyholders ON keyholders.id = space_invaders.keyholder_id LEFT JOIN keyholders AS keyholderx ON keyholderx.keycode = space_invaders.keycode AND keyholderx.end_at IS NULL ORDER BY id DESC
+', MYSQLI_USE_RESULT)){
     return $res->fetch_all(MYSQLI_ASSOC);
   }
   return array();
+}
+
+function add_keyholder($app){
+  $mysqli = get_mysqli_or_die();
+  $post = $app->request->post();
+  if(isset($post['start_at']) and strtotime($post['start_at']) > 0){
+    $start_at = strtotime($post['start_at']);
+  } else {
+    $start_at = time();
+  }
+  
+  if(isset($post['end_at']) and strtotime($post['end_at']) > 0){
+    $end_at = strtotime($post['end_at']);
+  } else {
+    $end_at = null;
+  }
+  
+  if($stmt = $mysqli->prepare('INSERT INTO keyholders (keycode, person, start_at, end_at) VALUES (?, ?, FROM_UNIXTIME(?), FROM_UNIXTIME(?))')){
+    $stmt->bind_param('ssii', $post['keycode'], $post['person'], $start_at, $end_at);
+    $stmt->execute();
+  }
 }

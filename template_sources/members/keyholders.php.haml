@@ -18,9 +18,29 @@
         %td!= say "$keyholder['keycode']"
         %td!= say "$keyholder['person']"
         %td!= say "$keyholder['start_at'] ? date('F d, Y', $keyholder['start_at']) : ' '"
-        %td!= say "$keyholder['end_at'] ? date('F d, Y', $keyholder['end_at']) : ' '"
+        %td
+          != php "if(!$keyholder['end_at']){"
+          %button.btn.btn-default.keyholder-end-now{:type => 'button', 'data-keyholder_id' => say("$keyholder['id']")} End Now
+          != php "}"
+          != say "$keyholder['end_at'] ? date('F d, Y', $keyholder['end_at']) : ' '"
       <?php } ?>
   
   != php "$keyholder_redirect = '/members/keyholders';"
   
   != partial('add_keyholder')
+
+  .hide
+    %form#end-now(action="about:blank" method="post")
+      %input(type="hidden" name="_METHOD" value="PUT")
+      %input(type="hidden" name="end_now" value=1)
+
+:javascript
+  $(function(){
+    $('.keyholder-end-now').click(function(){
+      if(confirm("Are you sure the key has been returned?")){
+        var $this = $(this);
+        $('#end-now').attr('action', '/members/keyholders/'+$this.data('keyholder_id'));
+        $('#end-now').submit();
+      }
+    });
+  });

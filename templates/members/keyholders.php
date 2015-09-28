@@ -71,7 +71,12 @@ MAG Laboratory <?php if(strlen($this->data->title) > 0){ echo '- ' . $this->data
 <td><?php echo filter_text($keyholder['keycode'], true); ?></td>
 <td><?php echo filter_text($keyholder['person'], true); ?></td>
 <td><?php echo filter_text($keyholder['start_at'] ? date('F d, Y', $keyholder['start_at']) : ' ', true); ?></td>
-<td><?php echo filter_text($keyholder['end_at'] ? date('F d, Y', $keyholder['end_at']) : ' ', true); ?></td>
+<td>
+<?php if(!$keyholder['end_at']){ ?>
+<button class='btn btn-default keyholder-end-now' data-keyholder_id='<?php echo filter_text($keyholder['id'], true); ?>' type='button'>End Now</button>
+<?php } ?>
+<?php echo filter_text($keyholder['end_at'] ? date('F d, Y', $keyholder['end_at']) : ' ', true); ?>
+</td>
 </tr>
 <?php } ?>
 </tbody>
@@ -94,7 +99,7 @@ MAG Laboratory <?php if(strlen($this->data->title) > 0){ echo '- ' . $this->data
 </div>
 <div class='form-group'>
 <label for='person'>Person (Name)</label>
-<input class='form-control' id='person'>
+<input class='form-control' id='person' name='person' type='text'>
 </div>
 <div class='form-group'>
 <label for='start_at'>Start at</label>
@@ -124,7 +129,24 @@ For best results format like Year/Month/Day Hour:Minute eg: 2015/09/08 17:09 or 
 </div>
 </div>
 
+<div class='hide'>
+<form action='about:blank' id='end-now' method='post'>
+<input name='_METHOD' type='hidden' value='PUT'>
+<input name='end_now' type='hidden' value='1'>
+</form>
 </div>
+</div>
+<script>
+  $(function(){
+    $('.keyholder-end-now').click(function(){
+      if(confirm("Are you sure the key has been returned?")){
+        var $this = $(this);
+        $('#end-now').attr('action', '/members/keyholders/'+$this.data('keyholder_id'));
+        $('#end-now').submit();
+      }
+    });
+  });
+</script>
 
 </body>
 </html>
