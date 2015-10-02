@@ -63,8 +63,6 @@ function member_login($id){
 function find_keyholder($keycode, $access_at){
   $mysqli = get_mysqli_or_die();
   
-  var_dump([$keycode, $access_at]);
-  
   $keyholder_id = 0;
   if($stmt = $mysqli->prepare('SELECT id FROM keyholders WHERE keycode = ? AND ((start_at < FROM_UNIXTIME(?) AND end_at > FROM_UNIXTIME(?)) OR (start_at < FROM_UNIXTIME(?) AND end_at IS NULL)) LIMIT 1')){
     $stmt->bind_param('siii', $keycode, $access_at, $access_at, $access_at);
