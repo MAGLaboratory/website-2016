@@ -42,6 +42,17 @@ MAG Laboratory <?php if(strlen($this->data->title) > 0){ echo '- ' . $this->data
 <li>
 <a href='/members/space_invaders'>Space Invaders</a>
 </li>
+<li class='dropdown'>
+<a aria-expanded='false' aria-haspopup='true' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'>
+Services
+<span class='caret'></span>
+</a>
+<ul class='dropdown-menu'>
+<li>
+<a href='https://mail.zoho.com/cpanel/index.do#groups'>Zoho Admin</a>
+</li>
+</ul>
+</li>
 <?php   } ?>
 <?php } ?>
 </ul>
