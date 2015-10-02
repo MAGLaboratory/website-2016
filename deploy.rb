@@ -15,7 +15,7 @@ puts "Writing deploy.sftp"
 Dir.chdir(PROJECT_DIRECTORY)
 deploy_sftp = File.open('deploy.sftp', 'w')
 
-deploy = ["!echo \"Commit: #{`git rev-parse HEAD`.chomp}\""]
+deploy = ["!echo \"Commit: #{commit[2]} #{`git rev-parse HEAD`.chomp}\""]
 changed_files.collect do |changed_file|
   deploy << "put #{changed_file} #{changed_file}"
 end
