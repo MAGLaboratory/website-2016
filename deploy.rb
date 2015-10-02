@@ -17,7 +17,11 @@ deploy_sftp = File.open('deploy.sftp', 'w')
 
 deploy = ["!echo \"Commit: #{commit[2]} #{`git rev-parse HEAD`.chomp}\""]
 changed_files.collect do |changed_file|
-  deploy << "put #{changed_file} #{changed_file}"
+  if File.exist?(changed_file)
+    deploy << "put #{changed_file} #{changed_file}"
+  else
+    deploy << "rm #{changed_file}"
+  end
 end
 
 deploy_sftp.write deploy.join("\n")
