@@ -68,6 +68,13 @@ $app->post('/members/login', function() use ($app){
   $app->render('members/login.php', array('title' => 'Login'));
 });
 
+$app->get('/members/logout', function() use ($app){
+  $app->deleteCookie('auth');
+  $app->deleteCookie('mag_session');
+  $app->redirect('/members');
+  # This does a double redirect, but ensures we're really logged out
+});
+
 $app->get('/members/?', function() use ($app){
   $current_user = member_authenticate($app);
   $user = (object)get_user_by_id($current_user['id']);
