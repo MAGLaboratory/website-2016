@@ -1,2 +1,5 @@
-!echo "Commit: d49c7e9a5ed898998d3e51111f605481e0862e2d d549d68ee32d12e3cb8898f7ee438d7647a5786c"
-rm xtest.php
+!echo "Commit: d549d68ee32d12e3cb8898f7ee438d7647a5786c 8a7be00fd2bc5486189d9c699244a9d945bbe699"
+put templates/members/index.php templates/members/index.php
+put templates/members/keyholders.php templates/members/keyholders.php
+put templates/members/login.php templates/members/login.php
+put templates/members/space_invaders.php templates/members/space_invaders.php

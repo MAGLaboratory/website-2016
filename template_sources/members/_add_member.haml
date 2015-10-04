@@ -1,0 +1,29 @@
+#add-member.modal.fade(tabindex="-1" role="dialog" aria-labelledby="addMemberLabel")
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button.close(type="button" data-dismiss="modal" aria-label="Close")
+          %span(aria-hidden="true") &times;
+        %h4.modal-title#addKeyholderLabel Invite a member
+      .modal-body
+        %form(action="/members/users" method="post")
+          .form-group
+            %label(for="email") Email
+            %input.form-control#keycode(type="email" name="email")
+          .form-group
+            %label(for="first_name") First Name
+            %input.form-control#first_name(type="text" name="first_name")
+          .form-group
+            %label(for="last_name") Last Name
+            %input.form-control#last_name(type="text" name="last_name")
+          .form-group
+            %label(for="joined_at") Joined at
+            %input.form-control#start_at(type="datetime-local" name="joined_at")
+            %p.help-block
+              Leave blank to set as right now.
+              %br
+              For best results format like Year/Month/Day Hour:Minute eg: 2015/09/08 17:09 or 2015/01/27 5:39 pm
+          .form-group
+            %input{type:"hidden", name:"back", value: say("$keyholder_redirect")}
+            %button.btn.btn-primary(type="submit") Submit
+              

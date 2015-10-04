@@ -1,0 +1,66 @@
+#main-container.container
+  %h1 Members / Users
+  
+  %button.btn.btn-primary(type="button" data-toggle="modal" data-target="#add-member") Invite Member
+  
+  %table.table.table-striped
+    %thead
+      %tr
+        %th #
+        %th Role
+        %th Email
+        %th Name
+        %th Phone
+        %th Emergency
+        %th Joined
+        %th Left
+        %th Actions
+    %tbody
+      != php "foreach($this->data->members AS $member){"
+      %tr
+        %td!= say "$member['id']"
+        %td!= say "$member['role']"
+        %td!= say "$member['email']"
+        %td!= say "$member['first_name'] . ' ' . $member['last_name']"
+        %td!= say "$member['main_phone']"
+        %td!= say "$member['emergency_phone']"
+        %td!= say "$member['joined_at'] ? date('F d, Y', $member['joined_at']) : ' '"
+        %td
+          != php "if(!$member['left_at']){"
+          %button.btn.btn-default.keyholder-end-now{:type => 'button', 'data-member_id' => say("$member['id']")} Leave Now
+          != php "}"
+          != say "$member['left_at'] ? date('F d, Y', $member['left_at']) : ' '"
+        %td
+          %button.btn.btn-default.action-show Actions
+          %p.action-list.hide
+            %a.btn.btn-default(href="#") Edit
+            %a.btn.btn-danger(href="#") Disable
+            %a.btn.btn-danger(href="#") Verify
+      != php "}"
+  
+  
+  
+  .hide
+    %form#end-now(action="about:blank" method="post")
+      %input(type="hidden" name="_METHOD" value="PUT")
+      %input(type="hidden" name="left_now" value=1)
+
+:javascript
+  $(function(){
+    $('.action-show').click(function(){
+      var $list = $(this).next('.action-list');
+      if($list.hasClass('hide')){
+        $list.removeClass('hide');
+      } else {
+        $list.addClass('hide');
+      }
+    });
+  
+    $('.keyholder-end-now').click(function(){
+      if(confirm("Are you sure the key has been returned?")){
+        var $this = $(this);
+        $('#end-now').attr('action', '/members/keyholders/'+$this.data('keyholder_id'));
+        $('#end-now').submit();
+      }
+    });
+  });

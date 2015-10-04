@@ -1,0 +1,9 @@
+#main-container.container
+  %form.form-horizontal(action='/members/forgot_password' method='post')
+    .form-group
+      %label.col-sm-2.control-label{:for => 'email'} Email
+      .col-sm-10
+        %input#email.form-control{:type => 'email', :placeholder => 'you@maglaboratory.org', :name => 'email'}
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        %button.btn.btn-default{:type => 'submit'} Reset Password

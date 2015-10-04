@@ -37,6 +37,9 @@ MAG Laboratory <?php if(strlen($this->data->title) > 0){ echo '- ' . $this->data
 <?php if($this->data->current_user){  ?>
 <?php   if(isAdmin($this->data->current_user)){  ?>
 <li>
+<a href='/members/users'>Members</a>
+</li>
+<li>
 <a href='/members/keyholders'>Keyholders</a>
 </li>
 <li>
@@ -44,12 +47,15 @@ MAG Laboratory <?php if(strlen($this->data->title) > 0){ echo '- ' . $this->data
 </li>
 <li class='dropdown'>
 <a aria-expanded='false' aria-haspopup='true' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'>
-Services
+External
 <span class='caret'></span>
 </a>
 <ul class='dropdown-menu'>
 <li>
-<a href='https://mail.zoho.com/cpanel/index.do#groups'>Zoho Admin</a>
+<a href='https://mail.zoho.com/cpanel/index.do#groups' target='_blank'>Zoho Admin</a>
+</li>
+<li>
+<a href='https://mail.zoho.com/biz/index.do' target='_blank'>Zoho Mail</a>
 </li>
 </ul>
 </li>

@@ -76,26 +76,77 @@ External
 </div>
 </nav>
 <div class='container' id='main-container'>
-<form action='/members/login' class='form-horizontal' method='post'>
-<div class='form-group'>
-<label class='col-sm-2 control-label' for='email'>Email</label>
-<div class='col-sm-10'>
-<input class='form-control' id='email' name='email' placeholder='you@maglaboratory.org' type='email'>
-</div>
-</div>
-<div class='form-group'>
-<label class='col-sm-2 control-label' for='password'>Password</label>
-<div class='col-sm-10'>
-<input class='form-control' id='password' name='password' placeholder='***' type='password'>
-</div>
-</div>
-<div class='form-group'>
-<div class='col-sm-offset-2 col-sm-10'>
-<button class='btn btn-default' type='submit'>Login</button>
-</div>
-</div>
+<h1>Members / Users</h1>
+<button class='btn btn-primary' data-target='#add-member' data-toggle='modal' type='button'>Invite Member</button>
+<table class='table table-striped'>
+<thead>
+<tr>
+<th>#</th>
+<th>Role</th>
+<th>Email</th>
+<th>Name</th>
+<th>Phone</th>
+<th>Emergency</th>
+<th>Joined</th>
+<th>Left</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
+<?php foreach($this->data->members AS $member){ ?>
+<tr>
+<td><?php echo filter_text($member['id'], true); ?></td>
+<td><?php echo filter_text($member['role'], true); ?></td>
+<td><?php echo filter_text($member['email'], true); ?></td>
+<td><?php echo filter_text($member['first_name'] . ' ' . $member['last_name'], true); ?></td>
+<td><?php echo filter_text($member['main_phone'], true); ?></td>
+<td><?php echo filter_text($member['emergency_phone'], true); ?></td>
+<td><?php echo filter_text($member['joined_at'] ? date('F d, Y', $member['joined_at']) : ' ', true); ?></td>
+<td>
+<?php if(!$member['left_at']){ ?>
+<button class='btn btn-default keyholder-end-now' data-member_id='<?php echo filter_text($member['id'], true); ?>' type='button'>Leave Now</button>
+<?php } ?>
+<?php echo filter_text($member['left_at'] ? date('F d, Y', $member['left_at']) : ' ', true); ?>
+</td>
+<td>
+<button class='btn btn-default action-show'>Actions</button>
+<p class='action-list hide'>
+<a class='btn btn-default' href='#'>Edit</a>
+<a class='btn btn-danger' href='#'>Disable</a>
+<a class='btn btn-danger' href='#'>Verify</a>
+</p>
+</td>
+</tr>
+<?php } ?>
+</tbody>
+</table>
+<div class='hide'>
+<form action='about:blank' id='end-now' method='post'>
+<input name='_METHOD' type='hidden' value='PUT'>
+<input name='left_now' type='hidden' value='1'>
 </form>
 </div>
+</div>
+<script>
+  $(function(){
+    $('.action-show').click(function(){
+      var $list = $(this).next('.action-list');
+      if($list.hasClass('hide')){
+        $list.removeClass('hide');
+      } else {
+        $list.addClass('hide');
+      }
+    });
+  
+    $('.keyholder-end-now').click(function(){
+      if(confirm("Are you sure the key has been returned?")){
+        var $this = $(this);
+        $('#end-now').attr('action', '/members/keyholders/'+$this.data('keyholder_id'));
+        $('#end-now').submit();
+      }
+    });
+  });
+</script>
 
 </body>
 </html>
