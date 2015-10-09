@@ -1,0 +1,25 @@
+!!! 5
+%html
+  %head
+    %meta(name="viewport" content="width=device-width")
+    %meta(http-equiv="Content-Type" content="text/html; charset=UTF-8")
+    %title MagLaboratory Email
+  %body(style="height:100%;width:100%;" bgcolor="#f6f6f6")
+    %table(style="width:100%;padding:20px;")
+      %tr
+        %td
+        %td.container(style="clear: both !important; display: block !important; max-width: 600px !important; margin: 0 auto; padding: 20px; border: 1px solid #efefef;" bgcolor="#fafafa")
+          %div(style="display:block;max-width:600px;margin: 0 auto;")
+            %table(style="width:100%;" bgcolor="#fafafa")
+              %tr
+                %td
+                  != yield
+    %table(style="clear: both !important; width:100%;")
+      %tr
+        %td
+        %div(style="display: block; max-width: 600px;margin:0 auto;")
+          %table(style="width: 100%;")
+            %tr
+              %td(align="center")
+                - if @footer_content
+                  != @footer_content

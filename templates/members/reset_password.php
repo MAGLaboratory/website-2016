@@ -79,30 +79,6 @@ External
 </div>
 </div>
 </nav>
-<div class='container' id='main-container'>
-<form action='/members/login' class='form-horizontal' method='post'>
-<div class='form-group'>
-<label class='col-sm-2 control-label' for='email'>Email</label>
-<div class='col-sm-10'>
-<input class='form-control' id='email' name='email' placeholder='you@maglaboratory.org' type='email'>
-</div>
-</div>
-<div class='form-group'>
-<label class='col-sm-2 control-label' for='password'>Password</label>
-<div class='col-sm-10'>
-<input class='form-control' id='password' name='password' placeholder='***' type='password'>
-</div>
-</div>
-<div class='form-group'>
-<div class='col-sm-offset-2 col-sm-10'>
-<button class='btn btn-default' type='submit'>Login</button>
-<p class='help-block'>
-<a href='/members/forgot_password'>Forgot Password?</a>
-</p>
-</div>
-</div>
-</form>
-</div>
 
 </body>
 </html>

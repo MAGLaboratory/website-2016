@@ -44,9 +44,9 @@ $app->add(new \Slim\Middleware\SessionCookie(array(
 
 
 require_once('controllers/base.php');
-require_once('controllers/members_login.php');
-require_once('controllers/members_keyholders.php');
-require_once('controllers/members_users.php');
+require_once('controllers/members/login.php');
+require_once('controllers/members/keyholders.php');
+require_once('controllers/members/users.php');
 
 $login_routes = new \MagLab\Members\Login($app);
 $keyholder_routes = new \Maglab\Members\Keyholders($app);

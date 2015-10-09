@@ -58,6 +58,9 @@
               %a(href="/members") Me
             %li
               %a(href="/members/logout") logout
+            != php "} else {"
+            %li
+              %a(href="/members/login") Login
             != php "}"
             
         

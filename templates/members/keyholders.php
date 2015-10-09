@@ -70,6 +70,10 @@ External
 <li>
 <a href='/members/logout'>logout</a>
 </li>
+<?php } else { ?>
+<li>
+<a href='/members/login'>Login</a>
+</li>
 <?php } ?>
 </ul>
 </div>

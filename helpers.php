@@ -38,3 +38,15 @@ function filter_email($text, $html = true){
 function filter_text($text){
   return htmlentities($text, ENT_QUOTES | ENT_HTML5, 'UTF-8');
 }
+
+function base64url_encode($data) { 
+  return rtrim(strtr(base64_encode($data), '+/', '-_'), '='); 
+} 
+
+function base64url_decode($data) { 
+  return base64_decode(str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT)); 
+}
+
+function random_b64($length = 21){
+  return base64url_encode(openssl_random_pseudo_bytes($length));
+}

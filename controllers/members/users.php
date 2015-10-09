@@ -11,8 +11,8 @@
     }
 
     public function index(){
-      $members = $this->get_members();
-      $this->render('members/users_index.php', 'Members List', array('members' => $members));
+      $this->respond['members'] = $this->get_members();
+      $this->render('members/users_index.php', 'Members List');
     }
     
     public function create(){}

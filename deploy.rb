@@ -15,8 +15,17 @@ puts "Writing deploy.sftp"
 Dir.chdir(PROJECT_DIRECTORY)
 deploy_sftp = File.open('deploy.sftp', 'w')
 
+added_files = `git diff #{commit[2]} HEAD --name-status | grep ^A`.split("\n").collect { |i| i.split.last }
+
 deploy = ["!echo \"Commit: #{commit[2]} #{`git rev-parse HEAD`.chomp}\""]
 changed_files.collect do |changed_file|
+  if added_files.include?(changed_file)
+    path = changed_file.split('/')
+    path.pop()
+    path.each_with_index { |p, i|
+      deploy << "mkdir #{(path[0...i] + [p]).join('/')}"
+    }
+  end
   if File.exist?(changed_file)
     deploy << "put #{changed_file} #{changed_file}"
   else

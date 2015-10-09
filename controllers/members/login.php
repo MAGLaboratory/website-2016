@@ -7,14 +7,17 @@ class Login extends \Maglab\Controller {
     $this->app->post('/members/login', [$this, 'create']);
     $this->app->get('/members/logout', [$this, 'destroy']);
     $this->app->get('/members/forgot_password', [$this, 'forgot_password']);
-    $this->app->post('/members/forgot_password', [$this, 'reset_password']);
+    $this->app->post('/members/forgot_password', [$this, 'reset_password_request']);
+    $this->app->get('/members/reset_password', [$this, 'reset_password_form']);
+    $this->app->put('/members/reset_password', [$this, 'reset_password']);
     $this->app->get('/members/me', [$this, 'require_user'], [$this, 'profile']);
     $this->app->post('/members/me', [$this, 'require_user'], [$this, 'update']);
   }
 
   public function index(){
     $user = (object)get_user_by_id($this->current_user['id']);
-    $this->render('members/index.php', 'Members', array('user' => $user));
+    $this->respond['user'] = $user;
+    $this->render('members/index.php', 'Members');
   }
   
   public function show(){
@@ -24,7 +27,7 @@ class Login extends \Maglab\Controller {
   public function create(){
     $mysqli = get_mysqli_or_die();
     
-    if($stmt = $mysqli->prepare('SELECT id, email, pwhash FROM users WHERE email = LOWER(?) LIMIT 1')){
+    if($stmt = $mysqli->prepare('SELECT id, email, pwhash FROM users WHERE email = ? LIMIT 1')){
       $post = $this->app->request->post();
       $stmt->bind_param('s', $post['email']);
       $stmt->execute();
@@ -51,33 +54,92 @@ class Login extends \Maglab\Controller {
     # This does a double redirect, but ensures we're really logged out
   }
   
+  public function reset_password_request(){
+    $email = $this->app->request->post('email');
+    $this->reset_password_for($email);
+    $this->respond['reset_email'] = $email;
+    $this->render('members/forgot_password.php', 'Reset Password');
+  }
+  
+  public function reset_password_form(){
+    $now = $this->app->request->params('now');
+    $reset_code = $this->app->request->params('reset_code');
+    $this->respond['now'] = $now;
+    $this->respond['reset_code'] = $reset_code;
+    $this->respond['reset_user'] = null;
+    if($now and $reset_code and (int)$now - time() > -3600){
+      $user = get_user_by_auth($now . $reset_code);
+      if($user and $user['role'] and strpos($user['role'], 'Reset') > -1){
+        $this->respond['reset_user'] = $user;
+      }
+    }
+    if(!$this->respond['reset_user']){
+      $this->respond['reset_expired'] = true;
+    }
+    $this->render('members/forgot_password.php', 'Reset Password');
+  }
+  
   public function reset_password(){
-    $this->reset_password_for($this->app->request->post('email'));
+    $put = $this->app->request->put();
+    if($put['confirm_email'] and $put['new_password'] and $put['now'] and $put['reset_code'] and (int)$put['now'] - time() > -3600){
+      $mysqli = get_mysqli_or_die();
+      $pw = '' . $put['now'] . $put['reset_code'];
+      if($stmt = $mysqli->prepare("UPDATE users SET pwhash = ?, current_session = NULL, role = TRIM(BOTH ',' FROM REPLACE(CONCAT(',', role, ','), CONCAT(',', 'Reset', ','), ',')) WHERE FIND_IN_SET('Reset', role) > 0 AND email = ? AND current_session = ? LIMIT 1")){
+        $stmt->bind_param('sss', password_hash($put['new_password'], PASSWORD_BCRYPT), $put['confirm_email'], $pw);
+        $stmt->execute();
+      }
+    }
+    $this->respond['completed_reset'] = true;
+    $this->render('members/forgot_password.php', 'Password Reset Complete');
   }
   
   public function forgot_password(){
-    $this->render('members/forgot.php', 'Forgot Password');
+    $this->render('members/forgot_password.php', 'Forgot Password');
   }
   
   public function profile(){
-    $this->render('members/show.php', 'Profile', array());
+    $this->render('members/show.php', 'Profile');
   }
   
   public function update(){
-    $response_data = array();
     
     if(isset($this->app->request->post()['current_password'])){
-      $response_data['pw_success'] = $this->change_member_password();
+      $this->respond['pw_success'] = $this->change_member_password();
     } else {
-      $response_data['info_success'] = $this->save_member_info();
+      $this->respond['info_success'] = $this->save_member_info();
     }
     
-    $response_data['user'] = get_user_by_id($this->current_user['id']);
-    $this->render('members/show.php', 'Profile', $response_data);
+    $this->respond['user'] = get_user_by_id($this->current_user['id']);
+    $this->render('members/show.php', 'Profile');
   }
   
   protected function reset_password_for($email){
+    # We mark the role as 'Reset' to denote that password is being reset.
+    # Also switch the session so they log out since they probably aren't logged in anyway
+    # Password is set to Time+random session string
+    $reset_code = random_b64();
+    $now = time();
+    $pw = '' . $now . $reset_code;
+    $mysqli = get_mysqli_or_die();
+    
+    if($stmt = $mysqli->prepare('UPDATE users SET current_session = ?, role = CONCAT_WS(",", role, "Reset") WHERE email = ? LIMIT 1')){
+      $stmt->bind_param('ss', $pw, $email);
+      $stmt->execute();
+      $this->respond['affected_rows'] = $stmt->affected_rows;
+      if($this->respond['affected_rows'] > 0){
+        $this->send_reset_email($email, $reset_code, $now);
+      }
+    }
+  }
   
+  protected function send_reset_email($email, $reset_code, $now){
+    $reset_url = "https://www.maglaboratory.org/members/reset_password?now=${now}&reset_code=${reset_code}";
+    $email_content = $this->render_to_string('email/reset_password.php', array(
+      'email' => $email,
+      'reset_code' => $reset_code,
+      'now' => $now,
+      'reset_url' => $reset_url));
+    $this->email_html($email, "MagLaboratory - Password Reset", $email_content);
   }
   
   protected function member_logout($session){

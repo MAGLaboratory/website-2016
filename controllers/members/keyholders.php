@@ -17,7 +17,8 @@ class Keyholders extends \Maglab\Controller {
   
   public function list_keyholders(){
     $this->set_space_invader_keyholder();
-    $this->render('members/keyholders.php', 'Key Holders', array('keyholders' => $this->get_keyholders()));
+    $this->respond['keyholders'] = $this->get_keyholders();
+    $this->render('members/keyholders.php', 'Key Holders');
   }
   
   public function update_keyholder($keyholder_id){
@@ -31,8 +32,8 @@ class Keyholders extends \Maglab\Controller {
   
   public function space_invaders(){
     $this->set_space_invader_keyholder();
-    $invaders = $this->get_space_invaders();
-    $this->render('members/space_invaders.php', 'Space Invaders', array('invaders' => $invaders));
+    $this->respond['invaders'] = $this->get_space_invaders();
+    $this->render('members/space_invaders.php', 'Space Invaders');
   }
   
   protected function set_space_invader_keyholder(){

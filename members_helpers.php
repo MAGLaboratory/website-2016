@@ -4,7 +4,9 @@ function member_authenticate($app){
   $auth = $app->getCookie('auth');
   if($auth){
     if($user = get_user_by_auth($auth)){
-      return $user;
+      if(canLogin($user)){
+        return $user;
+      }
     }
   }
   $app->redirect('/members/login');
@@ -12,9 +14,9 @@ function member_authenticate($app){
 }
 
 function admin_authenticate($app){
-  $auth = member_authenticate($app);
-  if(strpos($auth['role'], 'Admin') > -1){
-    return $auth;
+  $user = member_authenticate($app);
+  if(strpos($user['role'], 'Admin') > -1){
+    return $user;
   }
   $app->redirect('/members');
   die();
@@ -65,7 +67,15 @@ function isAdmin($user){
   return (strpos($user['role'], 'Admin') > -1);
 }
 
-
+# User can only login if they don't have these marked in their roles
+# Reset - a password reset was requested. The reset process must go through.
+# Verify - email needs to be verified (email was recently changed)
+# Disabled - User was disabled by an admin
+# Invite - user was just invited, account not set up yet
+function canLogin($user){
+  if(!$user or !$user['role']){ return false; }
+  return !(strpos($user['role'], 'Reset') > -1 or strpos($user['role'], 'Verify') > -1 or strpos($user['role'], 'Disabled') > -1 or strpos($user['role'], 'Invite') > -1);
+}
 
 
 
