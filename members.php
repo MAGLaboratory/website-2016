@@ -43,10 +43,10 @@ $app->add(new \Slim\Middleware\SessionCookie(array(
 */
 
 
-require_once('controllers/base.php');
-require_once('controllers/members/login.php');
-require_once('controllers/members/keyholders.php');
-require_once('controllers/members/users.php');
+require_once('Maglab/base.php');
+require_once('Maglab/Members/Login.php');
+require_once('Maglab/Members/Keyholders.php');
+require_once('Maglab/Members/Users.php');
 
 $login_routes = new \MagLab\Members\Login($app);
 $keyholder_routes = new \Maglab\Members\Keyholders($app);

@@ -30,6 +30,10 @@ class Controller {
     );
   }
   
+  public function redirect($path){
+    $this->app->redirect($path);
+  }
+  
   public function render_to_string($template, $data){
     $view = $this->app->view();
     //$view->appendData($data);

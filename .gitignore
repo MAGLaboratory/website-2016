@@ -1,3 +1,4 @@
 Slim/
-test/
 config.php
+bin/
+vendor/

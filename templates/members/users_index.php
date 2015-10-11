@@ -124,6 +124,81 @@ External
 <?php } ?>
 </tbody>
 </table>
+<div aria-labelledby='addMemberLabel' class='modal fade' id='add-member' role='dialog' tabindex='-1'>
+<div class='modal-dialog modal-lg'>
+<div class='modal-content'>
+<div class='modal-header'>
+<button aria-label='Close' class='close' data-dismiss='modal' type='button'>
+<span aria-hidden='true'>&times;</span>
+</button>
+<h4 class='modal-title' id='addKeyholderLabel'>Invite a member</h4>
+</div>
+<div class='modal-body'>
+<form action='/members/users' method='post'>
+<div class='form-group'>
+<label for='email'>Email</label>
+<input class='form-control' id='keycode' name='email' required type='email'>
+</div>
+<div class='form-group'>
+<label for='first_name'>First Name</label>
+<input class='form-control' id='first_name' name='first_name' type='text'>
+</div>
+<div class='form-group'>
+<label for='last_name'>Last Name</label>
+<input class='form-control' id='last_name' name='last_name' type='text'>
+</div>
+<div class='form-group'>
+<div class='checkbox'>
+<label>
+<input name='roles[]' type='checkbox' value='Guest'>
+Guest
+</label>
+</div>
+<?php if(isAdmin($this->data->current_user)){ ?>
+<div class='checkbox'>
+<label>
+<input name='roles[]' type='checkbox' value='Admin'>
+Admin
+</label>
+</div>
+<div class='checkbox'>
+<label>
+<input name='roles[]' type='checkbox' value='Keyholder'>
+Keyholder
+</label>
+</div>
+<div class='checkbox'>
+<label>
+<input name='roles[]' type='checkbox' value='General'>
+General Member
+</label>
+</div>
+<div class='checkbox'>
+<label>
+<input name='roles[]' type='checkbox' value='Backer'>
+Backer/Donor
+</label>
+</div>
+<?php } ?>
+</div>
+<div class='form-group'>
+<label for='joined_at'>Joined at</label>
+<input class='form-control' id='start_at' name='joined_at' type='datetime-local'>
+<p class='help-block'>
+Leave blank to set as right now.
+<br>
+For best results format like Year/Month/Day Hour:Minute eg: 2015/09/08 17:09 or 2015/01/27 5:39 pm
+</p>
+</div>
+<div class='form-group'>
+<button class='btn btn-primary' type='submit'>Submit</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+
 <div class='hide'>
 <form action='about:blank' id='end-now' method='post'>
 <input name='_METHOD' type='hidden' value='PUT'>

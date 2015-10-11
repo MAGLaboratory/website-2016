@@ -80,7 +80,7 @@ External
 </div>
 </nav>
 <div class='container' id='main-container'>
-<form action='/members/login' class='form-horizontal' method='post'>
+<form action='/members/login' class='form-horizontal' id='login-form' method='post'>
 <div class='form-group'>
 <label class='col-sm-2 control-label' for='email'>Email</label>
 <div class='col-sm-10'>

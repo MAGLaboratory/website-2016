@@ -9,13 +9,36 @@
         %form(action="/members/users" method="post")
           .form-group
             %label(for="email") Email
-            %input.form-control#keycode(type="email" name="email")
+            %input.form-control#keycode(type="email" name="email" required)
           .form-group
             %label(for="first_name") First Name
             %input.form-control#first_name(type="text" name="first_name")
           .form-group
             %label(for="last_name") Last Name
             %input.form-control#last_name(type="text" name="last_name")
+          .form-group
+            .checkbox
+              %label
+                %input(type="checkbox" value='Guest' name="roles[]")
+                Guest
+            != php "if(isAdmin($this->data->current_user)){"
+            .checkbox
+              %label
+                %input(type="checkbox" value='Admin' name="roles[]")
+                Admin
+            .checkbox
+              %label
+                %input(type="checkbox" value='Keyholder' name="roles[]")
+                Keyholder
+            .checkbox
+              %label
+                %input(type="checkbox" value='General' name="roles[]")
+                General Member
+            .checkbox
+              %label
+                %input(type="checkbox" value='Backer' name="roles[]")
+                Backer/Donor
+            != php "}"
           .form-group
             %label(for="joined_at") Joined at
             %input.form-control#start_at(type="datetime-local" name="joined_at")
@@ -24,6 +47,5 @@
               %br
               For best results format like Year/Month/Day Hour:Minute eg: 2015/09/08 17:09 or 2015/01/27 5:39 pm
           .form-group
-            %input{type:"hidden", name:"back", value: say("$keyholder_redirect")}
             %button.btn.btn-primary(type="submit") Submit
               
