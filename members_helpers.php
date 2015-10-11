@@ -2,6 +2,7 @@
 
 function member_authenticate($app){
   $auth = $app->getCookie('auth');
+  
   if($auth){
     if($user = get_user_by_auth($auth)){
       if(canLogin($user)){

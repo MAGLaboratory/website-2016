@@ -6,9 +6,11 @@ $mysql_user = escapeshellarg(mysql_user);
 $mysql_pass = escapeshellarg(mysql_pass);
 $mysql_db = escapeshellarg(mysql_db);
 
-$sql_path = escapeshellarg(test_root . '/maglabs_haldor.sql');
+$schema_path = escapeshellarg(test_root . '/maglabs_haldor-schema.sql');
+passthru("mysql -u${mysql_user} -p${mysql_pass} ${mysql_db} < '${schema_path}'");
+$fixture_path = escapeshellarg(test_root . '/maglabs_haldor-fixtures.sql');
+passthru("mysql -u${mysql_user} -p${mysql_pass} ${mysql_db} < '${fixture_path}'");
 
-exec("mysql -u${mysql_user} -p${mysql_pass} ${mysql_db} < '${sql_path}'");
 
 
 $helpers = array('helpers', 'members_helpers', 'Slim/Slim', 'Maglab/base');
@@ -36,6 +38,8 @@ class LocalWebTestCase extends WebTestCase {
         'mode'           => 'test',
         'templates.path' => HALDOR_ROOT . '/templates'
     ));
+    $app->setName('default');
+    $app->router = new NoCacheRouter($app->router);
     return $app;
   }
     
@@ -45,5 +49,30 @@ class LocalWebTestCase extends WebTestCase {
   
   public function responseBody(){
     return $this->client->response->getBody();
+  }
+  
+  public function assertOk(){
+    $this->assertEquals(200, $this->responseCode());
+  }
+  
+  public function assertCode($code = 301){
+    $this->assertEquals($code, $this->responseCode());
+  }
+  
+  public function assertInBody($text){
+    $this->assertContains($text, $this->responseBody());
+  }
+  
+  public function assertRedirect($path, $code = 302){
+    $this->assertEquals($code, $this->responseCode());
+    $this->assertEquals($path, $this->client->response->headers['Location']);
+  }
+  
+  public function assertUnaffected($row_count = 0){
+    $this->assertEquals($row_count, $this->routes->respond['affected_rows']);
+  }
+  
+  public function assertAffected($row_count = 1){
+    $this->assertEquals($row_count, $this->routes->respond['affected_rows']);
   }
 };

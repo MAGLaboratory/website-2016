@@ -10,7 +10,6 @@ class Login extends \Maglab\Controller {
     $this->app->post('/members/forgot_password', [$this, 'reset_password_request']);
     $this->app->get('/members/reset_password', [$this, 'reset_password_form']);
     $this->app->put('/members/reset_password', [$this, 'reset_password']);
-    $this->app->get('/members/me', [$this, 'require_user'], [$this, 'profile']);
     $this->app->post('/members/me', [$this, 'require_user'], [$this, 'update']);
   }
 
@@ -68,7 +67,7 @@ class Login extends \Maglab\Controller {
     $this->respond['reset_code'] = $reset_code;
     $this->respond['reset_user'] = null;
     if($now and $reset_code and (int)$now - time() > -3600){
-      $user = get_user_by_auth($now . $reset_code);
+      $user = get_user_by_auth($this->reset_session_pw($now, $reset_code));
       if($user and $user['role'] and strpos($user['role'], 'Reset') > -1){
         $this->respond['reset_user'] = $user;
       }
@@ -81,12 +80,14 @@ class Login extends \Maglab\Controller {
   
   public function reset_password(){
     $put = $this->app->request->put();
+    $this->respond['affected_rows'] = -1;
     if($put['confirm_email'] and $put['new_password'] and $put['now'] and $put['reset_code'] and (int)$put['now'] - time() > -3600){
       $mysqli = get_mysqli_or_die();
-      $pw = '' . $put['now'] . $put['reset_code'];
+      $pw = $this->reset_session_pw($put['now'], $put['reset_code']);
       if($stmt = $mysqli->prepare("UPDATE users SET pwhash = ?, current_session = NULL, role = TRIM(BOTH ',' FROM REPLACE(CONCAT(',', role, ','), CONCAT(',', 'Reset', ','), ',')) WHERE FIND_IN_SET('Reset', role) > 0 AND email = ? AND current_session = ? LIMIT 1")){
         $stmt->bind_param('sss', password_hash($put['new_password'], PASSWORD_BCRYPT), $put['confirm_email'], $pw);
         $stmt->execute();
+        $this->respond['affected_rows'] = $stmt->affected_rows;
       }
     }
     $this->respond['completed_reset'] = true;
@@ -95,10 +96,6 @@ class Login extends \Maglab\Controller {
   
   public function forgot_password(){
     $this->render('members/forgot_password.php', 'Forgot Password');
-  }
-  
-  public function profile(){
-    $this->render('members/show.php', 'Profile');
   }
   
   public function update(){
@@ -119,9 +116,9 @@ class Login extends \Maglab\Controller {
     # Password is set to Time+random session string
     $reset_code = random_b64();
     $now = time();
-    $pw = '' . $now . $reset_code;
+    $pw = $this->reset_session_pw($now, $reset_code);
     $mysqli = get_mysqli_or_die();
-    
+    $this->respond['affected_rows'] = -1;
     if($stmt = $mysqli->prepare('UPDATE users SET current_session = ?, role = CONCAT_WS(",", role, "Reset") WHERE email = ? LIMIT 1')){
       $stmt->bind_param('ss', $pw, $email);
       $stmt->execute();
@@ -133,7 +130,10 @@ class Login extends \Maglab\Controller {
   }
   
   protected function send_reset_email($email, $reset_code, $now){
-    $reset_url = "https://www.maglaboratory.org/members/reset_password?now=${now}&reset_code=${reset_code}";
+    $reset_path = "/members/reset_password?now=${now}&reset_code=${reset_code}";
+    $this->respond['reset_path'] = $reset_path;
+    
+    $reset_url = "https://www.maglaboratory.org${reset_path}";
     $email_content = $this->render_to_string('email/reset_password.php', array(
       'email' => $email,
       'reset_code' => $reset_code,
@@ -190,7 +190,9 @@ class Login extends \Maglab\Controller {
     return false;
   }
 
-
+  protected function reset_session_pw($now, $reset_code){
+    return '' . $now . '*.*' . $reset_code;
+  }
 
 
 }

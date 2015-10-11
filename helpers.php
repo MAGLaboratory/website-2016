@@ -50,3 +50,8 @@ function base64url_decode($data) {
 function random_b64($length = 21){
   return base64url_encode(openssl_random_pseudo_bytes($length));
 }
+
+function raise($dump){
+  var_dump($dump);
+  die();
+}

@@ -38,7 +38,7 @@ class WebTestClient
 
     public function put($path, $data = array(), $optionalHeaders = array())
     {
-        return $this->request('put', $path, $data, $optionalHeaders);
+        return $this->request('put', $path, $data, array_merge(array('slim.method_override.original_method' => 'POST'), $optionalHeaders));
     }
 
     public function delete($path, $data = array(), $optionalHeaders = array())
