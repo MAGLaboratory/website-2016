@@ -75,4 +75,8 @@ class LocalWebTestCase extends WebTestCase {
   public function assertAffected($row_count = 1){
     $this->assertEquals($row_count, $this->routes->respond['affected_rows']);
   }
+  
+  public function auth($session){
+    return array('HTTP_COOKIE' => "auth=$session");
+  }
 };

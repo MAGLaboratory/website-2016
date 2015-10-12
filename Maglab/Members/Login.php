@@ -156,6 +156,8 @@ class Login extends \Maglab\Controller {
   protected function save_member_info(){
     $mysqli = get_mysqli_or_die();
     $post = $this->app->request->post();
+    # TODO: Verify Email change
+    # TODO: Don't allow email change on invalid email
     
     if($stmt = $mysqli->prepare('UPDATE users SET email = ?, first_name = ?, last_name = ?, main_phone = ?, emergency_phone = ? WHERE id = ?')){
       $stmt->bind_param('sssssi', $post['email'], $post['first_name'], $post['last_name'], $post['main_phone'], $post['emergency_phone'], $this->current_user['id']);
