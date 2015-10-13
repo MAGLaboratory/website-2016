@@ -1,6 +1,6 @@
 <?php
 
-class WebTestClient
+class SlimClient
 {
     /** @var \Slim\Slim */
     public $app;
@@ -14,6 +14,7 @@ class WebTestClient
     public function __construct(Slim\Slim $slim)
     {
         $this->app = $slim;
+        $this->cookies = null;
     }
 
     public function __call($method, $arguments)
@@ -55,6 +56,12 @@ class WebTestClient
     {
         return $this->request('options', $path, $data, $optionalHeaders);
     }
+    
+    public function addCookie($name, $value)
+    {
+        if($this->cookies == null){ $this->cookies = array(); }
+        array_push($this->cookies, "${name}=${value}");
+    }
 
     // Abstract way to make a request to SlimPHP, this allows us to mock the
     // slim environment
@@ -68,6 +75,10 @@ class WebTestClient
             'PATH_INFO'      => $path,
             'SERVER_NAME'    => 'local.dev'
         );
+        
+        if($this->cookies){
+          $options['HTTP_COOKIE'] = implode('; ', $this->cookies);
+        }
 
         if ($method === 'get') {
             $options['QUERY_STRING'] = http_build_query($data);

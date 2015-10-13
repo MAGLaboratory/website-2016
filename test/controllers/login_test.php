@@ -4,7 +4,7 @@ require_once dirname(__FILE__) . '/../setup.php';
 
 test_require('Maglab/Members/Login');
 
-class LoginTest extends LocalWebTestCase {
+class LoginTest extends MaglabExam {
   function setup(){
     parent::setup();
     $this->routes = new \MagLab\Members\Login($this->app);
@@ -35,14 +35,14 @@ class LoginTest extends LocalWebTestCase {
     $this->assertRedirect('/members');
     # Login redirects to members page
     $session = $this->app->response()->cookies->get('auth')['value'];
-    $this->client->get('/members', array(), $this->auth($session));
+    $this->client->get('/members', array(), $this->auth_cookie($session));
     $this->assertOk();
     $this->assertInBody('Gephyrocapsa');
     $this->assertInBody('oceanica');
     # Logout
     $this->assertInBody('/members/logout');
-    $this->client->get('/members/logout', array(), $this->auth($session));
-    $this->client->get('/members', array(), $this->auth($session));
+    $this->client->get('/members/logout', array(), $this->auth_cookie($session));
+    $this->client->get('/members', array(), $this->auth_cookie($session));
     $this->assertRedirect('/members/login');
     
   }
@@ -98,18 +98,18 @@ class LoginTest extends LocalWebTestCase {
   
   function testChangePassword(){
     $email = 'test-pastorianus@kiafaldorius.net';
-    $this->client->post('/members/me', array('current_password' => 'abcdx', 'new_password' => 'aaaaa', 'confirm_password' => 'aaaaa'), $this->auth('Saccharomyces'));
+    $this->client->post('/members/me', array('current_password' => 'abcdx', 'new_password' => 'aaaaa', 'confirm_password' => 'aaaaa'), $this->auth_cookie('Saccharomyces'));
     $this->assertOk();
     $this->assertInBody('Failed to update your password');
     
     $this->setup();
-    $this->client->post('/members/me', array('current_password' => 'abcdef', 'new_password' => 'aaaaa', 'confirm_password' => 'aaaaa'), $this->auth('Saccharomyces'));
+    $this->client->post('/members/me', array('current_password' => 'abcdef', 'new_password' => 'aaaaa', 'confirm_password' => 'aaaaa'), $this->auth_cookie('Saccharomyces'));
     $this->assertOk();
     $this->assertInBody('Successfully updated your profile info');
   }
   
   function testUpdateInfo(){
-    $session = $this->auth('bruxellensis');
+    $session = $this->auth_cookie('bruxellensis');
     $email = 'test-bruxellensis@kiafaldorius.net';
     
     $this->client->post('/members/me', array('email' => 'test1-bruxellensis@example.com', 'first_name' => 'Babababab', 'last_name' => 'XXXXXXXX', 'main_phone' => '911', 'emergency_phone' => '114'), $session);

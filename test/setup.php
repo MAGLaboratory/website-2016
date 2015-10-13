@@ -27,10 +27,10 @@ function test_require($name){
 }
 
 require test_root . '/slim-test-helpers/NoCacheRouter.php';
-require test_root . '/slim-test-helpers/WebTestCase.php';
-require test_root . '/slim-test-helpers/WebTestClient.php';
+require test_root . '/slim-test-helpers/WebExam.php';
+require test_root . '/slim-test-helpers/SlimClient.php';
 
-class LocalWebTestCase extends WebTestCase {
+abstract class MaglabExam extends WebExam {
   public function getSlimInstance() {
     $app = new \Slim\Slim(array(
         'version'        => '0.0.0',
@@ -63,6 +63,10 @@ class LocalWebTestCase extends WebTestCase {
     $this->assertContains($text, $this->responseBody());
   }
   
+  public function assertNoBody($text){
+    $this->assertNotContains($text, $this->responseBody());
+  }
+  
   public function assertRedirect($path, $code = 302){
     $this->assertEquals($code, $this->responseCode());
     $this->assertEquals($path, $this->client->response->headers['Location']);
@@ -76,7 +80,19 @@ class LocalWebTestCase extends WebTestCase {
     $this->assertEquals($row_count, $this->routes->respond['affected_rows']);
   }
   
-  public function auth($session){
+  public function auth_cookie($session){
     return array('HTTP_COOKIE' => "auth=$session");
+  }
+  
+  public function auth($session){
+    $this->client->addCookie('auth', $session);
+  }
+  
+  function adminOnly($path){
+    $this->client->get($path, array(), $this->auth_cookie('cerevisiae'));
+    $this->assertRedirect('/members');
+    $this->setup();
+    $this->client->get($path, array(), $this->auth_cookie('marinus'));
+    $this->assertOk();
   }
 };

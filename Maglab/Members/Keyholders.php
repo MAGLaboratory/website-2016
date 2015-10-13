@@ -22,7 +22,7 @@ class Keyholders extends \Maglab\Controller {
   }
   
   public function update_keyholder($keyholder_id){
-    if($app->request->params('end_now') == '1'){
+    if($this->app->request->params('end_now') == '1'){
       $this->end_keyholder($keyholder_id);
     } else {
       # TODO: update_keyholder
@@ -57,6 +57,10 @@ class Keyholders extends \Maglab\Controller {
   protected function insert_keyholder(){
     $mysqli = get_mysqli_or_die();
     $post = $this->app->request->post();
+    if(!isset($post['keycode']) or (int)$post['keycode'] == 0){
+      return;
+    }
+    
     if(isset($post['start_at']) and strtotime($post['start_at']) > 0){
       $start_at = strtotime($post['start_at']);
     } else {

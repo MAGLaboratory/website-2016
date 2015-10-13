@@ -1,6 +1,6 @@
 <?php
 
-class WebTestCase extends \PHPUnit_Framework_TestCase
+abstract class WebExam extends \PHPUnit_Framework_TestCase
 {
     /** @var \Slim\Slim */
     protected $app;
@@ -13,7 +13,7 @@ class WebTestCase extends \PHPUnit_Framework_TestCase
     {
         // Establish a local reference to the Slim app object
         $this->app = $this->getSlimInstance();
-        $this->client = new WebTestClient($this->app);
+        $this->client = new SlimClient($this->app);
     }
 
     // Instantiate a Slim application for use in our testing environment. You
