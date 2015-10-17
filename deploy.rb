@@ -21,8 +21,9 @@ deploy = []
 create_dirs = []
 skip_dirs = {}
 
+
 changed_files.collect do |changed_file|
-  if added_files.include?(changed_file)
+  if added_files.delete(changed_file)
     path = changed_file.split('/')
     path.pop()
     path.each_with_index { |p, i|
@@ -35,6 +36,7 @@ changed_files.collect do |changed_file|
       create_dirs << cmd unless check.include?('exists')
     }
   end
+
   if File.exist?(changed_file)
     deploy << "put #{changed_file} #{changed_file}"
   else
