@@ -2,3 +2,4 @@ Slim/
 config.php
 bin/
 vendor/
+tmp/

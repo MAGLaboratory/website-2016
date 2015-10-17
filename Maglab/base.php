@@ -11,6 +11,10 @@ class Controller {
   
   public function init(){}
   
+  public function params($name){
+    return $this->app->request->params($name);
+  }
+  
   public function require_user(){
     $this->current_user = member_authenticate($this->app);
   }

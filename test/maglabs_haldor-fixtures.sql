@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 13, 2015 at 01:30 AM
+-- Generation Time: Oct 13, 2015 at 04:26 PM
 -- Server version: 5.5.44-0+deb8u1
 -- PHP Version: 5.6.13-0+deb8u1
 
@@ -28,6 +28,14 @@ INSERT INTO `keyholders` (`id`, `keycode`, `person`, `start_at`, `end_at`, `upda
 (1, '777', 'LuckyCharms', '2015-10-01 07:00:00', NULL, '2015-10-12 22:51:25'),
 (2, '13131313', 'Friday', '2014-06-13 07:00:00', '2015-03-13 07:00:00', '2015-10-12 22:51:25'),
 (3, '909090', 'NOP', '2015-10-01 07:00:00', NULL, '2015-10-13 08:30:13');
+
+--
+-- Dumping data for table `space_invaders`
+--
+
+INSERT INTO `space_invaders` (`id`, `keyholder_id`, `keycode`, `open_at`, `denied_at`, `created_at`, `updated_at`) VALUES
+(1, NULL, '80085', '2015-10-10 07:00:00', NULL, NULL, '2015-10-13 23:25:27'),
+(2, NULL, '5376616', NULL, '2015-10-04 07:00:00', NULL, '2015-10-13 23:25:27');
 
 --
 -- Dumping data for table `users`

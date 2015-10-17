@@ -4,10 +4,12 @@ class Users extends \Maglab\Controller {
   public function init(){
     $admin_mw = [$this, 'require_admin'];
     $this->app->get('/members/users', $admin_mw, [$this, 'index']);
-    $this->app->post('/members/users', $admin_mw, [$this, 'invite']);
+    $this->app->post('/members/users', [$this, 'require_user'], [$this, 'invite']);
     $this->app->get('/members/users/:id', $admin_mw, [$this, 'show']);
     $this->app->put('/members/users/:id', $admin_mw, [$this, 'update']);
     $this->app->delete('/members/users/:id', $admin_mw, [$this, 'destroy']);
+    $this->app->get('/members/invite', [$this, 'invite_accept']);
+    $this->app->post('/members/invite', [$this, 'setup_account']);
   }
 
   public function index(){
@@ -18,14 +20,18 @@ class Users extends \Maglab\Controller {
   public function invite(){
     $mysqli = get_mysqli_or_die();
     $post = $this->app->request->post();
+    
+    $this->respond['insert_id'] = null;
     if(isset($post['joined_at']) and strtotime($post['joined_at']) > 0){
       $joined_at = strtotime($post['joined_at']);
     } else {
       $joined_at = time();
     }
     
-    if($post['roles'] and count($post['roles']) > 0){
+    if(isset($post['roles']) and count($post['roles']) > 0){
       $roles = $this->role_filter( (array)$post['roles'] );
+    } else {
+      $roles = array('Guest');
     }
     
     if(count($roles) == 0){ $roles = array('Guest'); }
@@ -34,14 +40,18 @@ class Users extends \Maglab\Controller {
     
     $now = time();
     $code = random_b64();
-    $session = '' . $now . $code;
+    $session = $this->invite_password($now, $code);
     
     if($stmt = $mysqli->prepare("INSERT INTO users (pwhash, email, role, first_name, last_name, current_session, joined_at) VALUES ('*', ?, ?, ?, ?, ?, FROM_UNIXTIME(?))")){
       $stmt->bind_param('sssssi', $post['email'], $roles_str, $post['first_name'], $post['last_name'], $session, $joined_at);
       $stmt->execute();
       $uid = $stmt->insert_id;
+      $this->respond['insert_id'] = $uid;
       if($uid > 0){
-        $this->email_invite($post, $now, $code, $session);
+        $inviter = (object)get_user_by_id($this->current_user['id']);
+        $invite_url = "https://www.maglaboratory.org/members/invite?now=${now}&code=${code}";
+        $data = array('inviter' => $inviter, 'now' => $now, 'code' => $code, 'session' => $session, 'invite_url' => $invite_url);
+        $this->email_invite($data, $post['email']);
         $this->respond['successful_invite'] = $post['email'];
       }
     }
@@ -53,6 +63,50 @@ class Users extends \Maglab\Controller {
   public function update(){}
   public function destroy(){}
   
+  public function invite_accept(){
+    $now = $this->app->request->params('now');
+    $code = $this->app->request->params('code');
+    
+    $this->respond['invite_user'] = null;
+
+    if($now and $code){
+      $user = get_user_by_auth($this->invite_password($now, $code));
+      if($user and $user['role'] and strpos($user['role'], 'Invite') > -1){
+        $this->respond['invite_user'] = $user;
+      }
+    }
+    
+    $this->respond['now'] = $now;
+    $this->respond['code'] = $code;
+    $this->render('members/invite_accept.php', 'Reset Password');
+  }
+  
+  public function setup_account(){
+    $mysqli = get_mysqli_or_die();
+    $now = $this->app->request->params('now');
+    $code = $this->app->request->params('code');
+    $invite_password = $this->invite_password($now, $code);
+    
+    if($now and $code){
+      $user = get_user_by_auth($invite_password);
+
+      if($user and $user['role'] and strpos($user['role'], 'Invite') > -1){
+        if($stmt = $mysqli->prepare("UPDATE users SET pwhash = ?, current_session = NULL, role = TRIM(BOTH ',' FROM REPLACE(CONCAT(',', role, ','), CONCAT(',', 'Invite', ','), ',')) WHERE FIND_IN_SET('Invite', role) > 0 AND current_session = ? AND id = ? LIMIT 1")){
+          $stmt->bind_param('ssi', $password, $invite_password, $user['id']);
+          $stmt->execute();
+          $this->respond['affected_rows'] = $stmt->affected_rows;
+          if($this->respond['affected_rows'] > 0){
+            $this->render('members/invite_accept.php', 'Account Setup Complete', array('user_setup_complete' => $user));
+            return;
+          }
+        }
+        
+      }
+    }
+    
+    $this->redirect('/members');
+  }
+  
   protected function get_members(){
     $mysqli = get_mysqli_or_die();
     
@@ -62,7 +116,7 @@ class Users extends \Maglab\Controller {
     return array();
   }
   
-  protected function role_filter($roles){
+  public function role_filter($roles){
     if(!$this->current_user or !$this->current_user['role']){ return false; }
     if(strpos($this->current_user['role'], 'Admin')){
       # Admins can create all roles
@@ -75,7 +129,12 @@ class Users extends \Maglab\Controller {
     return !(strpos($user['role'], 'Reset') > -1 or strpos($user['role'], 'Verify') > -1 or strpos($user['role'], 'Disabled') > -1 or strpos($user['role'], 'Invite') > -1);
   }
   
-  protected function email_invite(){
-    
+  protected function email_invite($data, $to){
+    $body = $this->render_to_string('email/invite.php', $data);
+    $this->email_html($to, 'Invitation to join MAGLaboratory', $body);
+  }
+  
+  protected function invite_password($now, $code){
+    return '' . $now . '%%%' . $code;
   }
 }

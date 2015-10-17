@@ -80,28 +80,60 @@ External
 </div>
 </nav>
 <div class='container' id='main-container'>
-<form action='/members/login' class='form-horizontal' id='login-form' method='post'>
+<div class='row'>
+<div class='col-md-12'>
+<?php if(isset($user_setup_complete)){ ?>
+<h1>Account Setup Complete</h1>
+<p>
+You can now
+<a href='/members/login'>Login</a>
+to your account with your email (
+<?php echo filter_text($user_setup_complete['email'], true); ?>
+) and password.
+</p>
+<?php } else { ?>
+<h1>Accept Invite</h1>
+<form action='/members/invite' class='form-horizontal' id='invite-accept' method='post'>
 <div class='form-group'>
-<label class='col-sm-2 control-label' for='email'>Email</label>
+<label class='col-sm-2 control-label' for='new_password'>New Password</label>
 <div class='col-sm-10'>
-<input class='form-control' id='email' name='email' placeholder='you@maglaboratory.org' type='email'>
+<input class='form-control' id='new_password' name='new_password' placeholder='******' type='password'>
 </div>
 </div>
 <div class='form-group'>
-<label class='col-sm-2 control-label' for='password'>Password</label>
+<label class='col-sm-2 control-label' for='confirm_password'>Confirm Password</label>
 <div class='col-sm-10'>
-<input class='form-control' id='password' name='password' placeholder='***' type='password'>
+<input class='form-control' id='confirm_password' placeholder='******' type='password'>
+<div class='hide alert alert-danger' id='error-pw-match' role='alert'>
+<span aria-hidden='true' class='glyphicon glyphicon-exclamation-sign'></span>
+<span class='sr-only'>Error:</span>
+Password Confirmation does not match password.
+</div>
 </div>
 </div>
 <div class='form-group'>
 <div class='col-sm-offset-2 col-sm-10'>
-<button class='btn btn-default' type='submit'>Login</button>
-<p class='help-block'>
-<a href='/members/forgot_password'>Forgot Password?</a>
-</p>
+<input name='now' type='hidden' value='<?php echo filter_text($now, true); ?>'>
+<input name='code' type='hidden' value='<?php echo filter_text($code, true); ?>'>
+<button class='btn btn-primary' type='submit'>Create Account</button>
 </div>
 </div>
 </form>
+<script>
+  $(function(){
+    $('#reset-password').on('submit', function(e){
+      if($('#new_password').val() != $('#confirm_password').val()){
+        $('#error-pw-match').removeClass('hide');
+        e.preventDefault();
+      } else {
+        $('#error-pw-match').addClass('hide');
+      }
+    });
+  });
+</script>
+<?php } ?>
+</div>
+</div>
 </div>
 
 </body>

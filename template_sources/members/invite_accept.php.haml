@@ -1,0 +1,44 @@
+#main-container.container
+  .row
+    .col-md-12
+      != php "if(isset($user_setup_complete)){"
+      %h1 Account Setup Complete
+      %p
+        You can now
+        %a(href="/members/login") Login
+        to your account with your email (
+        != say "$user_setup_complete['email'] "
+        ) and password.
+      != php "} else {"
+      %h1 Accept Invite
+      %form.form-horizontal#invite-accept(action="/members/invite" method="post")
+        .form-group
+          %label.col-sm-2.control-label(for="new_password") New Password
+          .col-sm-10
+            %input#new_password.form-control(name="new_password" type="password" placeholder="******")
+        .form-group
+          %label.col-sm-2.control-label(for="confirm_password") Confirm Password
+          .col-sm-10
+            %input#confirm_password.form-control(type="password" placeholder="******")
+            #error-pw-match.hide.alert.alert-danger(role="alert")
+              %span.glyphicon.glyphicon-exclamation-sign(aria-hidden="true")
+              %span.sr-only Error:
+              Password Confirmation does not match password.
+        .form-group
+          .col-sm-offset-2.col-sm-10
+            %input{:type => "hidden", :name => "now", :value => say('$now')}
+            %input{:type => "hidden", :name => "code", :value => say('$code')}
+            %button.btn.btn-primary(type="submit") Create Account
+
+      :javascript
+        $(function(){
+          $('#reset-password').on('submit', function(e){
+            if($('#new_password').val() != $('#confirm_password').val()){
+              $('#error-pw-match').removeClass('hide');
+              e.preventDefault();
+            } else {
+              $('#error-pw-match').addClass('hide');
+            }
+          });
+        });
+      != php "}"
