@@ -32,8 +32,14 @@ class Keyholders extends \Maglab\Controller {
   
   public function space_invaders(){
     $this->set_space_invader_keyholder();
-    $this->respond['invaders'] = $this->get_space_invaders();
-    $this->render('members/space_invaders.php', 'Space Invaders');
+    if($this->params('log') == 'raw'){
+      $this->respond['invader_logs'] = $this->get_space_invader_logs();
+      $this->app->response->headers->set('Content-Type', 'text/plain; charset=UTF-8');
+      $this->render('members/space_invaders_logs.php', 'Space Invaders (RAW)');
+    } else {
+      $this->respond['invaders'] = $this->get_space_invaders();
+      $this->render('members/space_invaders.php', 'Space Invaders');
+    }
   }
   
   protected function set_space_invader_keyholder(){
@@ -102,13 +108,20 @@ class Keyholders extends \Maglab\Controller {
   protected function get_space_invaders(){
     $mysqli = get_mysqli_or_die();
     
-    if($res = $mysqli->query('SELECT space_invaders.id AS id, space_invaders.keyholder_id, space_invaders.keycode AS keycode, UNIX_TIMESTAMP(open_at) AS open_at, UNIX_TIMESTAMP(denied_at) AS denied_at, UNIX_TIMESTAMP(space_invaders.created_at) AS created_at, keyholders.person AS person, keyholderx.person AS current_person FROM space_invaders LEFT JOIN keyholders ON keyholders.id = space_invaders.keyholder_id LEFT JOIN keyholders AS keyholderx ON keyholderx.keycode = space_invaders.keycode AND keyholderx.end_at IS NULL ORDER BY id DESC', MYSQLI_USE_RESULT)){
+    if($res = $mysqli->query('SELECT space_invaders.id AS id, space_invaders.keyholder_id, space_invaders.keycode AS keycode, UNIX_TIMESTAMP(open_at) AS open_at, UNIX_TIMESTAMP(denied_at) AS denied_at, UNIX_TIMESTAMP(space_invaders.created_at) AS created_at, keyholders.person AS person, keyholderx.person AS current_person FROM space_invaders LEFT JOIN keyholders ON keyholders.id = space_invaders.keyholder_id LEFT JOIN keyholders AS keyholderx ON keyholderx.keycode = space_invaders.keycode AND keyholderx.end_at IS NULL ORDER BY id DESC LIMIT 50', MYSQLI_USE_RESULT)){
       return $res->fetch_all(MYSQLI_ASSOC);
     }
     return array();
   }
-
-
+  
+  protected function get_space_invader_logs(){
+    $mysqli = get_mysqli_or_die();
+    
+    if($res = $mysqli->query('SELECT * FROM (SELECT id, payload FROM haldor_payloads WHERE payload LIKE \'%"output"%\' ORDER BY id DESC LIMIT 50) AS tmp ORDER BY id ASC', MYSQLI_USE_RESULT)){
+      return $res->fetch_all(MYSQLI_ASSOC);
+    }
+    return array();
+  }
 
   protected function find_keyholder($keycode, $access_at){
     $mysqli = get_mysqli_or_die();

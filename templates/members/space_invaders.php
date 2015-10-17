@@ -81,6 +81,9 @@ External
 </nav>
 <div class='container' id='main-container'>
 <h1>Space Invaders</h1>
+<p>
+<a href='/members/space_invaders?log=raw'>Raw Logs</a>
+</p>
 <?php date_default_timezone_set('America/Los_Angeles'); ?>
 <table class='table table-hover'>
 <thead>

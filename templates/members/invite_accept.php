@@ -88,7 +88,7 @@ External
 You can now
 <a href='/members/login'>Login</a>
 to your account with your email (
-<?php echo filter_text($user_setup_complete['email'], true); ?>
+<?php echo filter_text($user_setup_complete['email'] , true); ?>
 ) and password.
 </p>
 <?php } else { ?>

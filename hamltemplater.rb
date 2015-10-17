@@ -20,6 +20,7 @@ end
 class Renderer
   def initialize(file_path)
     @file_path = file_path
+    @flags = {}
   end
 
   def partial(name)
@@ -46,7 +47,13 @@ class Renderer
   end
   
   # declare mention recite utter yak murmur whisper hum
-  
+  def flag(x, val = nil)
+    if val
+      @flags[x] = val
+    else
+      @flags[x]
+    end
+  end
 end
 
 
@@ -61,7 +68,16 @@ Dir.glob('template_sources/*/*.haml').each do |file|
   scope = Renderer.new(file)
   page = Haml::Engine.new(File.read(file)).render(scope)
   
-  output = layout.render(scope) do page; end
+  output = scope.flag('no_layout') ? page : (layout.render(scope) do page; end)
+  target.write output
+  puts [output.length, file].join("\t")
+end
+
+Dir.glob('template_sources/*/*.php').each do |file|
+  target_path = Pathname.new("#{__dir__}/templates/#{file.gsub(/^template_sources\//, '')}")
+  target_path.parent().mkpath
+  target = target_path.open('w')
+  output = File.read(file)
   target.write output
   puts [output.length, file].join("\t")
 end
