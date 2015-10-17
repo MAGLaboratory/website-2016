@@ -10,20 +10,29 @@ changed_files.reject! { |i| i.start_with?('template_sources') or i.start_with?('
 changed_files -= %w( hamltemplater.rb config.php .htaccess .gitignore )
 
 puts "#{changed_files.length} files changed."
-puts "Writing deploy.sftp"
 
 Dir.chdir(PROJECT_DIRECTORY)
-deploy_sftp = File.open('deploy.sftp', 'w')
 
 added_files = `git diff #{commit[2]} HEAD --name-status | grep ^A`.split("\n").collect { |i| i.split.last }
 
-deploy = ["!echo \"Commit: #{commit[2]} #{`git rev-parse HEAD`.chomp}\""]
+
+deploy_headers = ["!echo \"Commit: #{commit[2]} #{`git rev-parse HEAD`.chomp}\""]
+deploy = []
+create_dirs = []
+skip_dirs = {}
+
 changed_files.collect do |changed_file|
   if added_files.include?(changed_file)
     path = changed_file.split('/')
     path.pop()
     path.each_with_index { |p, i|
-      deploy << "mkdir #{(path[0...i] + [p]).join('/')}"
+      new_path = (path[0...i] + [p]).join('/')
+      cmd = "mkdir #{new_path}"
+      # This is too inefficient, creates a new connection for each directory! ugh
+      next if skip_dirs[new_path]
+      check = `ssh swut4ewr2_maglabs@nfsn "ls -d '/home/protected/haldor/#{new_path}' && echo exists"`
+      skip_dirs[new_path] = true
+      create_dirs << cmd unless check.include?('exists')
     }
   end
   if File.exist?(changed_file)
@@ -33,7 +42,11 @@ changed_files.collect do |changed_file|
   end
 end
 
-deploy_sftp.write deploy.join("\n")
+puts "Writing deploy.sftp"
+deploy_sftp = File.open('deploy.sftp', 'w')
+
+create_dirs.uniq!
+deploy_sftp.write (deploy_headers + create_dirs + deploy).join("\n")
 deploy_sftp.close
 
 puts "\nDeploying\n\n"
