@@ -16,11 +16,11 @@ class Login extends \Maglab\Controller {
   public function index(){
     $user = (object)get_user_by_id($this->current_user['id']);
     $this->respond['user'] = $user;
-    $this->render('members/index.php', 'Members');
+    $this->render('members/login/show.php', 'Members');
   }
   
   public function show(){
-    $this->render('members/login.php', 'Login');
+    $this->render('members/login/login.php', 'Login');
   }
   
   public function create(){
@@ -41,7 +41,7 @@ class Login extends \Maglab\Controller {
         }
       }
     }
-    $this->render('members/login.php', 'Login');
+    $this->render('members/login/login.php', 'Login');
   }
   
   public function destroy(){
@@ -57,7 +57,7 @@ class Login extends \Maglab\Controller {
     $email = $this->app->request->post('email');
     $this->reset_password_for($email);
     $this->respond['reset_email'] = $email;
-    $this->render('members/forgot_password.php', 'Reset Password');
+    $this->render('members/login/forgot_password.php', 'Reset Password');
   }
   
   public function reset_password_form(){
@@ -75,7 +75,7 @@ class Login extends \Maglab\Controller {
     if(!$this->respond['reset_user']){
       $this->respond['reset_expired'] = true;
     }
-    $this->render('members/forgot_password.php', 'Reset Password');
+    $this->render('members/login/forgot_password.php', 'Reset Password');
   }
   
   public function reset_password(){
@@ -91,11 +91,11 @@ class Login extends \Maglab\Controller {
       }
     }
     $this->respond['completed_reset'] = true;
-    $this->render('members/forgot_password.php', 'Password Reset Complete');
+    $this->render('members/login/forgot_password.php', 'Password Reset Complete');
   }
   
   public function forgot_password(){
-    $this->render('members/forgot_password.php', 'Forgot Password');
+    $this->render('members/login/forgot_password.php', 'Forgot Password');
   }
   
   public function update(){
@@ -107,7 +107,7 @@ class Login extends \Maglab\Controller {
     }
     
     $this->respond['user'] = get_user_by_id($this->current_user['id']);
-    $this->render('members/show.php', 'Profile');
+    $this->render('members/login/show.php', 'Profile');
   }
   
   protected function reset_password_for($email){
@@ -134,7 +134,7 @@ class Login extends \Maglab\Controller {
     $this->respond['reset_path'] = $reset_path;
     
     $reset_url = "https://www.maglaboratory.org${reset_path}";
-    $email_content = $this->render_to_string('email/reset_password.php', array(
+    $email_content = $this->render_to_string('email/login/reset_password.php', array(
       'email' => $email,
       'reset_code' => $reset_code,
       'now' => $now,

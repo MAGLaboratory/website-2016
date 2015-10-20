@@ -1,21 +1,5 @@
-!echo "Commit: 8a7be00fd2bc5486189d9c699244a9d945bbe699 eae4d0c0c9788bacff55bd80e0e0996dd0c1f99a"
-mkdir templates/email
+!echo "Commit: eae4d0c0c9788bacff55bd80e0e0996dd0c1f99a 4f9c1d79d00305a41a1995f4f6e99767b9fa972a"
 put Maglab/Members/Keyholders.php Maglab/Members/Keyholders.php
-put Maglab/Members/Login.php Maglab/Members/Login.php
-put Maglab/Members/Users.php Maglab/Members/Users.php
-put Maglab/base.php Maglab/base.php
-put helpers.php helpers.php
-put members.php members.php
-put members_helpers.php members_helpers.php
-put templates/email/invite.php templates/email/invite.php
-put templates/email/reset_password.php templates/email/reset_password.php
-put templates/members/forgot.php templates/members/forgot.php
-put templates/members/forgot_password.php templates/members/forgot_password.php
-put templates/members/index.php templates/members/index.php
 put templates/members/invite_accept.php templates/members/invite_accept.php
-put templates/members/keyholders.php templates/members/keyholders.php
-put templates/members/login.php templates/members/login.php
-put templates/members/reset_password.php templates/members/reset_password.php
-put templates/members/show.php templates/members/show.php
 put templates/members/space_invaders.php templates/members/space_invaders.php
-put templates/members/users_index.php templates/members/users_index.php
+put templates/members/space_invaders_logs.php templates/members/space_invaders_logs.php

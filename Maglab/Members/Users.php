@@ -14,7 +14,7 @@ class Users extends \Maglab\Controller {
 
   public function index(){
     $this->respond['members'] = $this->get_members();
-    $this->render('members/users_index.php', 'Members List');
+    $this->render('members/users/users_index.php', 'Members List');
   }
   
   public function invite(){
@@ -78,7 +78,7 @@ class Users extends \Maglab\Controller {
     
     $this->respond['now'] = $now;
     $this->respond['code'] = $code;
-    $this->render('members/invite_accept.php', 'Reset Password');
+    $this->render('members/users/invite_accept.php', 'Reset Password');
   }
   
   public function setup_account(){
@@ -96,7 +96,7 @@ class Users extends \Maglab\Controller {
           $stmt->execute();
           $this->respond['affected_rows'] = $stmt->affected_rows;
           if($this->respond['affected_rows'] > 0){
-            $this->render('members/invite_accept.php', 'Account Setup Complete', array('user_setup_complete' => $user));
+            $this->render('members/users/invite_accept.php', 'Account Setup Complete', array('user_setup_complete' => $user));
             return;
           }
         }
@@ -130,7 +130,7 @@ class Users extends \Maglab\Controller {
   }
   
   protected function email_invite($data, $to){
-    $body = $this->render_to_string('email/invite.php', $data);
+    $body = $this->render_to_string('email/users/invite.php', $data);
     $this->email_html($to, 'Invitation to join MAGLaboratory', $body);
   }
   

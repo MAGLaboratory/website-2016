@@ -57,23 +57,37 @@ class Renderer
 end
 
 
-Dir.glob('template_sources/*/*.haml').each do |file|
-  next if file.split('/').last.start_with?('_') # skip partials
+Dir.glob('template_sources/**/*.haml').each do |file|
+  # skip partials and layouts
+  next if file.split('/').last.start_with?('_') or file.end_with?('.layout.haml')
   
   target_path = Pathname.new("#{__dir__}/templates/#{file.gsub(/^template_sources\//, '').gsub(/\.haml$/, '')}")
   target_path.parent().mkpath
   target = target_path.open('w+')
-  layout = Haml::Engine.new(File.read(file.split('/')[0..1].join('/')+'.haml'))
+  
+  layout_paths = file.split('/')
+  layout_paths.pop() # pop the filename
+  layout = nil
+  
+  until layout or layout_paths.length == 0 do
+    layout_file = layout_paths.join('/')+'.layout.haml'
+    if File.exist?(layout_file)
+      layout = Haml::Engine.new(File.read(layout_file))
+      #puts "\tlayout: #{layout_file}"
+    else
+      layout_paths.pop()
+    end
+  end
   
   scope = Renderer.new(file)
   page = Haml::Engine.new(File.read(file)).render(scope)
   
   output = scope.flag('no_layout') ? page : (layout.render(scope) do page; end)
   target.write output
-  puts [output.length, file].join("\t")
+  puts [output.length, file.gsub('template_sources/', '')].join("\t")
 end
 
-Dir.glob('template_sources/*/*.php').each do |file|
+Dir.glob('template_sources/**/*.php').each do |file|
   target_path = Pathname.new("#{__dir__}/templates/#{file.gsub(/^template_sources\//, '')}")
   target_path.parent().mkpath
   target = target_path.open('w')
