@@ -1,0 +1,19 @@
+!= php "if(isset($item)){"
+%tr{'data-id' => say("$item['id']")}
+  %td!= say "$item['category']"
+  %td
+    != say "$item['name']"
+    %br
+    != yell "$item['description']"
+  %td!= say "$item['need_amount']"
+  %td!= say "$item['have_amount']"
+  %td!= say "$item['cost']"
+  %td
+    %button.got-1.btn.btn-primary(type="button") Got +1
+    %button.lost-1.btn.btn-warning(type="button") Lost -1
+    %button.need-1.btn.btn-default(type="button") Need +1
+    %button.skip-1.btn.btn-default(type="button") Need -1
+    %br
+    %button.remove-item.btn.btn-danger(type="button") Remove
+    -#%button.btn.btn-info(type="button") Edit
+!= php "}"

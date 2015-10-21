@@ -34,7 +34,7 @@ class SlimClient
 
     public function patch($path, $data = array(), $optionalHeaders = array())
     {
-        return $this->request('patch', $path, $data, $optionalHeaders);
+        return $this->request('patch', $path, $data, array_merge(array('slim.method_override.original_method' => 'POST'), $optionalHeaders));
     }
 
     public function put($path, $data = array(), $optionalHeaders = array())
@@ -44,7 +44,7 @@ class SlimClient
 
     public function delete($path, $data = array(), $optionalHeaders = array())
     {
-        return $this->request('delete', $path, $data, $optionalHeaders);
+        return $this->request('delete', $path, $data, array_merge(array('slim.method_override.original_method' => 'POST'), $optionalHeaders));
     }
 
     public function head($path, $data = array(), $optionalHeaders = array())

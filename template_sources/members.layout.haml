@@ -53,6 +53,8 @@
             != php "}"
         
           %ul.nav.navbar-nav.navbar-right
+            %li
+              %a(href='/hal') HAL
             != php "if($this->data->current_user){ "
             %li
               %a(href="/members") Me

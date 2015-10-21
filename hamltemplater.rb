@@ -36,10 +36,10 @@ class Renderer
     "<?php echo #{code}; ?>"
   end
   
-  # Filters specialcharacters (for use in input values, attributes, etc)
-  #def yell(code)
-  #  "<?php echo filter_text(#{code}, true); ?>"
-  #end
+  # purifies text through HTMLPurifier
+  def yell(code)
+    "<?php echo $controller->purify(#{code}); ?>"
+  end
   
   # Filters all htmlentities, for putting text directly on the page (inside another element)
   def say(code)

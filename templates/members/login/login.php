@@ -63,6 +63,9 @@ External
 <?php } ?>
 </ul>
 <ul class='nav navbar-nav navbar-right'>
+<li>
+<a href='/hal'>HAL</a>
+</li>
 <?php if($this->data->current_user){  ?>
 <li>
 <a href='/members'>Me</a>

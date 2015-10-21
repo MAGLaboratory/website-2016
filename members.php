@@ -47,11 +47,12 @@ require_once('Maglab/base.php');
 require_once('Maglab/Members/Login.php');
 require_once('Maglab/Members/Keyholders.php');
 require_once('Maglab/Members/Users.php');
+require_once('Maglab/Members/Procurement.php');
 
 $login_routes = new \MagLab\Members\Login($app);
 $keyholder_routes = new \Maglab\Members\Keyholders($app);
 $member_routes = new \Maglab\Members\Users($app);
-
+$procurement_routes = new \Maglab\Members\Procurement($app);
 
 
 

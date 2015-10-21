@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 10, 2015 at 03:46 AM
+-- Generation Time: Oct 20, 2015 at 10:35 PM
 -- Server version: 5.5.44-0+deb8u1
 -- PHP Version: 5.6.13-0+deb8u1
 
@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 DROP TABLE IF EXISTS `haldor`;
-CREATE TABLE `haldor` (
+CREATE TABLE IF NOT EXISTS `haldor` (
   `id` int(10) unsigned NOT NULL,
   `sensor` enum('Front_Door','Main_Door','Office_Motion','Shop_Motion','Open_Switch','Boot','Space_Invader','Temperature','Halley') DEFAULT NULL,
   `start_at` timestamp NULL DEFAULT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE `haldor` (
 --
 
 DROP TABLE IF EXISTS `haldor_payloads`;
-CREATE TABLE `haldor_payloads` (
+CREATE TABLE IF NOT EXISTS `haldor_payloads` (
   `id` int(10) unsigned NOT NULL,
   `payload` text,
   `session` varchar(50) DEFAULT NULL,
@@ -62,7 +62,7 @@ CREATE TABLE `haldor_payloads` (
 --
 
 DROP TABLE IF EXISTS `keyholders`;
-CREATE TABLE `keyholders` (
+CREATE TABLE IF NOT EXISTS `keyholders` (
   `id` int(10) unsigned NOT NULL,
   `keycode` varchar(200) CHARACTER SET ascii NOT NULL,
   `person` varchar(500) NOT NULL DEFAULT 'n00b',
@@ -74,11 +74,32 @@ CREATE TABLE `keyholders` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `procurement`
+--
+
+DROP TABLE IF EXISTS `procurement`;
+CREATE TABLE IF NOT EXISTS `procurement` (
+  `id` int(10) unsigned NOT NULL,
+  `category` varchar(255) NOT NULL,
+  `name` varchar(1500) NOT NULL,
+  `description` text NOT NULL,
+  `need_amount` int(11) NOT NULL,
+  `have_amount` int(11) NOT NULL DEFAULT '0',
+  `cost` varchar(500) NOT NULL DEFAULT '',
+  `history` text,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `archived_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `RFID_keys`
 --
 
 DROP TABLE IF EXISTS `RFID_keys`;
-CREATE TABLE `RFID_keys` (
+CREATE TABLE IF NOT EXISTS `RFID_keys` (
   `keycode` varchar(200) CHARACTER SET ascii NOT NULL,
   `name` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -92,7 +113,7 @@ CREATE TABLE `RFID_keys` (
 --
 
 DROP TABLE IF EXISTS `space_invaders`;
-CREATE TABLE `space_invaders` (
+CREATE TABLE IF NOT EXISTS `space_invaders` (
   `id` int(10) unsigned NOT NULL,
   `keyholder_id` int(10) unsigned DEFAULT NULL,
   `keycode` varchar(200) NOT NULL,
@@ -109,7 +130,7 @@ CREATE TABLE `space_invaders` (
 --
 
 DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) unsigned NOT NULL,
   `role` set('Admin','General','Keyholder','Backer','Guest','Invite','Verify','Reset','Disabled') CHARACTER SET ascii NOT NULL DEFAULT 'Guest,Invite',
   `email` varchar(255) NOT NULL,
@@ -150,6 +171,13 @@ ALTER TABLE `keyholders`
   ADD UNIQUE KEY `keycode` (`keycode`,`end_at`);
 
 --
+-- Indexes for table `procurement`
+--
+ALTER TABLE `procurement`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `category` (`category`);
+
+--
 -- Indexes for table `space_invaders`
 --
 ALTER TABLE `space_invaders`
@@ -179,6 +207,11 @@ ALTER TABLE `haldor_payloads`
 -- AUTO_INCREMENT for table `keyholders`
 --
 ALTER TABLE `keyholders`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `procurement`
+--
+ALTER TABLE `procurement`
   MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `space_invaders`

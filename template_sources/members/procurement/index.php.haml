@@ -1,0 +1,101 @@
+#main-container.container-fluid
+  %form#procurement-form.form-horizontal(action='/members/procurement' method='post')
+    .row
+      .col-sm-5
+        .form-group
+          %label.col-sm-2(for='name') Name
+          .col-sm-10
+            %input#name.form-control(type='text' name='name' placeholder='Beer!')
+        .form-group
+          %label.col-sm-2(for='category')
+            Category
+          .col-sm-10
+            %input#category.form-control(type='text' name='category' placeholder='Groceries')
+        .form-group
+          %label.col-sm-2(for='need_amount') Need
+          .col-sm-4
+            %input#need_amount.form-control(type='number' name='need_amount' placeholder='9009')
+          %label.col-sm-2(for='have_amount') Have
+          .col-sm-4
+            %input#have_amount.form-control(type='number' name='have_amount' placeholder='0')
+        .form-group
+          %label.col-sm-2(for='cost') Cost
+          .col-sm-10
+            %input#estimated_cost.form-control(type='text' name='cost' placeholder='estimated: $9.99 - $1374 per barrel')
+      .col-sm-7
+        .form-group
+          .col-sm-12
+            %textarea#description.form-control(name='description' placeholder="Optional Description: eg: Beer Pong! *Please do not drink and operate heavy machinery." rows=4)
+        .form-group
+          .col-sm-12
+            %button.btn.btn-primary(type="submit") Add Item
+    
+    != php "if(isset($createdItem)){"
+    != php "  if($createdItem){"
+    .alert.alert-success
+      %strong Success!
+    != php "  } else { "
+    .alert.alert-danger
+      %strong Failed!
+      I don't know what happened, but try again maybe?
+    != php "  }"
+    != php "}"
+  %table.table.table-striped
+    %thead
+      %tr
+        %th Category
+        %th Name
+        %th Need
+        %th Have
+        %th Cost
+        %th Actions
+    %tbody#procurement-list
+      != php "foreach($items as $item){"
+      != partial 'item'
+      != php "}"
+      
+      
+
+:javascript
+  $(function(){
+    function getTr(x){
+      var tr = $(x).parents('tr');
+      tr.find('button').prop('disabled', true);
+      return tr;
+    }
+   
+    $('#procurement-list').on('click', '.got-1', function(){
+      var $this = getTr(this);
+      $.post('/members/procurement/' + $this.data('id'), {'got': 1, '_METHOD': 'PATCH'}, function(itm_html){
+        $this.replaceWith(itm_html);
+      }, 'html');
+    });
+    
+    $('#procurement-list').on('click', '.lost-1', function(){
+      var $this = getTr(this);
+      $.post('/members/procurement/' + $this.data('id'), {'lost': 1, '_METHOD': 'PATCH'}, function(itm_html){
+        $this.replaceWith(itm_html);
+      }, 'html');
+    });
+    
+    $('#procurement-list').on('click', '.need-1', function(){
+      var $this = getTr(this);
+      $.post('/members/procurement/' + $this.data('id'), {'need': 1, '_METHOD': 'PATCH'}, function(itm_html){
+        $this.replaceWith(itm_html);
+      }, 'html');
+    });
+    
+    $('#procurement-list').on('click', '.skip-1', function(){
+      var $this = getTr(this);
+      $.post('/members/procurement/' + $this.data('id'), {'skip': 1, '_METHOD': 'PATCH'}, function(itm_html){
+        $this.replaceWith(itm_html);
+      }, 'html');
+    });
+    
+    $('#procurement-list').on('click', '.remove-item', function(){
+      var $this = getTr(this);
+      $.post('/members/procurement/' + $this.data('id'), {'got': 1, '_METHOD': 'DELETE'}, function(itm_html){
+        $this.replaceWith(itm_html);
+      }, 'html');
+    });
+  });

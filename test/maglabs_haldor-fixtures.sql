@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 13, 2015 at 04:26 PM
+-- Generation Time: Oct 21, 2015 at 12:42 AM
 -- Server version: 5.5.44-0+deb8u1
 -- PHP Version: 5.6.13-0+deb8u1
 
@@ -28,6 +28,15 @@ INSERT INTO `keyholders` (`id`, `keycode`, `person`, `start_at`, `end_at`, `upda
 (1, '777', 'LuckyCharms', '2015-10-01 07:00:00', NULL, '2015-10-12 22:51:25'),
 (2, '13131313', 'Friday', '2014-06-13 07:00:00', '2015-03-13 07:00:00', '2015-10-12 22:51:25'),
 (3, '909090', 'NOP', '2015-10-01 07:00:00', NULL, '2015-10-13 08:30:13');
+
+--
+-- Dumping data for table `procurement`
+--
+
+INSERT INTO `procurement` (`id`, `category`, `name`, `description`, `need_amount`, `have_amount`, `cost`, `history`, `created_at`, `updated_at`, `archived_at`) VALUES
+(1, 'Toys', 'Electric Rail Gun', '', 4834, 392, '$1000', NULL, '2015-10-21 06:21:27', '2015-10-21 06:21:27', NULL),
+(2, 'Toys', 'Flamethrower', 'For the hard to reach spots', 3430, 739, '$1938', NULL, '2015-10-21 07:41:45', '2015-10-21 07:41:45', NULL),
+(3, 'Food', 'Ramen', '', 1000, 102, '$1', NULL, '2015-10-21 07:41:45', '2015-10-21 07:41:45', NULL);
 
 --
 -- Dumping data for table `space_invaders`
