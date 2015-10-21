@@ -66,6 +66,9 @@ External
 <li>
 <a href='/hal'>HAL</a>
 </li>
+<li>
+<a href='/members/procurement'>Shopping</a>
+</li>
 <?php if($this->data->current_user){  ?>
 <li>
 <a href='/members'>Me</a>

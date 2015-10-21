@@ -49,7 +49,7 @@ back to MAGLab
 <a href='/hal/chart'>Chart</a>
 </li>
 <li>
-<a href='/members/procurement'>Procurement</a>
+<a href='/members/procurement'>Shopping</a>
 </li>
 </ul>
 </div>
