@@ -68,11 +68,12 @@ function createWikiUser($username, $email, $password){
 # <---
 # END WIKI SETUP
 
-$username = $app->request->params('wiki_username');
-$password = $app->request->params('wiki_password');
-$email = $app->request->params('wiki_email');
+$username = $_POST['wiki_username'];
+$password = $_POST['wiki_password'];
+$email = $_POST['wiki_email'];
 
 $success = createWikiUser($username, $email, $password);
+
 if($success){
   header('Location: /members/me/wiki?success=1');
   if(is_int($success)){
