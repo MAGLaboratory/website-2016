@@ -1,3 +1,1 @@
-!echo "Commit: a8102c87a07ce0cc39e7e5ed45b788cd1c751361 e932c1223f65b5095c3afdb39faf32128314297f"
-put lib/wiki/createWikiUser.php lib/wiki/createWikiUser.php
-put templates/members/login/show.php templates/members/login/show.php
+!echo "Commit: d8871ad273b1c24f1501fb23b47a1da179137b2d d8871ad273b1c24f1501fb23b47a1da179137b2d"

@@ -22,15 +22,15 @@
   != php "}"
   %form.form-horizontal(action="/w/createWikiUser.php" method="post" autocomplete="off")
     .form-group
-      %label.col-sm-2.control-label(for="email") Email
+      %label.col-sm-2.control-label(for="wiki_email") Email
       .col-sm-10
         %input#wiki-email.form-control{type:"email", name:"wiki_email", value: echo("filter_email($user->email, true)")}
     .form-group
-      %label.col-sm-2.control-label(for="username") Username
+      %label.col-sm-2.control-label(for="wiki_username") Username
       .col-sm-10
         %input#wiki-username.form-control(type="text" name="wiki_username" placeholder="SirWeldAlot" autocomplete="off" value="")
     .form-group
-      %label.col-sm-2.control-label(for="password") Password
+      %label.col-sm-2.control-label(for="wiki_password") Password
       .col-sm-10
         %input#wiki-password.form-control(type="password" name="wiki_password" placeholder="p00pscooper" autocomplete="off" value="")
     .form-group

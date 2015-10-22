@@ -115,19 +115,19 @@ Sorry, something went wrong and we couldn't create the account. Try again later?
 <?php } ?>
 <form action='/w/createWikiUser.php' autocomplete='off' class='form-horizontal' method='post'>
 <div class='form-group'>
-<label class='col-sm-2 control-label' for='email'>Email</label>
+<label class='col-sm-2 control-label' for='wiki_email'>Email</label>
 <div class='col-sm-10'>
 <input class='form-control' id='wiki-email' name='wiki_email' type='email' value='<?php echo filter_email($user->email, true); ?>'>
 </div>
 </div>
 <div class='form-group'>
-<label class='col-sm-2 control-label' for='username'>Username</label>
+<label class='col-sm-2 control-label' for='wiki_username'>Username</label>
 <div class='col-sm-10'>
 <input autocomplete='off' class='form-control' id='wiki-username' name='wiki_username' placeholder='SirWeldAlot' type='text' value=''>
 </div>
 </div>
 <div class='form-group'>
-<label class='col-sm-2 control-label' for='password'>Password</label>
+<label class='col-sm-2 control-label' for='wiki_password'>Password</label>
 <div class='col-sm-10'>
 <input autocomplete='off' class='form-control' id='wiki-password' name='wiki_password' placeholder='p00pscooper' type='password' value=''>
 </div>
