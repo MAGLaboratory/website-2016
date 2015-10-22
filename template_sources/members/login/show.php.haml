@@ -36,6 +36,12 @@
     .form-group
       .col-sm-10.col-sm-offset-2
         %button.btn.btn-primary(type="submit") Create Wiki Account
+    :javascript
+      $(function(){
+        setTimeout(function(){
+          $('#wiki-password,#wiki-username').val('');
+        }, 700);
+      });
   != php "}"
 
   %h1 Profile

@@ -1,1 +1,2 @@
-!echo "Commit: d8871ad273b1c24f1501fb23b47a1da179137b2d d8871ad273b1c24f1501fb23b47a1da179137b2d"
+!echo "Commit: d8871ad273b1c24f1501fb23b47a1da179137b2d d7af319cf0c16a750645fc090af8622ad1ef8c1d"
+put templates/members/login/show.php templates/members/login/show.php

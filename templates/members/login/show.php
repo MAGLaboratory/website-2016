@@ -137,6 +137,13 @@ Sorry, something went wrong and we couldn't create the account. Try again later?
 <button class='btn btn-primary' type='submit'>Create Wiki Account</button>
 </div>
 </div>
+<script>
+  $(function(){
+    setTimeout(function(){
+      $('#wiki-password,#wiki-username').val('');
+    }, 700);
+  });
+</script>
 </form>
 <?php } ?>
 <h1>Profile</h1>
