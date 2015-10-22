@@ -21,9 +21,10 @@ $app = new \Slim\Slim(array(
   'templates.path' => HALDOR_ROOT . '/templates',
   'cookies.secure' => ADMIN_ENFORCE_SSL,
   'cookies.encrypt' => true,
-  'cookies.lifetime' => '8 hours',
+  'cookies.lifetime' => '4 hours',
   'cookies.httponly' => true,
   'cookies.secret_key' => COOKIE_SECRET,
+  'cookies.path' => '/',
   #'cookies.cipher' => MCRYPT_RIJNDAEL_256,
   #'cookies.cipher_mode' => MCRYPT_MODE_CBC,
 ));

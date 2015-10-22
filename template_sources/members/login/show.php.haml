@@ -1,50 +1,58 @@
 #main-container.container
-  %h2 Change Password
-  
-  <?php if($this->data->pw_success){ ?>
-  .alert.alert-info.alert-dismissible.fade.in(role="alert")
-    %button.close(type="button" data-dismiss="alert" role="alert" aria-label="Close")
-      %span(aria-hidden="true") x
-    %strong Success!
-    Successfully updated your profile info.
-  <?php } else if(isset($this->data->pw_success)){ ?>
-  .alert.alert-warning.alert-dismissible.fade.in(role="alert")
-    %button.close(type="button" data-dismiss="alert" role="alert" aria-label="Close")
-      %span(aria-hidden="true") x
-    %strong Failed.
-    Failed to update your password. Check your current password and make sure the confirmation matches the new password.
-  <?php } ?>
-  %form.form-horizontal(action="/members/me" method="post")
+  != php "if(isset($createdWikiUser) and $createdWikiUser == 1){"
+  %h1 Create Wiki User
+  .alert.alert-success
+    %strong Created Wiki Account!
+    %p
+      You can now login to your account at the
+      %strong
+        %a(href="/wiki") wiki
+  != php "} elseif(empty($user->wikiusername)){"
+  %h1 Create Wiki User
+  %p
+    Due to spam bots, we have to restrict wiki registration to members and guests only.
+    Create your wiki account using the form below. It will be permanently tied to this maglab account.
+    If you have guests that want wiki access, give them an invite so they can create their own.
+  %p
+    Remember: Stuff you put on the wiki will be public. And will be marked under the wiki username. This is separate from the profile information below.
+  != php "if(isset($createdWikiUser) and $createdWikiUser == 0){"
+  .alert.alert-warning
+    %strong Failed to create account.
+    Sorry, something went wrong and we couldn't create the account. Try again later?
+  != php "}"
+  %form.form-horizontal(action="/w/createWikiUser.php" method="post")
     .form-group
-      %label.col-sm-2.control-label(for="current_password") Current Password
+      %label.col-sm-2.control-label(for="email") Email
       .col-sm-10
-        %input.form-control#current_password(type="password" name="current_password")
+        %input#wiki-email.form-control{type:"email", name:"email", value: echo("filter_email($user->email, true)")}
     .form-group
-      %label.col-sm-2.control-label(for="new_password") New Password
+      %label.col-sm-2.control-label(for="username") Username
       .col-sm-10
-        %input.form-control#current_password(type="password" name="new_password")
+        %input#wiki-username.form-control(type="text" name="username" placeholder="SirWeldAlot")
     .form-group
-      %label.col-sm-2.control-label(for="confirm_password") Confirm New Password
+      %label.col-sm-2.control-label(for="password") Password
       .col-sm-10
-        %input.form-control#current_password(type="password" name="confirm_password")
+        %input#wiki-password.form-control(type="password" name="password" placeholder="p00pscooper")
     .form-group
-      .col-sm-offset-2.col-sm-10
-        %button.btn.btn-default(type="submit") Change Password
+      .col-sm-10.col-sm-offset-2
+        %button.btn.btn-primary(type="submit") Create Wiki Account
+  != php "}"
 
   %h1 Profile
-  <?php if($this->data->info_success){ ?>
+  %p The profile information below is for recordkeeping and maglab usage only. And will be kept mostly private. (This is separate from public information on the wiki.) The emergency contact is kinda important...
+  != php "if($this->data->info_success){"
   .alert.alert-info.alert-dismissible.fade.in(role="alert")
     %button.close(type="button" data-dismiss="alert" role="alert" aria-label="Close")
       %span(aria-hidden="true") x
     %strong Success!
     Successfully updated your profile info.
-  <?php } else if(isset($this->data->info_success)){ ?>
+  != php "} else if(isset($this->data->info_success)){"
   .alert.alert-warning.alert-dismissible.fade.in(role="alert")
     %button.close(type="button" data-dismiss="alert" role="alert" aria-label="Close")
       %span(aria-hidden="true") x
     %strong Failed.
     Failed to update your profile info? huh...that's weird.
-  <?php } ?>
+  != php "}"
   %form.form-horizontal(action="/members/me" method="post")
     .form-group
       %label.col-sm-2.control-label(for="email") Email
@@ -67,6 +75,14 @@
       .col-sm-10
         %input.form-control#user_emergency_phone{type:"tel", name:"emergency_phone", value: say("$this->data->user->emergency_phone")}
     .form-group
+      %label.col-sm-2.control-label Wiki Username
+      .col-sm-10
+        != php "if(empty($user->wikiusername)){"
+        %i Not yet created.
+        != php "} else {"
+        %strong!= say "$user->wikiusername"
+        != php "}"
+    .form-group
       %label.col-sm-2.control-label(for="interests") Interests / Skills
       .col-sm-10
         TODO
@@ -74,4 +90,34 @@
       .col-sm-offset-2.col-sm-10
         %button.btn.btn-default(type="submit") Save Changes
   
-    
+  %h2 Change Password
+  
+  != php "if($this->data->pw_success){"
+  .alert.alert-info.alert-dismissible.fade.in(role="alert")
+    %button.close(type="button" data-dismiss="alert" role="alert" aria-label="Close")
+      %span(aria-hidden="true") x
+    %strong Success!
+    Successfully updated your profile info.
+  != php "} else if(isset($this->data->pw_success)){"
+  .alert.alert-warning.alert-dismissible.fade.in(role="alert")
+    %button.close(type="button" data-dismiss="alert" role="alert" aria-label="Close")
+      %span(aria-hidden="true") x
+    %strong Failed.
+    Failed to update your password. Check your current password and make sure the confirmation matches the new password.
+  != php "}"
+  %form.form-horizontal(action="/members/me" method="post")
+    .form-group
+      %label.col-sm-2.control-label(for="current_password") Current Password
+      .col-sm-10
+        %input.form-control#current_password(type="password" name="current_password")
+    .form-group
+      %label.col-sm-2.control-label(for="new_password") New Password
+      .col-sm-10
+        %input.form-control#current_password(type="password" name="new_password")
+    .form-group
+      %label.col-sm-2.control-label(for="confirm_password") Confirm New Password
+      .col-sm-10
+        %input.form-control#current_password(type="password" name="confirm_password")
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        %button.btn.btn-default(type="submit") Change Password

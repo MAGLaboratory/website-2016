@@ -1,6 +1,3 @@
-!echo "Commit: b3023def34dd382a1d55fe1793bb355042ada8dd 3c2565623d3d6bbce2dd392fc90f8619d50a79a3"
-mkdir lib/wiki
-put Maglab/Members/Login.php Maglab/Members/Login.php
+!echo "Commit: 3c2565623d3d6bbce2dd392fc90f8619d50a79a3 788e7ed05d31109fcd06a7ef58974e6db18bc6e1"
 put lib/wiki/createWikiUser.php lib/wiki/createWikiUser.php
 put members.php members.php
-put members_helpers.php members_helpers.php

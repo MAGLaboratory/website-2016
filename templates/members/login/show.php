@@ -86,50 +86,61 @@ External
 </div>
 </nav>
 <div class='container' id='main-container'>
-<h2>Change Password</h2>
-<?php if($this->data->pw_success){ ?>
-<div class='alert alert-info alert-dismissible fade in' role='alert'>
-<button aria-label='Close' class='close' data-dismiss='alert' role='alert' type='button'>
-<span aria-hidden='true'>x</span>
-</button>
-<strong>Success!</strong>
-Successfully updated your profile info.
+<?php if(isset($createdWikiUser) and $createdWikiUser == 1){ ?>
+<h1>Create Wiki User</h1>
+<div class='alert alert-success'>
+<strong>Created Wiki Account!</strong>
+<p>
+You can now login to your account at the
+<strong>
+<a href='/wiki'>wiki</a>
+</strong>
+</p>
 </div>
-<?php } else if(isset($this->data->pw_success)){ ?>
-<div class='alert alert-warning alert-dismissible fade in' role='alert'>
-<button aria-label='Close' class='close' data-dismiss='alert' role='alert' type='button'>
-<span aria-hidden='true'>x</span>
-</button>
-<strong>Failed.</strong>
-Failed to update your password. Check your current password and make sure the confirmation matches the new password.
+<?php } elseif(empty($user->wikiusername)){ ?>
+<h1>Create Wiki User</h1>
+<p>
+Due to spam bots, we have to restrict wiki registration to members and guests only.
+Create your wiki account using the form below. It will be permanently tied to this maglab account.
+If you have guests that want wiki access, give them an invite so they can create their own.
+</p>
+<p>
+Remember: Stuff you put on the wiki will be public. And will be marked under the wiki username. This is separate from the profile information below.
+</p>
+<?php if(isset($createdWikiUser) and $createdWikiUser == 0){ ?>
+<div class='alert alert-warning'>
+<strong>Failed to create account.</strong>
+Sorry, something went wrong and we couldn't create the account. Try again later?
 </div>
 <?php } ?>
-<form action='/members/me' class='form-horizontal' method='post'>
+<form action='/w/createWikiUser.php' class='form-horizontal' method='post'>
 <div class='form-group'>
-<label class='col-sm-2 control-label' for='current_password'>Current Password</label>
+<label class='col-sm-2 control-label' for='email'>Email</label>
 <div class='col-sm-10'>
-<input class='form-control' id='current_password' name='current_password' type='password'>
+<input class='form-control' id='wiki-email' name='email' type='email' value='<?php echo filter_email($user->email, true); ?>'>
 </div>
 </div>
 <div class='form-group'>
-<label class='col-sm-2 control-label' for='new_password'>New Password</label>
+<label class='col-sm-2 control-label' for='username'>Username</label>
 <div class='col-sm-10'>
-<input class='form-control' id='current_password' name='new_password' type='password'>
+<input class='form-control' id='wiki-username' name='username' placeholder='SirWeldAlot' type='text'>
 </div>
 </div>
 <div class='form-group'>
-<label class='col-sm-2 control-label' for='confirm_password'>Confirm New Password</label>
+<label class='col-sm-2 control-label' for='password'>Password</label>
 <div class='col-sm-10'>
-<input class='form-control' id='current_password' name='confirm_password' type='password'>
+<input class='form-control' id='wiki-password' name='password' placeholder='p00pscooper' type='password'>
 </div>
 </div>
 <div class='form-group'>
-<div class='col-sm-offset-2 col-sm-10'>
-<button class='btn btn-default' type='submit'>Change Password</button>
+<div class='col-sm-10 col-sm-offset-2'>
+<button class='btn btn-primary' type='submit'>Create Wiki Account</button>
 </div>
 </div>
 </form>
+<?php } ?>
 <h1>Profile</h1>
+<p>The profile information below is for recordkeeping and maglab usage only. And will be kept mostly private. (This is separate from public information on the wiki.) The emergency contact is kinda important...</p>
 <?php if($this->data->info_success){ ?>
 <div class='alert alert-info alert-dismissible fade in' role='alert'>
 <button aria-label='Close' class='close' data-dismiss='alert' role='alert' type='button'>
@@ -179,6 +190,16 @@ Failed to update your profile info? huh...that's weird.
 </div>
 </div>
 <div class='form-group'>
+<label class='col-sm-2 control-label'>Wiki Username</label>
+<div class='col-sm-10'>
+<?php if(empty($user->wikiusername)){ ?>
+<i>Not yet created.</i>
+<?php } else { ?>
+<strong><?php echo filter_text($user->wikiusername, true); ?></strong>
+<?php } ?>
+</div>
+</div>
+<div class='form-group'>
 <label class='col-sm-2 control-label' for='interests'>Interests / Skills</label>
 <div class='col-sm-10'>
 TODO
@@ -187,6 +208,49 @@ TODO
 <div class='form-group'>
 <div class='col-sm-offset-2 col-sm-10'>
 <button class='btn btn-default' type='submit'>Save Changes</button>
+</div>
+</div>
+</form>
+<h2>Change Password</h2>
+<?php if($this->data->pw_success){ ?>
+<div class='alert alert-info alert-dismissible fade in' role='alert'>
+<button aria-label='Close' class='close' data-dismiss='alert' role='alert' type='button'>
+<span aria-hidden='true'>x</span>
+</button>
+<strong>Success!</strong>
+Successfully updated your profile info.
+</div>
+<?php } else if(isset($this->data->pw_success)){ ?>
+<div class='alert alert-warning alert-dismissible fade in' role='alert'>
+<button aria-label='Close' class='close' data-dismiss='alert' role='alert' type='button'>
+<span aria-hidden='true'>x</span>
+</button>
+<strong>Failed.</strong>
+Failed to update your password. Check your current password and make sure the confirmation matches the new password.
+</div>
+<?php } ?>
+<form action='/members/me' class='form-horizontal' method='post'>
+<div class='form-group'>
+<label class='col-sm-2 control-label' for='current_password'>Current Password</label>
+<div class='col-sm-10'>
+<input class='form-control' id='current_password' name='current_password' type='password'>
+</div>
+</div>
+<div class='form-group'>
+<label class='col-sm-2 control-label' for='new_password'>New Password</label>
+<div class='col-sm-10'>
+<input class='form-control' id='current_password' name='new_password' type='password'>
+</div>
+</div>
+<div class='form-group'>
+<label class='col-sm-2 control-label' for='confirm_password'>Confirm New Password</label>
+<div class='col-sm-10'>
+<input class='form-control' id='current_password' name='confirm_password' type='password'>
+</div>
+</div>
+<div class='form-group'>
+<div class='col-sm-offset-2 col-sm-10'>
+<button class='btn btn-default' type='submit'>Change Password</button>
 </div>
 </div>
 </form>
