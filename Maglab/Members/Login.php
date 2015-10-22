@@ -11,6 +11,7 @@ class Login extends \Maglab\Controller {
     $this->app->get('/members/reset_password', [$this, 'reset_password_form']);
     $this->app->put('/members/reset_password', [$this, 'reset_password']);
     $this->app->post('/members/me', [$this, 'require_user'], [$this, 'update']);
+    $this->app->post('/members/me/wiki', [$this, 'require_user'], [$this, 'wiki']);
   }
 
   public function index(){
@@ -110,6 +111,16 @@ class Login extends \Maglab\Controller {
     $this->render('members/login/show.php', 'Profile');
   }
   
+  function wiki(){
+    $user = get_user_by_id($this->current_user['id']);
+    $this->respond['createdWikiUser'] = null;
+    if($user and !$user->wikiusername){
+      $this->respond['createdWikiUser'] = $this->createWikiUser($this->params('username'), $this->params('email'), $this->params('password'));
+    }
+    $this->respond['user'] = get_user_by_id($this->current_user['id']);
+    $this->render('members/login/show.php', 'Profile');
+  }
+  
   protected function reset_password_for($email){
     # We mark the role as 'Reset' to denote that password is being reset.
     # Also switch the session so they log out since they probably aren't logged in anyway
@@ -195,6 +206,7 @@ class Login extends \Maglab\Controller {
   protected function reset_session_pw($now, $reset_code){
     return '' . $now . '*.*' . $reset_code;
   }
+
 
 
 }

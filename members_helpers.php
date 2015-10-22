@@ -3,6 +3,15 @@
 function member_authenticate($app){
   $auth = $app->getCookie('auth');
 
+  if($user = member_authenticate_by_auth($auth)){
+    return $user;
+  } else {
+    $app->redirect('/members/login');
+    die();
+  }
+}
+
+function member_authenticate_by_auth($auth){
   if($auth){
     if($user = get_user_by_auth($auth)){
       if(canLogin($user)){
@@ -10,8 +19,7 @@ function member_authenticate($app){
       }
     }
   }
-  $app->redirect('/members/login');
-  die();
+  return null;
 }
 
 function admin_authenticate($app){
@@ -40,7 +48,7 @@ function get_user_by_auth($auth){
 function get_user_by_id($id){
   $mysqli = get_mysqli_or_die();
   
-  if($stmt = $mysqli->prepare('SELECT id, role, email, first_name, last_name, main_phone, emergency_phone, interests, UNIX_TIMESTAMP(joined_at) AS joined_at, UNIX_TIMESTAMP(left_at) AS left_at FROM users WHERE id = ?')){
+  if($stmt = $mysqli->prepare('SELECT id, role, email, first_name, last_name, main_phone, emergency_phone, interests, wikiusername, UNIX_TIMESTAMP(joined_at) AS joined_at, UNIX_TIMESTAMP(left_at) AS left_at FROM users WHERE id = ?')){
     $stmt->bind_param('i', $id);
     $stmt->execute();
     if($res = $stmt->get_result()){
