@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 21, 2015 at 01:23 AM
+-- Generation Time: Oct 22, 2015 at 02:55 AM
 -- Server version: 5.5.44-0+deb8u1
 -- PHP Version: 5.6.13-0+deb8u1
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `maglabs_haldor_test`
+-- Database: `maglabs_haldor`
 --
 
 -- --------------------------------------------------------
@@ -142,6 +142,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `emergency_phone` varchar(30) NOT NULL DEFAULT '',
   `interests` text NOT NULL,
   `wikiusername` varchar(500) DEFAULT NULL,
+  `wiki_uid` int(11) DEFAULT NULL,
   `joined_at` timestamp NULL DEFAULT NULL,
   `left_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,

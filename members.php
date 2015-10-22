@@ -57,5 +57,6 @@ if(!defined('SLIM_NO_RUN')){
 
   $app->run();
 } else {
-  
+  # Skip the controllers and run() since we're not using the slim router
+  # Currently used as part of a hack for wiki user creation
 }
