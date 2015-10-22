@@ -49,16 +49,16 @@ require_once "$IP/includes/User.php";
 function createWikiUser($username, $email, $password){
   $mwuser = User::newFromName($username);
   if(!is_object($mwuser)){ return false; }
+  $mwuser->setPassword($password);
+  $mwuser->setEmail($email);
   $added = $mwuser->addToDatabase();
   if($added->isOk()){
-    $mwuser->setPassword($password);
-    $mwuser->setEmail($email);
+    $mwuser->saveSettings();
     $mwuser->confirmEmail();
 
     #$mwuser->setRealName($name);
     #$mwuser->addGroup($group);
 
-    $mwuser->saveSettings(); // no return value?
     $ssUpdate = new SiteStatsUpdate( 0, 0, 0, 0, 1 );
     $ssUpdate->doUpdate();
     return $mwuser->getId();

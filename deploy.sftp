@@ -1,2 +1,2 @@
-!echo "Commit: d7af319cf0c16a750645fc090af8622ad1ef8c1d f82e7a0aedf18c972b38403b4d7bab452d7bf851"
-put templates/members/login/show.php templates/members/login/show.php
+!echo "Commit: f82e7a0aedf18c972b38403b4d7bab452d7bf851 b702487629fc0d34ede48a11fb942d4c1cbe6580"
+put lib/wiki/createWikiUser.php lib/wiki/createWikiUser.php
