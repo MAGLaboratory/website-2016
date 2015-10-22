@@ -123,13 +123,13 @@ Sorry, something went wrong and we couldn't create the account. Try again later?
 <div class='form-group'>
 <label class='col-sm-2 control-label' for='username'>Username</label>
 <div class='col-sm-10'>
-<input autocomplete='off' class='form-control' id='wiki-username' name='wiki_username' placeholder='SirWeldAlot' type='text'>
+<input autocomplete='off' class='form-control' id='wiki-username' name='wiki_username' placeholder='SirWeldAlot' type='text' value=''>
 </div>
 </div>
 <div class='form-group'>
 <label class='col-sm-2 control-label' for='password'>Password</label>
 <div class='col-sm-10'>
-<input autocomplete='off' class='form-control' id='wiki-password' name='wiki_password' placeholder='p00pscooper' type='password'>
+<input autocomplete='off' class='form-control' id='wiki-password' name='wiki_password' placeholder='p00pscooper' type='password' value=''>
 </div>
 </div>
 <div class='form-group'>
