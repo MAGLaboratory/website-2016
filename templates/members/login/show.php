@@ -113,7 +113,7 @@ Remember: Stuff you put on the wiki will be public. And will be marked under the
 Sorry, something went wrong and we couldn't create the account. Try again later?
 </div>
 <?php } ?>
-<form action='/w/createWikiUser.php' class='form-horizontal' method='post'>
+<form action='/w/createWikiUser.php' autocomplete='off' class='form-horizontal' method='post'>
 <div class='form-group'>
 <label class='col-sm-2 control-label' for='email'>Email</label>
 <div class='col-sm-10'>

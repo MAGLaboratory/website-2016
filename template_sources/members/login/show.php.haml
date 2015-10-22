@@ -20,7 +20,7 @@
     %strong Failed to create account.
     Sorry, something went wrong and we couldn't create the account. Try again later?
   != php "}"
-  %form.form-horizontal(action="/w/createWikiUser.php" method="post")
+  %form.form-horizontal(action="/w/createWikiUser.php" method="post" autocomplete="off")
     .form-group
       %label.col-sm-2.control-label(for="email") Email
       .col-sm-10
