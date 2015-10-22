@@ -68,9 +68,9 @@ function createWikiUser($username, $email, $password){
 # <---
 # END WIKI SETUP
 
-$username = $app->request->params('username');
-$password = $app->request->params('password');
-$email = $app->request->params('email');
+$username = $app->request->params('wiki_username');
+$password = $app->request->params('wiki_password');
+$email = $app->request->params('wiki_email');
 
 $success = createWikiUser($username, $email, $password);
 if($success){

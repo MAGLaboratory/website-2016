@@ -24,15 +24,15 @@
     .form-group
       %label.col-sm-2.control-label(for="email") Email
       .col-sm-10
-        %input#wiki-email.form-control{type:"email", name:"email", value: echo("filter_email($user->email, true)")}
+        %input#wiki-email.form-control{type:"email", name:"wiki_email", value: echo("filter_email($user->email, true)")}
     .form-group
       %label.col-sm-2.control-label(for="username") Username
       .col-sm-10
-        %input#wiki-username.form-control(type="text" name="username" placeholder="SirWeldAlot" autocomplete="off")
+        %input#wiki-username.form-control(type="text" name="wiki_username" placeholder="SirWeldAlot" autocomplete="off")
     .form-group
       %label.col-sm-2.control-label(for="password") Password
       .col-sm-10
-        %input#wiki-password.form-control(type="password" name="password" placeholder="p00pscooper" autocomplete="off")
+        %input#wiki-password.form-control(type="password" name="wiki_password" placeholder="p00pscooper" autocomplete="off")
     .form-group
       .col-sm-10.col-sm-offset-2
         %button.btn.btn-primary(type="submit") Create Wiki Account
