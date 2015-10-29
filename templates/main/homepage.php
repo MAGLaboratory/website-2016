@@ -101,16 +101,16 @@ and collaborative workspace based in Pomona, CA.
 People come to our space to work on projects, explore their inner artists, make cool gadgets, and interact with a community of like-minded individuals.
 </p>
 <p>
-Recent rennovations partitioned out a sound-insulated presentation room, an electronics room and a machinery workshop. There are lazer cutters, 3d printers, a mill, a lathe, a drill press, a grinder, a jig saw, oscilloscopes, variable power supplies, a logic analyzer, soldering iron, heat gun, electronic components and a lot more than we can list.
+Recent rennovations partitioned out a sound-insulated presentation room, an electronics room and a machinery workshop. There are lazer cutters, 3d printers, a mill, a lathe, a drill press, a grinder, a jig saw, oscilloscopes, variable power supplies, a logic analyzer, soldering iron, heat gun, electronic components and more that this margin can't fit.
 </p>
 <p>
 We have a monthly open house on the last Saturday of every month and occasional public events and classes. Check the calendar below for our schedule and contact us if you're interested.
 </p>
 <p>
-We also have open project nights on Fridays from 7:30 PM to 10:00 PM. Work on your stuff. Share it. Inspire someone! Get inspired. They might even be interested in lending a helping hand.
+We also have open project nights on Fridays from 7:30 PM to 10:00 PM. Work on your stuff. Share it. Inspire someone! Get inspired. They might even be interested in sharing some tricks and tips or lending a helping hand.
 </p>
 <p>
-Business meetings are Tuesdays from 7:30 PM to 8:30 PM and is open to the public. We tend to stay afterward and work on projects.
+Business meetings are Tuesdays from 7:30 PM to 8:30 PM and is open to the public. We tend to stay afterward to work on projects as well.
 </p>
 </div>
 <div class='row'>
@@ -139,7 +139,7 @@ Membership fees and donations pay the rent and bills. Check us out, and if you l
 <iframe src="https://www.google.com/calendar/embed?src=bjpkvaeg1rjq9u3c6utecq1jos%40group.calendar.google.com&amp;ctz=America/Los_Angeles" style="border: 0" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
 </div>
 <div class='col-sm-12 col-md-6'>
-<iframe src="http://webchat.freenode.net?channels=%23MAGLaboratory" style="border: 0" width="100%" height="600"></iframe>
+<iframe src="http://webchat.freenode.net?channels=%23MAGLaboratory" style="border: 1px solid black;margin-top:20px;" width="100%" height="600"></iframe>
 </div>
 </div>
 </div>
