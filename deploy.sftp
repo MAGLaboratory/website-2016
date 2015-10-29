@@ -1,2 +1,7 @@
-!echo "Commit: b702487629fc0d34ede48a11fb942d4c1cbe6580 5ec764d5994c4d90ae8befd1a31353c8dd44148c"
-put lib/wiki/createWikiUser.php lib/wiki/createWikiUser.php
+!echo "Commit: 5ec764d5994c4d90ae8befd1a31353c8dd44148c 0076e5a2011f0b1a360b131a6739ff3621aea1df"
+mkdir Maglab/Main
+mkdir templates/main
+put Maglab/Main/Home.php Maglab/Main/Home.php
+put main.php main.php
+put main_helpers.php main_helpers.php
+put templates/main/homepage.php templates/main/homepage.php
