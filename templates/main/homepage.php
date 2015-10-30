@@ -63,7 +63,7 @@ MAG Laboratory <?php if(strlen($this->data->title) > 0){ echo '- ' . $this->data
 <div class='row'>
 <div class='col-sm-12 col-md-4 col-md-push-1'>
 <div class='row'>
-<img alt='Logo' class='col-sm-12' id='logo' src='/logo.jpg' title='MAG Laboratory'>
+<img alt='Logo' class='col-sm-12' id='logo' src='/logo.jpg' style='width: 100%;' title='MAG Laboratory'>
 </div>
 <div class='row' style='text-align: center; margin-top: 15px;'>
 <p>
