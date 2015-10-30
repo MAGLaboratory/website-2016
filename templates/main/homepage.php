@@ -63,7 +63,7 @@ MAG Laboratory <?php if(strlen($this->data->title) > 0){ echo '- ' . $this->data
 <div class='row'>
 <div class='col-sm-12 col-md-4 col-md-push-1'>
 <div class='row'>
-<img alt='Logo' class='col-md-12' id='logo' src='/logo.jpg' title='MAG Laboratory'>
+<img alt='Logo' class='col-sm-12' id='logo' src='/logo.jpg' title='MAG Laboratory'>
 </div>
 <div class='row' style='text-align: center; margin-top: 15px;'>
 <p>
@@ -91,7 +91,9 @@ If you're driving southward, pass the sign and look for
 </div>
 </div>
 <div class='col-sm-12 col-md-6 col-md-push-1' style='margin-top: 10px;'>
+<div class='container-fluid'>
 <div class='row'>
+<div class='col-sm-12'>
 <p>
 We are a non-profit
 <a href='http://en.wikipedia.org/wiki/Hackerspace'>hackerspace / makerspace</a>
@@ -113,7 +115,7 @@ We also have open project nights on Fridays from 7:30 PM to 10:00 PM. Work on yo
 Business meetings are Tuesdays from 7:30 PM to 8:30 PM and is open to the public. We tend to stay afterward to work on projects as well.
 </p>
 </div>
-<div class='row'>
+</div>
 <div class='row'>
 <div class='col-sm-12' style='margin-top: 10px;'>
 <p>
@@ -122,11 +124,13 @@ Membership fees and donations pay the rent and bills. Check us out, and if you l
 </div>
 </div>
 <div class='row'>
-<div class='col-sm-5' style='text-align: right;'>
+<div class='col-md-7 col-md-push-2 col-sm-12'>
+<div style='float: right;'>
 <a class='btn btn-primary' href='/wiki/Membership'>I want to be a Member!</a>
 </div>
-<div class='col-sm-5 col-sm-push-1'>
+<div style='float: left;'>
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post"><input type="hidden" name="cmd" value="_s-xclick" /><input type="hidden" name="hosted_button_id" value="ZDGPLW6W5E9XJ" /><input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" /><img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" /></form>
+</div>
 </div>
 </div>
 </div>
