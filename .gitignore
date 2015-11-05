@@ -3,3 +3,5 @@ config.php
 bin/
 vendor/
 tmp/
+lib/dokuwiki/conf
+lib/dokuwiki/data
