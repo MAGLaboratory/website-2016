@@ -34,7 +34,7 @@ function admin_authenticate($app){
 function get_user_by_auth($auth){
   $mysqli = get_mysqli_or_die();
   
-  if($stmt = $mysqli->prepare('SELECT id, email, role FROM users WHERE current_session = ?')){
+  if($stmt = $mysqli->prepare('SELECT id, first_name, last_name, email, role FROM users WHERE current_session = ?')){
     $stmt->bind_param('s', $auth);
     $stmt->execute();
     if($res = $stmt->get_result()){

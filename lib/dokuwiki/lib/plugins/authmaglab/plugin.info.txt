@@ -1,0 +1,7 @@
+base   authmaglab
+author Kia Kroas
+email  admin@maglaboratory.org
+date   2015-11-05
+name   authmaglab plugin
+desc   Automatic login via MAGLab members login
+url    https://www.maglaboratory.org/
