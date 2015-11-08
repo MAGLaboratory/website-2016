@@ -124,7 +124,7 @@ Membership fees and donations pay the rent and bills. Check us out, and if you l
 </div>
 </div>
 <div class='row'>
-<div class='col-md-7 col-md-push-2 col-sm-12'>
+<div class='col-sm-12'>
 <div style='float: right;'>
 <a class='btn btn-primary' href='/wiki/Membership'>I want to be a Member!</a>
 </div>
@@ -139,10 +139,10 @@ Membership fees and donations pay the rent and bills. Check us out, and if you l
 </div>
 <div class='container-fluid' style='margin-bottom: 50px;'>
 <div class='row'>
-<div class='col-sm-12 col-md-6'>
+<div class='col-sm-12'>
 <iframe src="https://www.google.com/calendar/embed?src=bjpkvaeg1rjq9u3c6utecq1jos%40group.calendar.google.com&amp;ctz=America/Los_Angeles" style="border: 0" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
 </div>
-<div class='col-sm-12 col-md-6'>
+<div class='col-sm-12'>
 <iframe src="http://webchat.freenode.net?channels=%23MAGLaboratory" style="border: 1px solid black;margin-top:20px;" width="100%" height="600"></iframe>
 </div>
 </div>
