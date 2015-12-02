@@ -34,7 +34,6 @@ class Users extends \Maglab\Controller {
     } else {
       $roles = array('Guest');
     }
-    raise($roles);
     
     if(count($roles) == 0){ $roles = array('Guest'); }
     array_push($roles, 'Invite');
