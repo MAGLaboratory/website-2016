@@ -89,6 +89,8 @@ class Users extends \Maglab\Controller {
     
     if($now and $code){
       $user = get_user_by_auth($invite_password);
+      
+      $password = $this->hash_password($this->app->request->post('new_password'));
 
       if($user and $user['role'] and strpos($user['role'], 'Invite') > -1){
         if($stmt = $mysqli->prepare("UPDATE users SET pwhash = ?, current_session = NULL, role = TRIM(BOTH ',' FROM REPLACE(CONCAT(',', role, ','), CONCAT(',', 'Invite', ','), ',')) WHERE FIND_IN_SET('Invite', role) > 0 AND current_session = ? AND id = ? LIMIT 1")){

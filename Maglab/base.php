@@ -71,4 +71,8 @@ class Controller {
   public function purify($dirty_html){
     return $this->purifier()->purify($dirty_html);
   }
+  
+  public function hash_password($plaintext){
+    return password_hash($plaintext, PASSWORD_BCRYPT);
+  }
 }
