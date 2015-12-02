@@ -28,11 +28,13 @@ class Users extends \Maglab\Controller {
       $joined_at = time();
     }
     
+    
     if(isset($post['roles']) and count($post['roles']) > 0){
       $roles = $this->role_filter( (array)$post['roles'] );
     } else {
       $roles = array('Guest');
     }
+    raise($roles);
     
     if(count($roles) == 0){ $roles = array('Guest'); }
     array_push($roles, 'Invite');
@@ -120,7 +122,7 @@ class Users extends \Maglab\Controller {
   
   public function role_filter($roles){
     if(!$this->current_user or !$this->current_user['role']){ return false; }
-    if(strpos($this->current_user['role'], 'Admin')){
+    if(strpos($this->current_user['role'], 'Admin') > -1){
       # Admins can create all roles
       return $roles;
     } else {
