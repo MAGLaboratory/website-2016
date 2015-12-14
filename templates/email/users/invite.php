@@ -17,7 +17,7 @@
 <h1>Invitation to join MAGLaboratory Members Section</h1>
 <br>
 <p>
-<?php echo filter_text($inviter->first_name . ' ' . $inviter->last_name , true); ?>
+<?php echo filter_text($inviter->first_name . ' ' . $inviter->last_name . ' ', true); ?>
 has invited you to join MAGLaboratory's members section.
 </p>
 <br>
