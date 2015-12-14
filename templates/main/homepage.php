@@ -103,7 +103,7 @@ and collaborative workspace based in Pomona, CA.
 People come to our space to work on projects, explore their inner artists, make cool gadgets, and interact with a community of like-minded individuals.
 </p>
 <p>
-Recent rennovations partitioned out a sound-insulated presentation room, an electronics room and a machinery workshop. There are lazer cutters, 3d printers, a mill, a lathe, a drill press, a grinder, a jig saw, oscilloscopes, variable power supplies, a logic analyzer, soldering iron, heat gun, electronic components and more that this margin can't fit.
+Recent renovations partitioned out a sound-insulated presentation room, an electronics room and a machinery workshop. There are lazer cutters, 3d printers, a mill, a lathe, a drill press, a grinder, a jig saw, oscilloscopes, variable power supplies, a logic analyzer, soldering iron, heat gun, electronic components and more that this margin can't fit.
 </p>
 <p>
 We have a monthly open house on the last Saturday of every month and occasional public events and classes. Check the calendar below for our schedule and contact us if you're interested.
