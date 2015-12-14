@@ -3,13 +3,15 @@ namespace Maglab\Members;
 class Users extends \Maglab\Controller {
   public function init(){
     $admin_mw = [$this, 'require_admin'];
+    $user_mw = [$this, 'require_user'];
     $this->app->get('/members/users', $admin_mw, [$this, 'index']);
-    $this->app->post('/members/users', [$this, 'require_user'], [$this, 'invite']);
+    $this->app->post('/members/users', $user_mw, [$this, 'invite']);
     $this->app->get('/members/users/:id', $admin_mw, [$this, 'show']);
     $this->app->put('/members/users/:id', $admin_mw, [$this, 'update']);
     $this->app->delete('/members/users/:id', $admin_mw, [$this, 'destroy']);
-    $this->app->get('/members/invite', [$this, 'invite_accept']);
-    $this->app->post('/members/invite', [$this, 'setup_account']);
+    $this->app->get('/members/invite/resend', $user_mw, [$this, 'resend_invite']);
+    $this->app->get('/members/invite', $user_mw, [$this, 'invite_accept']);
+    $this->app->post('/members/invite', $user_mw, [$this, 'setup_account']);
   }
 
   public function index(){
@@ -43,20 +45,38 @@ class Users extends \Maglab\Controller {
     $code = random_b64();
     $session = $this->invite_password($now, $code);
     
-    if($stmt = $mysqli->prepare("INSERT INTO users (pwhash, email, role, first_name, last_name, current_session, joined_at) VALUES ('*', ?, ?, ?, ?, ?, FROM_UNIXTIME(?))")){
-      $stmt->bind_param('sssssi', $post['email'], $roles_str, $post['first_name'], $post['last_name'], $session, $joined_at);
+    if($stmt = $mysqli->prepare("INSERT INTO users (pwhash, email, role, first_name, last_name, current_session, joined_at, created_at) VALUES ('*', ?, ?, ?, ?, ?, FROM_UNIXTIME(?), FROM_UNIXTIME(?))")){
+      $stmt->bind_param('sssssii', $post['email'], $roles_str, $post['first_name'], $post['last_name'], $session, $joined_at, $now);
       $stmt->execute();
       $uid = $stmt->insert_id;
       $this->respond['insert_id'] = $uid;
       if($uid > 0){
         $inviter = (object)get_user_by_id($this->current_user['id']);
         $invite_url = "https://www.maglaboratory.org/members/invite?now=${now}&code=${code}";
-        $data = array('inviter' => $inviter, 'now' => $now, 'code' => $code, 'session' => $session, 'invite_url' => $invite_url);
+        $data = array('inviter' => $inviter, 'invite_url' => $invite_url);
         $this->email_invite($data, $post['email']);
         $this->respond['successful_invite'] = $post['email'];
       }
     }
     $this->index();
+  }
+  
+  function resend_invite(){
+    $inviter = (object)get_user_by_id($this->current_user['id']);
+    $invited = $this->get_user_info($this->params('id'));
+
+    if(!$invited or !isset($invited->role) or strpos($invited->role, 'Invite') === false or strpos($invited->current_session, '%%%') === false){
+      $this->redirect('/members/invite');
+    } else {
+      $sessionx = explode("%%%", $invited->current_session);
+      $now = $sessionx[0];
+      $code = $sessionx[1];
+      $invite_url = "https://www.maglaboratory.org/members/invite?now=${now}&code=${code}";
+      $data = array('inviter' => $inviter, 'invite_url' => $invite_url);
+      $this->email_invite($data, $invited->email);
+      $this->respond['successful_invite'] = $invited->email;
+      $this->index();
+    }
   }
   
   

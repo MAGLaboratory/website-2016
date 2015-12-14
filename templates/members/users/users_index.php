@@ -124,6 +124,9 @@ External
 <a class='btn btn-default' href='#'>Edit</a>
 <a class='btn btn-danger' href='#'>Disable</a>
 <a class='btn btn-danger' href='#'>Verify</a>
+<?php if(strpos($member['role'], 'Invite') > -1){ ?>
+<a class='btn btn-info' href='/members/invite/resend?id=<?php echo filter_text((int)$member['id'], true); ?>'>Invite</a>
+<?php } ?>
 </p>
 </td>
 </tr>

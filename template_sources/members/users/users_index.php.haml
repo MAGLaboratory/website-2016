@@ -36,6 +36,9 @@
             %a.btn.btn-default(href="#") Edit
             %a.btn.btn-danger(href="#") Disable
             %a.btn.btn-danger(href="#") Verify
+            != php "if(strpos($member['role'], 'Invite') > -1){"
+            %a.btn.btn-info(href="/members/invite/resend?id=#{say "(int)$member['id']"}") Invite
+            != php "}"
       != php "}"
   
   != partial('add_member')

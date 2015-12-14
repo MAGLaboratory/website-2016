@@ -79,4 +79,19 @@ class Controller {
   public function hash_password($plaintext){
     return password_hash($plaintext, PASSWORD_BCRYPT);
   }
+  
+  public function get_user_info($id){
+    $mysqli = get_mysqli_or_die();
+    
+    if($stmt = $mysqli->prepare('SELECT *, UNIX_TIMESTAMP(joined_at) AS joined_at, UNIX_TIMESTAMP(left_at) AS left_at, UNIX_TIMESTAMP(created_at) AS created_at, UNIX_TIMESTAMP(updated_at) AS updated_at FROM users WHERE id = ? LIMIT 1')){
+      $id = (int)$id;
+      $stmt->bind_param('i', $id);
+      $stmt->execute();
+      if($res = $stmt->get_result()){
+        $user = $res->fetch_object();
+        return $user;
+      }
+    }
+    return null;
+  }
 }
