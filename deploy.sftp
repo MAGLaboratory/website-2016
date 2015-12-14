@@ -1,1 +1,2 @@
-!echo "Commit: bdac893df5bf6254931673978757b44b0ff49049 bdac893df5bf6254931673978757b44b0ff49049"
+!echo "Commit: bdac893df5bf6254931673978757b44b0ff49049 f4e776566a8b8b48e9ec3331a3144ec26bd153f6"
+put templates/email/users/invite.php templates/email/users/invite.php
