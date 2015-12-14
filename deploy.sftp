@@ -1,2 +1,15 @@
-!echo "Commit: f47dc381bff023099974bc4cbab48dd5100e3f51 613df880647312cf7c56ff5fb288385b355724c3"
-put templates/email/users/invite.php templates/email/users/invite.php
+!echo "Commit: 613df880647312cf7c56ff5fb288385b355724c3 9e51e11218c5193bfaff8f25874485ef20184b96"
+mkdir templates/email/mass
+mkdir templates/email/test
+mkdir templates/members/emailer
+put Maglab/Main/Home.php Maglab/Main/Home.php
+put Maglab/Members/.skel.php Maglab/Members/.skel.php
+put Maglab/Members/Emailer.php Maglab/Members/Emailer.php
+put Maglab/Members/Test.php Maglab/Members/Test.php
+put Maglab/base.php Maglab/base.php
+put members.php members.php
+put templates/email/mass/desperate_price_increase.php templates/email/mass/desperate_price_increase.php
+put templates/email/test/donation_footer.php templates/email/test/donation_footer.php
+put templates/email/test/test.php templates/email/test/test.php
+put templates/main/donate.php templates/main/donate.php
+put templates/members/emailer/index.php templates/members/emailer/index.php
