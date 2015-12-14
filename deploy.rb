@@ -1,8 +1,14 @@
 PROJECT_DIRECTORY = File.dirname(__FILE__)
 
 check_clean = `git status`
-if check_clean.include?('On branch master') and check_clean.include?('nothing to commit') and check_clean.include?('working directory clean')
-  puts "Refusing to deploy. Not on master or current HEAD is dirty"
+
+if !check_clean.include?('On branch master')
+  puts "Go to master to deploy."
+  exit()
+end
+
+if !check_clean.include?('nothing to commit') or !check_clean.include?('working directory clean')
+  puts "Refusing to deploy. Current HEAD is dirty. Commit changes to master to deploy."
   exit();
 end
 
