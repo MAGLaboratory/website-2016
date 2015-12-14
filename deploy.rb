@@ -23,6 +23,11 @@ changed_files -= %w( hamltemplater.rb config.php .htaccess .gitignore )
 
 puts "#{changed_files.length} files changed."
 
+if changed_files.length == 0
+  puts "No file changes since last deployment. Nothing to do."
+  exit();
+end
+
 Dir.chdir(PROJECT_DIRECTORY)
 
 added_files = `git diff #{commit[2]} HEAD --name-status | grep ^A`.split("\n").collect { |i| i.split.last }
