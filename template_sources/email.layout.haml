@@ -11,9 +11,16 @@
         %td.container(style="clear: both !important; display: block !important; max-width: 600px !important; margin: 0 auto; padding: 20px; border: 1px solid #efefef;" bgcolor="#fafafa")
           %div(style="display:block;max-width:600px;margin: 0 auto;")
             %table(style="width:100%;" bgcolor="#fafafa")
+              - if @email_logo
+                %tr
+                  %td
+                    %img{:src => 'http://www.maglaboratory.org/images/email-logo.png', :alt => 'MAG Laboratory Logo'}
               %tr
                 %td
                   != yield
+              - if @extra_rows
+                - @extra_rows.each do |row|
+                  != row
     %table(style="clear: both !important; width:100%;")
       %tr
         %td

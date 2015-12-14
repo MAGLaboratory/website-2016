@@ -51,6 +51,10 @@ class Controller {
     return $view->fetch($template, $data);
   }
   
+  public function header($key, $value){
+    $this->app->response->headers->set($key, $value);
+  }
+  
   public function email_html($to, $subject, $html){
     $headers  = 'MIME-Version: 1.0' . "\r\n";
     $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";

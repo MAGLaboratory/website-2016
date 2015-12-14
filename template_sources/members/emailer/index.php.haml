@@ -1,0 +1,12 @@
+#main-container.container
+  .row
+    .col-xs-12
+      %form(action="/members/emailer/send" method="POST")
+        .form-group
+          %label(for="email_code") Email Code
+          %input.form-control(type="text" name="email_code")
+        .form-group
+          %label(for="payload") Payload
+          %textarea.form-control(name="payload" rows=15)
+        .form-group
+          %button(type="submit") Submit
