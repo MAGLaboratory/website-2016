@@ -1,5 +1,11 @@
 PROJECT_DIRECTORY = File.dirname(__FILE__)
 
+check_clean = `git status`
+if check_clean.include?('On branch master') and check_clean.include?('nothing to commit') and check_clean.include?('working directory clean')
+  puts "Refusing to deploy. Not on master or current HEAD is dirty"
+  exit();
+end
+
 last_deploy = File.read('deploy.sftp').split("\n")
 commit = last_deploy[0].match(/Commit: ([0-9a-f]+) ([0-9a-f]+)/)
 puts "Last deploy detected as #{commit[1]} -> #{commit[2]}\n\n"
