@@ -17,18 +17,18 @@
 <h1>Invitation to join MAGLaboratory Members Section</h1>
 <br>
 <p>
-<?php echo filter_text($inviter->first_name . ' ' . $inviter->last_name, true); ?>
+<?php echo filter_text($inviter->first_name . ' ' . $inviter->last_name , true); ?>
 has invited you to join MAGLaboratory's members section.
 </p>
 <br>
 <p>
-<a href='<?php echo filter_text($invite_url, true); ?>'>Click here</a>
+<a href='<?php echo $invite_url; ?>'>Click here</a>
 setup your account password.
 </p>
 <br>
 <p>
 If the link above doesn't work, copy and paste this into your browser:
-<?php echo filter_text($invite_url, true); ?>
+<?php echo $invite_url; ?>
 </p>
 
 </td>
