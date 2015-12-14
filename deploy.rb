@@ -53,4 +53,4 @@ deploy_sftp.close
 
 puts "\nDeploying\n\n"
 
-exec "sftp -b deploy.sftp swut4ewr2_maglabs@nfsn:/home/protected/haldor/"
+exec "sftp -b deploy.sftp swut4ewr2_maglabs@nfsn:/home/protected/haldor/ && git commit -am'deployment'"

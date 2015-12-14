@@ -1,2 +1,4 @@
-!echo "Commit: 9e51e11218c5193bfaff8f25874485ef20184b96 c4518194ee43813f0723e1240f01b1e61343baf0"
-put templates/email/mass/desperate_price_increase.php templates/email/mass/desperate_price_increase.php
+!echo "Commit: c4518194ee43813f0723e1240f01b1e61343baf0 aa284743f2fef1a95742d208861b3aab730b46fa"
+put Maglab/Members/Users.php Maglab/Members/Users.php
+put Maglab/base.php Maglab/base.php
+put templates/members/users/users_index.php templates/members/users/users_index.php
