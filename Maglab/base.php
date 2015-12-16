@@ -58,7 +58,7 @@ class Controller {
   public function email_html($to, $subject, $html){
     $headers  = 'MIME-Version: 1.0' . "\r\n";
     $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
-    $headers .= 'From: MAG Laboratory.org <website@maglaboratory.org>' . "\r\n";
+    $headers .= 'From: MAGLaboratory.org <website@maglaboratory.org>' . "\r\n";
     $headers .= 'Reply-To: website@maglaboratory.org' . "\r\n";
     mail($to, $subject, $html, $headers);
   }
