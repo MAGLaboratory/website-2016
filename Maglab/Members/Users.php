@@ -10,8 +10,8 @@ class Users extends \Maglab\Controller {
     $this->app->put('/members/users/:id', $admin_mw, [$this, 'update']);
     $this->app->delete('/members/users/:id', $admin_mw, [$this, 'destroy']);
     $this->app->get('/members/invite/resend', $user_mw, [$this, 'resend_invite']);
-    $this->app->get('/members/invite', $user_mw, [$this, 'invite_accept']);
-    $this->app->post('/members/invite', $user_mw, [$this, 'setup_account']);
+    $this->app->get('/members/invite', [$this, 'invite_accept']);
+    $this->app->post('/members/invite', [$this, 'setup_account']);
   }
 
   public function index(){
