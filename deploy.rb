@@ -14,14 +14,17 @@ end
 
 last_deploy = File.read('deploy.sftp').split("\n")
 commit = last_deploy[0].match(/Commit: ([0-9a-f]+) ([0-9a-f]+)/)
-puts "Last deploy detected as #{commit[1]} -> #{commit[2]}\n\n"
+last_deploy_msg = "Last deploy detected as #{commit[1]} -> #{commit[2]}\n\n"
+puts last_deploy_msg
 
 changed_files = `git diff #{commit[2]} HEAD --name-only`.split("\n")
 changed_files.reject! { |i| i.start_with?('template_sources') or i.start_with?('deploy') or i.start_with?('test') }
 
 changed_files -= %w( hamltemplater.rb config.php .htaccess .gitignore )
 
-puts "#{changed_files.length} files changed."
+changed_files_msg = "#{changed_files.length} files changed."
+puts changed_files_msg
+
 
 if changed_files.length == 0
   puts "No file changes since last deployment. Nothing to do."
@@ -33,7 +36,8 @@ Dir.chdir(PROJECT_DIRECTORY)
 added_files = `git diff #{commit[2]} HEAD --name-status | grep ^A`.split("\n").collect { |i| i.split.last }
 
 
-deploy_headers = ["!echo \"Commit: #{commit[2]} #{`git rev-parse HEAD`.chomp}\""]
+deploy_header_msg = "Commit: #{commit[2]} #{`git rev-parse HEAD`.chomp}"
+deploy_headers = ["!echo \"#{deploy_header_msg}\""]
 deploy = []
 create_dirs = []
 skip_dirs = {}
@@ -70,4 +74,4 @@ deploy_sftp.close
 
 puts "\nDeploying\n\n"
 
-exec "sftp -b deploy.sftp swut4ewr2_maglabs@nfsn:/home/protected/haldor/ && git commit -am'deployment'"
+exec "sftp -b deploy.sftp swut4ewr2_maglabs@nfsn:/home/protected/haldor/ && git commit -am\"Deployment #{deploy_header_msg}\n\n#{last_deploy_msg}\n#{changed_files_msg}\""
