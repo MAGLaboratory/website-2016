@@ -14,7 +14,7 @@ end
 
 last_deploy = File.read('deploy.sftp').split("\n")
 commit = last_deploy[0].match(/Commit: ([0-9a-f]+) ([0-9a-f]+)/)
-last_deploy_msg = "Last deploy detected as #{commit[1]} -> #{commit[2]}\n\n"
+last_deploy_msg = "Last deploy is #{commit[1]} -> #{commit[2]}\n\n"
 puts last_deploy_msg
 
 changed_files = `git diff #{commit[2]} HEAD --name-only`.split("\n")
