@@ -1,2 +1,2 @@
-!echo "Commit: a371f5dfda65960a4599cc6ee3a75210f8b302ef d39b0e265e56b3e919234e29d7f804c813d078ca"
-put templates/main/membership.php templates/main/membership.php
+!echo "Commit: d39b0e265e56b3e919234e29d7f804c813d078ca 887d568b34de22b6d252467578f8f0cc7fc0b55b"
+put templates/main/homepage.php templates/main/homepage.php
