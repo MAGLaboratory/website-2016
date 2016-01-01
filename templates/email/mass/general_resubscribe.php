@@ -29,7 +29,7 @@ If you did not receive the email, you can read its contents here:
 <a href='https://groups.google.com/forum/?fromgroups#!topic/maglaboratory/hl4M34sUWt0'>https://groups.google.com/forum/?fromgroups#!topic/maglaboratory/hl4M34sUWt0</a>
 </p>
 <p>
-Unfortunately, Paypal will not let us update your subscription pricing automatically. Please resubscribe by clicking the link below. Your current subscription was already suspended before sending this email. It's entirely my fault for not checking this beforehand. Sorry!
+Unfortunately, Paypal will not let us update your subscription pricing automatically. It's entirely my fault for not checking this beforehand. Sorry! Please resubscribe by clicking the link below. Your current subscription was already suspended before sending this email. You only have to go to the page and click the subscribe button for the new pricing.
 </p>
 <p>
 You can click here to go to the
