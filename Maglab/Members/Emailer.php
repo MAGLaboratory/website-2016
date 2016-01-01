@@ -25,6 +25,32 @@ class Emailer extends \Maglab\Controller {
     }
   }
   
+  /*
+  function send_template($controller, $app){
+    $body = $this->render_to_sring('email/template.php', array());
+    $lines = explode("\n", $controller->params('payload'));
+    
+    $sent = [];
+    foreach($lines as $i => $line){
+      $csv = str_getcsv($line);
+      
+      $name = $csv[0];
+      $email = $csv[1];
+      
+      if(empty($csv) or $empty($email)){
+        continue;
+      }
+      $to = "{$name} <{$email}>";
+      $this->email_html($to, 'Greetings from MAG Laboratory', $body);
+      
+      array_push($sent, $to);
+    }
+    
+    $this->header('Content-Type', 'text/plan');
+    var_dump($sent);
+  }
+  */
+  
   function send_desperate_price_increase($controller, $app){
     $body = $this->render_to_string('email/mass/desperate_price_increase.php', array());
     $lines = explode("\n", $controller->params('payload'));
@@ -57,7 +83,7 @@ class Emailer extends \Maglab\Controller {
         continue;
       }
       $to = "{$email[0]} <{$email[1]}>";
-      $this->email_html($to, 'Happy New Year! Please Re-subscribe to MAG Laboratory', $body);
+      $this->email_html($to, 'Happy New Year! Please Re-Subscribe to MAG Laboratory', $body);
       
       array_push($sent, $to);
     }

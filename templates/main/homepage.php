@@ -38,7 +38,7 @@ MAG Laboratory <?php if(strlen($this->data->title) > 0){ echo '- ' . $this->data
 <a href='/'>Home</a>
 </li>
 <li>
-<a href='/wiki/Membership'>Membership</a>
+<a href='/membership'>Membership</a>
 </li>
 <li>
 <a href='/wiki'>Wiki</a>
@@ -54,6 +54,11 @@ MAG Laboratory <?php if(strlen($this->data->title) > 0){ echo '- ' . $this->data
 </li>
 <li>
 <a href='/members/procurement'>Shopping List</a>
+</li>
+</ul>
+<ul class='nav navbar-nav navbar-right'>
+<li>
+<a href='/members'>go to Members Section</a>
 </li>
 </ul>
 </div>
