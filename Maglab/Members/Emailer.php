@@ -46,4 +46,25 @@ class Emailer extends \Maglab\Controller {
     var_dump($sent);
   }
   
+  function send_general_resubscribe($controller, $app){
+    $body = $this->render_to_string('email/mass/general_resubscribe.php', array());
+    $lines = explode("\n", $controller->params('payload'));
+    
+    $sent = [];
+    foreach($lines as $i => $line){
+      $email = str_getcsv($line);
+      if(!$email or count($email) < 2 or !$email[0] or !$email[1]){
+        continue;
+      }
+      $to = "{$email[0]} <{$email[1]}>";
+      $this->email_html($to, 'Happy New Year! Please Re-subscribe to MAG Laboratory', $body);
+      
+      array_push($sent, $to);
+    }
+    
+    $this->header('Content-Type', 'text/plain');
+    var_dump($sent);
+    
+  }
+  
 }
