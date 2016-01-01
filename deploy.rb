@@ -1,5 +1,10 @@
 PROJECT_DIRECTORY = File.dirname(__FILE__)
 
+# Ensure templates are up to date
+`ruby hamltemplater.rb`
+
+
+
 check_clean = `git status`
 
 if !check_clean.include?('On branch master')

@@ -32,15 +32,15 @@ If you did not receive the email, you can read its contents here:
 Unfortunately, Paypal will not let us update your subscription pricing automatically. Please resubscribe by clicking the link below. Your current subscription was already suspended before sending this email. It's entirely my fault for not checking this beforehand. Sorry!
 </p>
 <p>
-You can also click here to go to the
+You can click here to go to the
 <a href='http://www.maglaboratory.org/membership'>Membership Page</a>
 </p>
 <p>
-I am very sorry for the inconvenience especially so early in the New Year. Thank you for being a member and here's to another year of making great things with great people!
+I am very sorry for the inconvenience especially so early in the New Year. Here's to another year of making great things with great people!
 </p>
 <br>
 <p>
-Kind Regards,
+Sincerely,
 <br>
 Hong
 <br>
