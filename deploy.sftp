@@ -1,2 +1,2 @@
-!echo "Commit: 887d568b34de22b6d252467578f8f0cc7fc0b55b b9772055c5abfb5b81e8ac7afe70399e61e1bbd4"
+!echo "Commit: b9772055c5abfb5b81e8ac7afe70399e61e1bbd4 f9dcce03284a0aa70122c801170f6377c05460a0"
 put templates/email/mass/general_resubscribe.php templates/email/mass/general_resubscribe.php
