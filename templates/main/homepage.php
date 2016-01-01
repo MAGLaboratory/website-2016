@@ -131,7 +131,7 @@ Membership fees and donations pay the rent and bills. Check us out, and if you l
 <div class='row'>
 <div class='col-sm-12'>
 <div style='float: right;'>
-<a class='btn btn-primary' href='/wiki/Membership'>I want to be a Member!</a>
+<a class='btn btn-primary' href='/membership'>I want to be a Member!</a>
 </div>
 <div style='float: left;'>
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post"><input type="hidden" name="cmd" value="_s-xclick" /><input type="hidden" name="hosted_button_id" value="ZDGPLW6W5E9XJ" /><input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" /><img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" /></form>
