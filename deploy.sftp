@@ -1,2 +1,7 @@
-!echo "Commit: afa8db09db8c10f0014702f55c274824bc35bd0f 13f18eaea4e1ba14c219049a59d0d15c83ce8c2c"
-put Maglab/Members/Users.php Maglab/Members/Users.php
+!echo "Commit: 13f18eaea4e1ba14c219049a59d0d15c83ce8c2c a371f5dfda65960a4599cc6ee3a75210f8b302ef"
+put Maglab/Main/Home.php Maglab/Main/Home.php
+put Maglab/Members/Emailer.php Maglab/Members/Emailer.php
+put templates/email/mass/general_resubscribe.php templates/email/mass/general_resubscribe.php
+put templates/main/donate.php templates/main/donate.php
+put templates/main/homepage.php templates/main/homepage.php
+put templates/main/membership.php templates/main/membership.php
