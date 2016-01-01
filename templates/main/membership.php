@@ -115,7 +115,7 @@ Keyed Membership costs $90/month and entities you to:
 a key to the space to open the doors whenever
 </li>
 <li>
-responsibility to close the doors and lock up after leaving
+responsibility to close the doors and lock up when leaving
 </li>
 <li>
 officer positions if you're interested in helping with MAG Lab business or administration affairs (on a volunteer basis)
