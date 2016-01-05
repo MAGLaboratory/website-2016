@@ -1,2 +1,3 @@
-!echo "Commit: f9dcce03284a0aa70122c801170f6377c05460a0 826445d77b2dbd2efc88f02fb0bfc43f2725a26d"
-put templates/email/mass/general_resubscribe.php templates/email/mass/general_resubscribe.php
+!echo "Commit: 826445d77b2dbd2efc88f02fb0bfc43f2725a26d cc70f1643961edd192fdefbc965c64e0d37ef19c"
+put Maglab/Main/Home.php Maglab/Main/Home.php
+put templates/main/pay4keyed.php templates/main/pay4keyed.php
