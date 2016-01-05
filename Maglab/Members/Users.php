@@ -68,12 +68,8 @@ class Users extends \Maglab\Controller {
     if(!$invited or !isset($invited->role) or strpos($invited->role, 'Invite') === false or strpos($invited->current_session, '%%%') === false){
       $this->redirect('/members/invite');
     } else {
-      $sessionx = explode("%%%", $invited->current_session);
-      $now = $sessionx[0];
-      $code = $sessionx[1];
-      $invite_url = "https://www.maglaboratory.org/members/invite?now=${now}&code=${code}";
-      $data = array('inviter' => $inviter, 'invite_url' => $invite_url);
-      $this->email_invite($data, $invited->email);
+      self::email_invite($inviter, $invited, $this);
+      
       $this->respond['successful_invite'] = $invited->email;
       $this->index();
     }
@@ -152,9 +148,14 @@ class Users extends \Maglab\Controller {
     return !(strpos($user['role'], 'Reset') > -1 or strpos($user['role'], 'Verify') > -1 or strpos($user['role'], 'Disabled') > -1 or strpos($user['role'], 'Invite') > -1);
   }
   
-  protected function email_invite($data, $to){
-    $body = $this->render_to_string('email/users/invite.php', $data);
-    $this->email_html($to, 'Invitation to join MAGLaboratory', $body);
+  static function email_invite($inviter, $invited, $controller){
+    $sessionx = explode("%%%", $invited->current_session);
+    $now = $sessionx[0];
+    $code = $sessionx[1];
+    $invite_url = "https://www.maglaboratory.org/members/invite?now=${now}&code=${code}";
+    $data = array('inviter' => $inviter, 'invite_url' => $invite_url);
+    $body = $controller->render_to_string('email/users/invite.php', $data);
+    $controller->email_html($invited->email, 'Invitation to join MAGLaboratory', $body);
   }
   
   protected function invite_password($now, $code){

@@ -94,4 +94,18 @@ class Controller {
     }
     return null;
   }
+  
+  public function get_user_info_by_email($email){
+    $mysqli = get_mysqli_or_die();
+    
+    if($stmt = $mysqli->prepare('SELECT *, UNIX_TIMESTAMP(joined_at) AS joined_at, UNIX_TIMESTAMP(left_at) AS left_at, UNIX_TIMESTAMP(created_at) AS created_at, UNIX_TIMESTAMP(updated_at) AS updated_at FROM users WHERE LOWER(email) = LOWER(?) LIMIT 1')){
+      $stmt->bind_param('s', $email);
+      $stmt->execute();
+      if($res = $stmt->get_result()){
+        $user = $res->fetch_object();
+        return $user;
+      }
+    }
+    return null;
+  }
 }

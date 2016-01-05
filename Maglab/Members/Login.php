@@ -119,20 +119,27 @@ class Login extends \Maglab\Controller {
   }
   
   protected function reset_password_for($email){
-    # We mark the role as 'Reset' to denote that password is being reset.
-    # Also switch the session so they log out since they probably aren't logged in anyway
-    # Password is set to Time+random session string
-    $reset_code = random_b64();
-    $now = time();
-    $pw = $this->reset_session_pw($now, $reset_code);
-    $mysqli = get_mysqli_or_die();
-    $this->respond['affected_rows'] = -1;
-    if($stmt = $mysqli->prepare('UPDATE users SET current_session = ?, role = CONCAT_WS(",", role, "Reset") WHERE email = ? LIMIT 1')){
-      $stmt->bind_param('ss', $pw, $email);
-      $stmt->execute();
-      $this->respond['affected_rows'] = $stmt->affected_rows;
-      if($this->respond['affected_rows'] > 0){
-        $this->send_reset_email($email, $reset_code, $now);
+    
+    $user = $this->get_user_info_by_email($email);
+    
+    if($user and strpos($user->role, 'Invite') > -1){
+      \Maglab\Members\Users::email_invite($user, $user, $this);
+    } else {
+      # We mark the role as 'Reset' to denote that password is being reset.
+      # Also switch the session so they log out since they probably aren't logged in anyway
+      # Password is set to Time+random session string
+      $reset_code = random_b64();
+      $now = time();
+      $pw = $this->reset_session_pw($now, $reset_code);
+      $mysqli = get_mysqli_or_die();
+      $this->respond['affected_rows'] = -1;
+      if($stmt = $mysqli->prepare('UPDATE users SET current_session = ?, role = CONCAT_WS(",", role, "Reset") WHERE email = ? LIMIT 1')){
+        $stmt->bind_param('ss', $pw, $email);
+        $stmt->execute();
+        $this->respond['affected_rows'] = $stmt->affected_rows;
+        if($this->respond['affected_rows'] > 0){
+          $this->send_reset_email($email, $reset_code, $now);
+        }
       }
     }
   }
