@@ -1,3 +1,4 @@
-!echo "Commit: 826445d77b2dbd2efc88f02fb0bfc43f2725a26d cc70f1643961edd192fdefbc965c64e0d37ef19c"
-put Maglab/Main/Home.php Maglab/Main/Home.php
-put templates/main/pay4keyed.php templates/main/pay4keyed.php
+!echo "Commit: cc70f1643961edd192fdefbc965c64e0d37ef19c a0a31ce104eb24c15d01925cb7fbdb84f03adc28"
+put Maglab/Members/Login.php Maglab/Members/Login.php
+put Maglab/Members/Users.php Maglab/Members/Users.php
+put Maglab/base.php Maglab/base.php
