@@ -6,6 +6,7 @@ class Home extends \Maglab\Controller {
     $this->app->get('/donate', [$this, 'donate']);
     $this->app->get('/subscribe', [$this, 'subscribe']);
     $this->app->get('/membership', [$this, 'membership']);
+    $this->app->get('/membership/pay4keyed', [$this, 'pay4keyed']);
   }
   
   function homepage(){
@@ -22,6 +23,10 @@ class Home extends \Maglab\Controller {
   
   function membership(){
     $this->render('main/membership.php', 'MAG Laboratory - Membership');
+  }
+  
+  function pay4keyed(){
+    $this->render('main/pay4keyed.php', 'MAG Laboratory - Pay for Keyed Membership');
   }
   
 }
