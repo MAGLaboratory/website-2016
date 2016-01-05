@@ -86,6 +86,15 @@ External
 </div>
 </nav>
 <div class='container' id='main-container'>
+<?php if(isset($successful_invite) and $successful_invite){ ?>
+<div class='alert alert-success'>
+<strong>Successfully Resent Invitation</strong>
+<p>
+We resent the invitation message to
+<?php echo filter_text($successful_invite, true); ?>
+</p>
+</div>
+<?php } ?>
 <h1>Members / Users</h1>
 <button class='btn btn-primary' data-target='#add-member' data-toggle='modal' type='button'>Invite Member</button>
 <table class='table table-striped'>

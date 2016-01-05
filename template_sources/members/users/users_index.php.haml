@@ -1,4 +1,12 @@
 #main-container.container
+  != php "if(isset($successful_invite) and $successful_invite){"
+  .alert.alert-success
+    %strong Successfully Resent Invitation
+    %p
+      We resent the invitation message to
+      != say("$successful_invite")
+  != php "}"
+
   %h1 Members / Users
   
   %button.btn.btn-primary(type="button" data-toggle="modal" data-target="#add-member") Invite Member
