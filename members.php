@@ -12,6 +12,7 @@ if(ADMIN_ENFORCE_SSL){
 
 require_once 'Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
+require_once 'lib/Paypal-PHP-SDK/autoload.php';
 
 require_once 'helpers.php';
 require_once 'members_helpers.php';
