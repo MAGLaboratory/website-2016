@@ -10,6 +10,9 @@ class Payments extends \Maglab\Controller {
       self::$api = new \PayPal\Rest\ApiContext(
         new \PayPal\Auth\OAuthTokenCredential(PAYPAL_CLIENT_ID, PAYPAL_SECRET)
       );
+      if(PAYPAL_LIVE){
+        self::$api->setConfig(array('mode' => 'live'));
+      }
       return self::$api;
     }
   }
