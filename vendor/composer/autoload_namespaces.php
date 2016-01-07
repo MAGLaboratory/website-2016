@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Slim' => array($vendorDir . '/slim/slim'),
     'PayPal\\Service' => array($vendorDir . '/paypal/merchant-sdk-php/lib'),
     'PayPal\\PayPalAPI' => array($vendorDir . '/paypal/merchant-sdk-php/lib'),
     'PayPal\\EnhancedDataTypes' => array($vendorDir . '/paypal/merchant-sdk-php/lib'),

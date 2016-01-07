@@ -1,5 +1,6 @@
 {
     "require": {
-        "paypal/merchant-sdk-php": "^3.9"
+        "paypal/merchant-sdk-php": "^3.9",
+        "slim/slim": "2.6.2"
     }
 }

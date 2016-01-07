@@ -42,7 +42,7 @@ class Payments extends \Maglab\Controller {
       $payments = [];
     }
     
-    $this->response['payments'] = $payments;
+    $this->respond['payments'] = $payments;
     $this->render('members/payments/index.php', 'Payments');
   }
   

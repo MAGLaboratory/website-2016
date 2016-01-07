@@ -10,8 +10,7 @@ if(ADMIN_ENFORCE_SSL){
   }
 }
 
-require_once 'Slim/Slim.php';
-\Slim\Slim::registerAutoloader();
+
 require_once 'vendor/autoload.php';
 
 require_once 'helpers.php';
