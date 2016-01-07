@@ -52,12 +52,14 @@ if(!defined('SLIM_NO_RUN')){
   require_once('Maglab/Members/Users.php');
   require_once('Maglab/Members/Procurement.php');
   require_once('Maglab/Members/Emailer.php');
+  require_once('Maglab/Members/Payments.php');
 
   $login_routes = new \MagLab\Members\Login($app);
   $keyholder_routes = new \Maglab\Members\Keyholders($app);
   $member_routes = new \Maglab\Members\Users($app);
   $procurement_routes = new \Maglab\Members\Procurement($app);
   $emailer_routes = new \Maglab\Members\Emailer($app);
+  $paypal_routes = new \Maglab\Members\Payments($app);
 
   if(defined('TESTABLE')){
     require_once('Maglab/Members/Test.php');
