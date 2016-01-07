@@ -1,19 +1,27 @@
-!echo "Commit: c709290715ff382d178b6709d6ba364c9d51fb97 61d543fab96cc9d4e27a8894ea606837b43a8252"
-mkdir vendor/slim
-mkdir vendor/slim/slim
-put Maglab/Members/Payments.php Maglab/Members/Payments.php
-put composer.json composer.json
-put composer.lock composer.lock
-put main.php main.php
-put members.php members.php
-put vendor/composer/autoload_namespaces.php vendor/composer/autoload_namespaces.php
-put vendor/composer/installed.json vendor/composer/installed.json
-put vendor/slim/slim/.gitignore vendor/slim/slim/.gitignore
-put vendor/slim/slim/.htaccess vendor/slim/slim/.htaccess
-put vendor/slim/slim/.travis.yml vendor/slim/slim/.travis.yml
-put vendor/slim/slim/CONTRIBUTING.md vendor/slim/slim/CONTRIBUTING.md
-put vendor/slim/slim/LICENSE vendor/slim/slim/LICENSE
-put vendor/slim/slim/README.markdown vendor/slim/slim/README.markdown
-put vendor/slim/slim/composer.json vendor/slim/slim/composer.json
-put vendor/slim/slim/index.php vendor/slim/slim/index.php
-put vendor/slim/slim/phpunit.xml.dist vendor/slim/slim/phpunit.xml.dist
+!echo "Commit: 61d543fab96cc9d4e27a8894ea606837b43a8252 8963babddf9540f0405ad5cda781d58cefdbd061"
+mkdir vendor/slim/slim/Slim
+mkdir vendor/slim/slim/Slim/Exception
+mkdir vendor/slim/slim/Slim/Helper
+mkdir vendor/slim/slim/Slim/Http
+mkdir vendor/slim/slim/Slim/Middleware
+put vendor/slim/slim/Slim/Environment.php vendor/slim/slim/Slim/Environment.php
+put vendor/slim/slim/Slim/Exception/Pass.php vendor/slim/slim/Slim/Exception/Pass.php
+put vendor/slim/slim/Slim/Exception/Stop.php vendor/slim/slim/Slim/Exception/Stop.php
+put vendor/slim/slim/Slim/Helper/Set.php vendor/slim/slim/Slim/Helper/Set.php
+put vendor/slim/slim/Slim/Http/Cookies.php vendor/slim/slim/Slim/Http/Cookies.php
+put vendor/slim/slim/Slim/Http/Headers.php vendor/slim/slim/Slim/Http/Headers.php
+put vendor/slim/slim/Slim/Http/Request.php vendor/slim/slim/Slim/Http/Request.php
+put vendor/slim/slim/Slim/Http/Response.php vendor/slim/slim/Slim/Http/Response.php
+put vendor/slim/slim/Slim/Http/Util.php vendor/slim/slim/Slim/Http/Util.php
+put vendor/slim/slim/Slim/Log.php vendor/slim/slim/Slim/Log.php
+put vendor/slim/slim/Slim/LogWriter.php vendor/slim/slim/Slim/LogWriter.php
+put vendor/slim/slim/Slim/Middleware.php vendor/slim/slim/Slim/Middleware.php
+put vendor/slim/slim/Slim/Middleware/ContentTypes.php vendor/slim/slim/Slim/Middleware/ContentTypes.php
+put vendor/slim/slim/Slim/Middleware/Flash.php vendor/slim/slim/Slim/Middleware/Flash.php
+put vendor/slim/slim/Slim/Middleware/MethodOverride.php vendor/slim/slim/Slim/Middleware/MethodOverride.php
+put vendor/slim/slim/Slim/Middleware/PrettyExceptions.php vendor/slim/slim/Slim/Middleware/PrettyExceptions.php
+put vendor/slim/slim/Slim/Middleware/SessionCookie.php vendor/slim/slim/Slim/Middleware/SessionCookie.php
+put vendor/slim/slim/Slim/Route.php vendor/slim/slim/Slim/Route.php
+put vendor/slim/slim/Slim/Router.php vendor/slim/slim/Slim/Router.php
+put vendor/slim/slim/Slim/Slim.php vendor/slim/slim/Slim/Slim.php
+put vendor/slim/slim/Slim/View.php vendor/slim/slim/Slim/View.php
