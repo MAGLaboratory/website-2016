@@ -1,27 +1,2 @@
-!echo "Commit: 61d543fab96cc9d4e27a8894ea606837b43a8252 8963babddf9540f0405ad5cda781d58cefdbd061"
-mkdir vendor/slim/slim/Slim
-mkdir vendor/slim/slim/Slim/Exception
-mkdir vendor/slim/slim/Slim/Helper
-mkdir vendor/slim/slim/Slim/Http
-mkdir vendor/slim/slim/Slim/Middleware
-put vendor/slim/slim/Slim/Environment.php vendor/slim/slim/Slim/Environment.php
-put vendor/slim/slim/Slim/Exception/Pass.php vendor/slim/slim/Slim/Exception/Pass.php
-put vendor/slim/slim/Slim/Exception/Stop.php vendor/slim/slim/Slim/Exception/Stop.php
-put vendor/slim/slim/Slim/Helper/Set.php vendor/slim/slim/Slim/Helper/Set.php
-put vendor/slim/slim/Slim/Http/Cookies.php vendor/slim/slim/Slim/Http/Cookies.php
-put vendor/slim/slim/Slim/Http/Headers.php vendor/slim/slim/Slim/Http/Headers.php
-put vendor/slim/slim/Slim/Http/Request.php vendor/slim/slim/Slim/Http/Request.php
-put vendor/slim/slim/Slim/Http/Response.php vendor/slim/slim/Slim/Http/Response.php
-put vendor/slim/slim/Slim/Http/Util.php vendor/slim/slim/Slim/Http/Util.php
-put vendor/slim/slim/Slim/Log.php vendor/slim/slim/Slim/Log.php
-put vendor/slim/slim/Slim/LogWriter.php vendor/slim/slim/Slim/LogWriter.php
-put vendor/slim/slim/Slim/Middleware.php vendor/slim/slim/Slim/Middleware.php
-put vendor/slim/slim/Slim/Middleware/ContentTypes.php vendor/slim/slim/Slim/Middleware/ContentTypes.php
-put vendor/slim/slim/Slim/Middleware/Flash.php vendor/slim/slim/Slim/Middleware/Flash.php
-put vendor/slim/slim/Slim/Middleware/MethodOverride.php vendor/slim/slim/Slim/Middleware/MethodOverride.php
-put vendor/slim/slim/Slim/Middleware/PrettyExceptions.php vendor/slim/slim/Slim/Middleware/PrettyExceptions.php
-put vendor/slim/slim/Slim/Middleware/SessionCookie.php vendor/slim/slim/Slim/Middleware/SessionCookie.php
-put vendor/slim/slim/Slim/Route.php vendor/slim/slim/Slim/Route.php
-put vendor/slim/slim/Slim/Router.php vendor/slim/slim/Slim/Router.php
-put vendor/slim/slim/Slim/Slim.php vendor/slim/slim/Slim/Slim.php
-put vendor/slim/slim/Slim/View.php vendor/slim/slim/Slim/View.php
+!echo "Commit: 8963babddf9540f0405ad5cda781d58cefdbd061 22d70d94cbe41f072b2244935560e1441f0d915f"
+put templates/members/payments/index.php templates/members/payments/index.php
