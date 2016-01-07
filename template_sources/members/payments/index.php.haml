@@ -1,0 +1,17 @@
+#main-container.container-fluid
+  %h1 Payments List (Paypal)
+  %table.table.table-hover
+    %thead
+      %tr
+        %th ID
+        %th Status
+        %th Date
+        %th Amount
+    %tbody
+      != php "foreach($payments as $payment){"
+      %tr
+        %td= say "$payment->TransactionID"
+        %td= say "$payment->Status"
+        %td= say "date('m/d/Y', strtotime($payment->Timestamp))"
+        %td= say "$payment->GrossAmount->Value"
+      != php "}"

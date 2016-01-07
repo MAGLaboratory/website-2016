@@ -10,6 +10,7 @@ class Users extends \Maglab\Controller {
     $this->app->put('/members/users/:id', $admin_mw, [$this, 'update']);
     $this->app->delete('/members/users/:id', $admin_mw, [$this, 'destroy']);
     $this->app->get('/members/invite/resend', $user_mw, [$this, 'resend_invite']);
+    # TODO: Move this stuff to Login or Invite class?
     $this->app->get('/members/invite', [$this, 'invite_accept']);
     $this->app->post('/members/invite', [$this, 'setup_account']);
   }
