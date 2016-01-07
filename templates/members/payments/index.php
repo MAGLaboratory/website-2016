@@ -85,7 +85,7 @@ External
 </div>
 </div>
 </nav>
-<div class='container-fluid' id='main-container'>
+<div class='container' id='main-container'>
 <h1>Payments List (Paypal)</h1>
 <table class='table table-hover'>
 <thead>
