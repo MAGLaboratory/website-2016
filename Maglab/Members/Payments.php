@@ -22,7 +22,7 @@ class Payments extends \Maglab\Controller {
   public static function searchByEmail($email){
     $search = new \PayPal\PayPalAPI\TransactionSearchRequestType();
     $search->StartDate = "2015-01-01T00:00:00-0000";
-    $search->Email = $email;
+    $search->Payer = $email;
     $req = new \PayPal\PayPalAPI\TransactionSearchReq();
     $req->TransactionSearchRequest = $search;
     $response = self::client()->TransactionSearch($req);
