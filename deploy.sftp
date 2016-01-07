@@ -1,4 +1,2 @@
-!echo "Commit: b23294071a7dab20ef738e020c9286263aa33bac ed5b6c108228967485d3160085941d55b8c7d9a3"
+!echo "Commit: ed5b6c108228967485d3160085941d55b8c7d9a3 5f8db6ff51eed70176ba41e1460bd1f791abd307"
 put Maglab/Members/Payments.php Maglab/Members/Payments.php
-rm Maglab/Members/Paypal.php
-put members.php members.php
