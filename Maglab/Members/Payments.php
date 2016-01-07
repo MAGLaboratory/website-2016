@@ -1,4 +1,5 @@
 <?php
+
 namespace Maglab\Members;
 class Payments extends \Maglab\Controller {
   public static $client = null;
@@ -19,10 +20,10 @@ class Payments extends \Maglab\Controller {
   }
   
   public static function searchByEmail($email){
-    $search = new PayPal\PayPalAPI\TransactionSearchRequestType();
+    $search = new \PayPal\PayPalAPI\TransactionSearchRequestType();
     $search->StartDate = "2015-01-01T00:00:00-0000";
     $search->Email = $email;
-    $req = new PayPal\PayPalAPI\TransactionSearchReq();
+    $req = new \PayPal\PayPalAPI\TransactionSearchReq();
     $req->TransactionSearchRequest = $search;
     $response = $client->TransactionSearch($req);
     return $response;
