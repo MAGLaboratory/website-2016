@@ -14,7 +14,7 @@ class Payments extends \Maglab\Controller {
         'acct1.Password' => PAYPAL_SECRET,
         'acct1.Signature' => PAYPAL_SIGNATURE
         );
-      self::$client = new PayPal\Service\PayPalAPIInterfaceServiceService($config);
+      self::$client = new \PayPal\Service\PayPalAPIInterfaceServiceService($config);
       return self::$client;
     }
   }
@@ -25,7 +25,7 @@ class Payments extends \Maglab\Controller {
     $search->Email = $email;
     $req = new \PayPal\PayPalAPI\TransactionSearchReq();
     $req->TransactionSearchRequest = $search;
-    $response = $client->TransactionSearch($req);
+    $response = self::client()->TransactionSearch($req);
     return $response;
   }
 
