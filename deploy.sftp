@@ -1,2 +1,2 @@
-!echo "Commit: 8963babddf9540f0405ad5cda781d58cefdbd061 22d70d94cbe41f072b2244935560e1441f0d915f"
-put templates/members/payments/index.php templates/members/payments/index.php
+!echo "Commit: 22d70d94cbe41f072b2244935560e1441f0d915f e4669b4d17b8b5199c1dfb4727dc3a46dd8297f0"
+put haldor.php haldor.php
