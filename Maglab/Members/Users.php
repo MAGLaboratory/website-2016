@@ -52,10 +52,11 @@ class Users extends \Maglab\Controller {
       $uid = $stmt->insert_id;
       $this->respond['insert_id'] = $uid;
       if($uid > 0){
+        $invited = $this->get_user_info($uid);
         $inviter = (object)get_user_by_id($this->current_user['id']);
         $invite_url = "https://www.maglaboratory.org/members/invite?now=${now}&code=${code}";
         $data = array('inviter' => $inviter, 'invite_url' => $invite_url);
-        $this->email_invite($data, $post['email']);
+        $this->email_invite($inviter, $invited, $this);
         $this->respond['successful_invite'] = $post['email'];
       }
     }

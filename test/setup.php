@@ -13,7 +13,7 @@ passthru("mysql -u${mysql_user} -p${mysql_pass} ${mysql_db} < '${fixture_path}'"
 
 
 
-$helpers = array('helpers', 'members_helpers', 'Slim/Slim', 'Maglab/base');
+$helpers = array("vendor/autoload", 'helpers', 'members_helpers', 'Maglab/base');
 
 foreach($helpers as $helper){
   require_once HALDOR_ROOT . '/' . $helper . '.php';
