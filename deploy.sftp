@@ -1,2 +1,3 @@
-!echo "Commit: 22d70d94cbe41f072b2244935560e1441f0d915f e4669b4d17b8b5199c1dfb4727dc3a46dd8297f0"
-put haldor.php haldor.php
+!echo "Commit: e4669b4d17b8b5199c1dfb4727dc3a46dd8297f0 73c4ca02a167408f16f25b92ec5519f3a662d495"
+put Maglab/Members/Users.php Maglab/Members/Users.php
+put templates/members/users/invite_accept.php templates/members/users/invite_accept.php
