@@ -99,6 +99,8 @@ to your account with your email (
 </p>
 <?php } else { ?>
 <h1>Accept Invite</h1>
+<p>By accepting this membership, you agree to use common sense and utmost safety precautions during your stay at MAG Laboratory premises. You also understand that we hold no liability for any damage or loss of goods or bodily injury.</p>
+<p>There is a liability waiver with official legal terms that you must sign before using our machines. Please find an officer to sign it next time you are at MAG Laboratory.</p>
 <form action='/members/invite' class='form-horizontal' id='invite-accept' method='post'>
 <div class='form-group'>
 <label class='col-sm-2 control-label' for='new_password'>New Password</label>
