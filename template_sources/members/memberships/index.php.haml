@@ -1,0 +1,43 @@
+#main-container.container
+  %h1 Payments
+  %table.table.table-hover
+    %thead
+      %th Name
+      %th Email
+      %th Paid On
+      %th Amount
+    %tbody
+      :php
+        foreach($payments as $payment){
+          $member = $members_map[$payment['user_id']];
+          if(!$member){ continue; }
+      %tr
+        %td
+          != say("$member['first_name'] . ' ' . $member['last_name']")
+        %td
+          != say("$payment['email']")
+        %td
+          != say "$payment['paid_on']"
+        %td
+          != say "'$' . ($payment['amount']/100)"
+      
+      != php "}"
+        
+  %h1 Members that have not paid in the last 30 days
+  %table.table.table-hover
+    %thead
+      %tr
+        %th Name
+        %th Email
+    %tbody
+      :php
+        foreach($non_paid_ids as $non_paid_id){ 
+          $member = $members_map[$non_paid_id];
+          if(!$member){ continue; }
+      %tr
+        %td
+          != say "$member['first_name'] . ' ' . $member['last_name']"
+        %td
+          != say "$member['email']"
+      
+      != php "}"
