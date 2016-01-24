@@ -50,7 +50,7 @@ foreach($response->PaymentTransactions as $transaction){
       $user_id = $user->id;
     }
     
-    if($stmt = $this->mysqli_prepare("INSERT INTO membership_payments (user_id, amount, paid_on, transaction_id, email) VALUES (?, ?, FROM_UNIXTIME(?), ?, ?)")){
+    if($stmt = $base->mysqli_prepare("INSERT INTO membership_payments (user_id, amount, paid_on, transaction_id, email) VALUES (?, ?, FROM_UNIXTIME(?), ?, ?)")){
       $stmt->bind_param('iiiss', $user_id, $amount, $paid_on, $transid, $email);
       $stmt->execute();
       $stmt->close();
