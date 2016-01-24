@@ -1,2 +1,6 @@
-!echo "Commit: b0abeef34ca7e520797c39251b86bd64ad08731b 3720f1c9e5a084a5c87ce56111b413e2464e2575"
+!echo "Commit: 3720f1c9e5a084a5c87ce56111b413e2464e2575 039ace1e5c704c561c93761ffbdbbd606ee49d85"
+mkdir templates/members/memberships
+put Maglab/Members/Memberships.php Maglab/Members/Memberships.php
 put lib/tasks/pull_paypal.php lib/tasks/pull_paypal.php
+put members.php members.php
+put templates/members/memberships/index.php templates/members/memberships/index.php
