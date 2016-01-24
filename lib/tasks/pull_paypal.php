@@ -32,7 +32,16 @@ function hasTransaction($base, $transid){
     $resx = $base->mysqli_result($stmt);
     return $resx;
   }
-  return false;
+  return null;
+}
+
+function payer_user_id($base, $email){
+  if($stmt = $base->mysqli_prepare("SELECT user_id FROM paypal_emails WHERE email = ? LIMIT 1")){
+    $stmt->bind_param('s', $email);
+    $resx = $base->mysqli_result($stmt, MYSQLI_NUM);
+    return $resx[0];
+  }
+  return null;
 }
 
 foreach($response->PaymentTransactions as $transaction){
@@ -48,6 +57,8 @@ foreach($response->PaymentTransactions as $transaction){
     $user_id = null;
     if($user = $base->get_user_info_by_email($email)){
       $user_id = $user->id;
+    } else {
+      $user_id = payer_user_id($base, $email);
     }
     
     if($stmt = $base->mysqli_prepare("INSERT INTO membership_payments (user_id, amount, paid_on, transaction_id, email) VALUES (?, ?, FROM_UNIXTIME(?), ?, ?)")){
