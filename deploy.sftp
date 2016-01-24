@@ -1,3 +1,5 @@
-!echo "Commit: e4669b4d17b8b5199c1dfb4727dc3a46dd8297f0 73c4ca02a167408f16f25b92ec5519f3a662d495"
-put Maglab/Members/Users.php Maglab/Members/Users.php
-put templates/members/users/invite_accept.php templates/members/users/invite_accept.php
+!echo "Commit: 73c4ca02a167408f16f25b92ec5519f3a662d495 9d5c7ec0bf271a15d0b420c60befb75566780f6c"
+mkdir lib/tasks
+put Maglab/Members/Memberships.php Maglab/Members/Memberships.php
+put Maglab/base.php Maglab/base.php
+put lib/tasks/pull_paypal.php lib/tasks/pull_paypal.php
