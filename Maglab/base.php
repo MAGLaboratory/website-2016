@@ -108,4 +108,24 @@ class Controller {
     }
     return null;
   }
+  
+  function mysqli_prepare($query){
+    $mysqli = $this->mysqli_or_die();
+    $stmt = $mysqli->prepare($query);
+
+    if($stmt){ return $stmt; } else { die("Can't prepare this query."); }
+  }
+
+  function mysqli_results($stmt, $kind = MYSQLI_ASSOC){
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_all($kind);
+  }
+
+  function mysqli_result($stmt, $kind = MYSQLI_ASSOC){
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_array($kind);
+  }
+
 }
