@@ -40,10 +40,24 @@ MAG Laboratory <?php if(isset($this->data->title) and strlen($this->data->title)
 <a href='/members/users'>Members</a>
 </li>
 <li>
+<a href='/members/payments'>Payments</a>
+</li>
+<li class='dropdown'>
+<a aria-expanded='false' aria-haspopup='true' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'>
+Administration
+<span class='caret'></span>
+</a>
+<ul class='dropdown-menu'>
+<li>
 <a href='/members/keyholders'>Keyholders</a>
 </li>
 <li>
 <a href='/members/space_invaders'>Space Invaders</a>
+</li>
+<li>
+<a href='/members/memberships'>Membership Payments</a>
+</li>
+</ul>
 </li>
 <li class='dropdown'>
 <a aria-expanded='false' aria-haspopup='true' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'>
@@ -56,6 +70,9 @@ External
 </li>
 <li>
 <a href='https://mail.zoho.com/biz/index.do' target='_blank'>Zoho Mail</a>
+</li>
+<li>
+<a href='https://www.mailchimp.com' target='_blank'>Mailchimp</a>
 </li>
 </ul>
 </li>

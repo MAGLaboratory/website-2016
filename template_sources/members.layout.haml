@@ -37,9 +37,18 @@
             %li
               %a(href="/members/users") Members
             %li
-              %a(href='/members/keyholders') Keyholders
-            %li
-              %a(href='/members/space_invaders') Space Invaders
+              %a(href='/members/payments') Payments
+            %li.dropdown
+              %a.dropdown-toggle(href='#' data-toggle='dropdown' role='button' aria-haspopup="true" aria-expanded="false")
+                Administration
+                %span.caret
+              %ul.dropdown-menu
+                %li
+                  %a(href='/members/keyholders') Keyholders
+                %li
+                  %a(href='/members/space_invaders') Space Invaders
+                %li
+                  %a(href='/members/memberships') Membership Payments
             %li.dropdown
               %a.dropdown-toggle(href='#' data-toggle='dropdown' role='button' aria-haspopup="true" aria-expanded="false")
                 External
@@ -49,6 +58,8 @@
                   %a(href='https://mail.zoho.com/cpanel/index.do#groups' target="_blank") Zoho Admin
                 %li
                   %a(href="https://mail.zoho.com/biz/index.do" target="_blank") Zoho Mail
+                %li
+                  %a(href="https://www.mailchimp.com" target="_blank") Mailchimp
             != php "  }"
             != php "}"
         
