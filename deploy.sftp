@@ -1,6 +1,13 @@
-!echo "Commit: 3720f1c9e5a084a5c87ce56111b413e2464e2575 039ace1e5c704c561c93761ffbdbbd606ee49d85"
-mkdir templates/members/memberships
-put Maglab/Members/Memberships.php Maglab/Members/Memberships.php
-put lib/tasks/pull_paypal.php lib/tasks/pull_paypal.php
-put members.php members.php
+!echo "Commit: 039ace1e5c704c561c93761ffbdbbd606ee49d85 db782fb013d4af3791f3d29dbe75f26fe06998e5"
+put templates/members/emailer/index.php templates/members/emailer/index.php
+put templates/members/keyholders/index.php templates/members/keyholders/index.php
+put templates/members/keyholders/space_invaders.php templates/members/keyholders/space_invaders.php
+put templates/members/login/forgot_password.php templates/members/login/forgot_password.php
+put templates/members/login/login.php templates/members/login/login.php
+put templates/members/login/reset_password.php templates/members/login/reset_password.php
+put templates/members/login/show.php templates/members/login/show.php
 put templates/members/memberships/index.php templates/members/memberships/index.php
+put templates/members/payments/index.php templates/members/payments/index.php
+put templates/members/procurement/index.php templates/members/procurement/index.php
+put templates/members/users/invite_accept.php templates/members/users/invite_accept.php
+put templates/members/users/users_index.php templates/members/users/users_index.php
