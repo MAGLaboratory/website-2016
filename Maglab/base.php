@@ -109,6 +109,10 @@ class Controller {
     return null;
   }
   
+  function mysqli_or_die(){
+    return get_mysqli_or_die();
+  }
+  
   function mysqli_prepare($query){
     $mysqli = $this->mysqli_or_die();
     $stmt = $mysqli->prepare($query);
