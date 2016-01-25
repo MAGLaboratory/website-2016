@@ -1,6 +1,6 @@
 <?php
 
-require 'config.php';
+require __DIR__ . '/../../config.php';
 require 'vendor/autoload.php';
 require 'helpers.php';
 require 'Maglab/base.php';
