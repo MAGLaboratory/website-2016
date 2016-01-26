@@ -1,9 +1,9 @@
 <?php
 
 require __DIR__ . '/../../config.php';
-require 'vendor/autoload.php';
-require 'helpers.php';
-require 'Maglab/base.php';
+require HALDOR_ROOT . '/vendor/autoload.php';
+require HALDOR_ROOT . '/helpers.php';
+require HALDOR_ROOT . '/Maglab/base.php';
 
 
 $search = new \PayPal\PayPalAPI\TransactionSearchRequestType();
