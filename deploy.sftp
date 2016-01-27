@@ -1,2 +1,3 @@
-!echo "Commit: a6500cc7ec36d159d2a76929a3fca0b4ce5c5331 40dd1803b7d51cc73a79c34340a2ed3fb2fcee6a"
-put lib/tasks/pull_paypal.php lib/tasks/pull_paypal.php
+!echo "Commit: 40dd1803b7d51cc73a79c34340a2ed3fb2fcee6a b91965bdda6506837fd388ee73d56fe7d4937e3e"
+put Maglab/Members/Memberships.php Maglab/Members/Memberships.php
+put templates/members/memberships/index.php templates/members/memberships/index.php
