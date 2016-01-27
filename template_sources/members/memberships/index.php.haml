@@ -1,5 +1,6 @@
 #main-container.container
   %h1 Payments
+  %button#add-payment.btn.btn-info{'data-toggle' => 'modal', 'data-target' => '#pay-modal'} Add (Manual) Payment
   %table.table.table-hover
     %thead
       %th Name
@@ -9,8 +10,12 @@
     %tbody
       :php
         foreach($payments as $payment){
-          $member = $members_map[$payment['user_id']];
-          if(!$member){ continue; }
+          if($payment['user_id'] == 0 or $payment['user_id'] == null){
+            $member = array('first_name' => 'Guest', 'last_name' => $payment['guest_name'], 'email' => '');
+          } else {
+            $member = $members_map[$payment['user_id']];
+            if(!$member){ continue; }
+          }
       %tr
         %td
           != say("$member['first_name'] . ' ' . $member['last_name']")
@@ -41,3 +46,6 @@
           != say "$member['email']"
       
       != php "}"
+      
+!= partial('pay.php')
+

@@ -1,0 +1,49 @@
+#pay-modal.modal.fade{:role => 'dialog'}
+  .modal-dialog
+    .modal-content
+      %form#manual-payment(action="/members/memberships/payment" method="POST")
+        .modal-header
+          %h1 Manually Add Payment
+        .modal-body
+          .form-group
+            %label(for="user_id") Select Member
+            %select.form-control{:name => "user_id"}
+              %option{:value => ''} Guest
+              :php
+                foreach($all_users as $user){
+              %option{:value => say('$user["id"]')}
+                != say('$user["first_name"] . " " . $user["last_name"]')
+              != php "}"
+          .form-group
+            %label(for="guest_name") Guest Name (if Guest)
+            %input.form-control{:name => "guest_name"}
+          .form-group
+            %label(for="amount")
+              Amount
+              %strong.text-warning (in cents)
+            %input#payment-amount.form-control{:name => "amount", :type => "number"}
+            %span.hint This is in cents, so $25.00 should be entered as 2500
+          .form-group
+            %label(for="paid_on") Paid On (Date)
+            %input#payment-date.form-control{:name => "paid_on", :type => "date"}
+            %span.hint Format MM/DD/YYYY or YYYY-MM-DD for best results
+        .modal-footer
+          %button.btn.btn-primary{:type => "submit"} Add Payment
+          %button.btn.btn-default{:type => "button", 'data-dismiss' => 'modal'} Cancel
+
+:javascript
+  $(function(){
+    $('#manual-payment').on('submit', function(e){
+      if($('#payment-amount').val().length == 0){
+        alert("Please enter a payment amount");
+        e.preventDefault();
+        return;
+      }
+      if($('#payment-date').val().length == 0 || $('#payment-date').val().split(/[-/]/).length != 3){
+        alert("Please enter a payment date");
+        e.preventDefault();
+        return;
+      }
+      
+    });
+  });

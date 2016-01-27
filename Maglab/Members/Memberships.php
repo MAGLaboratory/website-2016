@@ -4,6 +4,7 @@ class Memberships extends \Maglab\Controller {
   public function init(){
     $admin_mw = [$this, 'require_admin'];
     $this->app->get('/members/memberships', $admin_mw, [$this, 'index']);
+    $this->app->post('/members/memberships/payment', $admin_mw, [$this, 'add_payment']);
   }
   
   function index(){
@@ -22,11 +23,30 @@ class Memberships extends \Maglab\Controller {
     $this->respond['non_paid_ids'] = $non_paid_ids;
     $this->respond['payments'] = $payments;
     $this->respond['members_map'] = $members_map;
+    $this->respond['all_users'] = $this->all_users();
     $this->render('members/memberships/index.php', 'Membership Payments');
   }
   
+  function add_payment(){
+    $stmt = $this->mysqli_prepare("INSERT INTO membership_payments (user_id, guest_name, amount, paid_on, transaction_id) VALUES (?, ?, ?, FROM_UNIXTIME(?), ?)");
+    $user_id = (int)$this->params('user_id');
+    $guest_name = $this->params('guest_name');
+    if($user_id > 0 or empty($guest_name)){ $guest_name = null; }
+    $amount = (int)$this->params('amount');
+    $paid_on = strtotime($this->params('paid_on'));
+    $transaction_id = "MANUAL_" . $paid_on . "_" . $amount;
+    $stmt->bind_param('isiis', $user_id, $guest_name, $amount, $paid_on, $transaction_id);
+    $stmt->execute();
+    $this->redirect('/members/memberships');
+  }
+  
   protected function all_members(){
-    $stmt = $this->mysqli_prepare("SELECT id, first_name, last_name, email from users WHERE FIND_IN_SET('General', `role`) OR FIND_IN_SET('Keyholder', `role`)");
+    $stmt = $this->mysqli_prepare("SELECT id, first_name, last_name, email FROM users WHERE FIND_IN_SET('General', `role`) OR FIND_IN_SET('Keyholder', `role`)");
+    return $this->mysqli_results($stmt);
+  }
+  
+  protected function all_users(){
+    $stmt = $this->mysqli_prepare("SELECT id, first_name, last_name FROM users");
     return $this->mysqli_results($stmt);
   }
   
@@ -36,4 +56,5 @@ class Memberships extends \Maglab\Controller {
     $stmt->bind_param('i', $start);
     return $this->mysqli_results($stmt);
   }
+  
 }

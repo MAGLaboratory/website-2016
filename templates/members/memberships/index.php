@@ -104,6 +104,7 @@ External
 </nav>
 <div class='container' id='main-container'>
 <h1>Payments</h1>
+<button class='btn btn-info' data-target='#pay-modal' data-toggle='modal' id='add-payment'>Add (Manual) Payment</button>
 <table class='table table-hover'>
 <thead>
 <th>Name</th>
@@ -113,8 +114,12 @@ External
 </thead>
 <tbody>
 <?php foreach($payments as $payment){
-  $member = $members_map[$payment['user_id']];
-  if(!$member){ continue; }
+  if($payment['user_id'] == 0 or $payment['user_id'] == null){
+    $member = array('first_name' => 'Guest', 'last_name' => $payment['guest_name'], 'email' => '');
+  } else {
+    $member = $members_map[$payment['user_id']];
+    if(!$member){ continue; }
+  }
  ?>
 <tr>
 <td>
@@ -158,6 +163,70 @@ External
 </tbody>
 </table>
 </div>
+<div class='modal fade' id='pay-modal' role='dialog'>
+<div class='modal-dialog'>
+<div class='modal-content'>
+<form action='/members/memberships/payment' id='manual-payment' method='POST'>
+<div class='modal-header'>
+<h1>Manually Add Payment</h1>
+</div>
+<div class='modal-body'>
+<div class='form-group'>
+<label for='user_id'>Select Member</label>
+<select class='form-control' name='user_id'>
+<option value=''>Guest</option>
+<?php foreach($all_users as $user){
+ ?>
+<option value='<?php echo filter_text($user["id"], true); ?>'>
+<?php echo filter_text($user["first_name"] . " " . $user["last_name"], true); ?>
+</option>
+<?php } ?>
+</select>
+</div>
+<div class='form-group'>
+<label for='guest_name'>Guest Name (if Guest)</label>
+<input class='form-control' name='guest_name'>
+</div>
+<div class='form-group'>
+<label for='amount'>
+Amount
+<strong class='text-warning'>(in cents)</strong>
+</label>
+<input class='form-control' id='payment-amount' name='amount' type='number'>
+<span class='hint'>This is in cents, so $25.00 should be entered as 2500</span>
+</div>
+<div class='form-group'>
+<label for='paid_on'>Paid On (Date)</label>
+<input class='form-control' id='payment-date' name='paid_on' type='date'>
+<span class='hint'>Format MM/DD/YYYY or YYYY-MM-DD for best results</span>
+</div>
+</div>
+<div class='modal-footer'>
+<button class='btn btn-primary' type='submit'>Add Payment</button>
+<button class='btn btn-default' data-dismiss='modal' type='button'>Cancel</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+<script>
+  $(function(){
+    $('#manual-payment').on('submit', function(e){
+      if($('#payment-amount').val().length == 0){
+        alert("Please enter a payment amount");
+        e.preventDefault();
+        return;
+      }
+      if($('#payment-date').val().length == 0 || $('#payment-date').val().split(/[-/]/).length != 3){
+        alert("Please enter a payment date");
+        e.preventDefault();
+        return;
+      }
+      
+    });
+  });
+</script>
+
 
 </body>
 </html>
