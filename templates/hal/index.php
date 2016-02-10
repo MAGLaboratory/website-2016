@@ -58,7 +58,45 @@ back to MAGLab
 <div class='container' style='margin-top: 100px;'>
 <div class='row'>
 <div class='col-md-12'>
-<?php if($this->data->isOpen){ ?>
+<?php if($this->data->isTechBad){ ?>
+<div class='panel panel-warning' id='activity_panel'>
+<div class='panel-heading'>
+<h1 class='panel-title'>
+We are
+<strong>HAVING TECHNICAL DIFFICULTIES</strong>
+</h1>
+<h2>Details below are outdated. Please check back later.</h2>
+</div>
+<div class='panel-body'>
+<table class='table-striped table-hover' style='width: 100%;'>
+<thead>
+<tr>
+<th>Sensor</th>
+<th>Status</th>
+<th></th>
+<th>Last Update</th>
+</tr>
+</thead>
+<tbody>
+<?php date_default_timezone_set('America/Los_Angeles'); ?>
+<?php foreach($this->data->latestStatus as $sensor => $v){ ?>
+<tr>
+<td><?php echo $sensor; ?></td>
+<td><?php echo $v[0]; ?></td>
+<td>
+<?php if($v[1]){ ?>
+<time class='timeago' datetime='<?php echo date('c', $v[1]); ?>'></time>
+<?php } ?>
+</td>
+<td><?php echo($v[1] ? date('M j, Y g:i A T', $v[1]) : 'NEVER'); ?></td>
+</tr>
+<?php } ?>
+</tbody>
+</table>
+</div>
+
+</div>
+<?php } elseif($this->data->isOpen){ ?>
 <div class='panel panel-success' id='activity_panel'>
 <div class='panel-heading'>
 <h1 class='panel-title'>
@@ -132,7 +170,7 @@ We are
 </div>
 
 </div>
-<? } ?>
+<?php } ?>
 </div>
 </div>
 </div>

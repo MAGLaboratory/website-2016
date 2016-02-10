@@ -23,8 +23,16 @@
                 %td <?php echo($v[1] ? date('M j, Y g:i A T', $v[1]) : 'NEVER'); ?>
               <?php } ?>
               
-              
-      <?php if($this->data->isOpen){ ?>
+      <?php if($this->data->isTechBad){ ?>
+      #activity_panel.panel.panel-warning
+        .panel-heading
+          %h1.panel-title
+            We are
+            %strong HAVING TECHNICAL DIFFICULTIES
+        
+          %%h2 Details below are outdated. Please check back later.
+        != panel_body
+      <?php } elseif($this->data->isOpen){ ?>
       #activity_panel.panel.panel-success
         .panel-heading
           %h1.panel-title
@@ -38,7 +46,7 @@
             We are
             %strong CLOSED
         != panel_body
-      <? } ?>
+      <?php } ?>
 
 %script{:src => '/js/timeago.js'}
 

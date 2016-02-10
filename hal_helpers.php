@@ -63,6 +63,7 @@ function latest_changes(){
     );
   
   $now = time();
+  $last_update_time = 0;
   
   // TODO: May be better to manually run each one to avoid extra strpos calls
   foreach($change_items as $sensor => &$value){
@@ -120,9 +121,14 @@ function latest_changes(){
       array_push($value, '' . sprintf("%.2f °C/ %.2f °F", (($data[3] | 0) / 1000), ((($data[3] | 0) / 1000)*1.8 + 32)));
       array_push($value, $data[2] | $data[1] | $data[0]);
     }
+    
+    if($data[1] and $data[1] > $last_update_time){
+      $last_update_time = $data[1];
+    }
   }
 
   $change_items['Page Loaded'] = ['at', $now];
+  $change_items['LastUpdate'] = ['at', $last_update_time];
 
   return $change_items;
 }
@@ -135,5 +141,16 @@ function is_maglabs_open($latest){
   $doors = $latest['Front Door'][2] | $latest['Main Door'][2];
   
   return $movement && $doors;
+}
+
+function is_tech_bad(&$latest){
+  $last_update_time = $latest['LastUpdate'][1];
+  unset($latest['LastUpdate']);
+  $now = time();
   
+  if($last_update_time <= $now-(60*20)){
+    return true; # No response in 20 minutes is bad
+  } else {
+    return false;
+  }
 }

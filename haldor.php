@@ -56,6 +56,7 @@ $app->get('/hal/?', function() use ($app) {
   $latest = latest_changes();
   $app->render('hal/index.php', array('title' => 'HAL',
     'isOpen' => is_maglabs_open($latest),
+    'isTechBad' => is_tech_bad($latest),
     'latestStatus' => $latest,
     'currentTime' => time()
     )
