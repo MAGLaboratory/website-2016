@@ -122,8 +122,8 @@ function latest_changes(){
       array_push($value, $data[2] | $data[1] | $data[0]);
     }
     
-    if($data[1] and $data[1] > $last_update_time){
-      $last_update_time = $data[1];
+    if($value[1] and $value[1] > $last_update_time){
+      $last_update_time = $value[1];
     }
   }
 
