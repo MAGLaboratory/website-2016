@@ -1,4 +1,2 @@
-!echo "Commit: b91965bdda6506837fd388ee73d56fe7d4937e3e 411d8c68d12481440ffd7ba79e46086a5544737a"
+!echo "Commit: 411d8c68d12481440ffd7ba79e46086a5544737a b8adf2527bcecbc23c96b82fe9c9439a36b97c27"
 put hal_helpers.php hal_helpers.php
-put haldor.php haldor.php
-put templates/hal/index.php templates/hal/index.php
