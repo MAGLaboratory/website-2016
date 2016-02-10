@@ -1,3 +1,4 @@
-!echo "Commit: 40dd1803b7d51cc73a79c34340a2ed3fb2fcee6a b91965bdda6506837fd388ee73d56fe7d4937e3e"
-put Maglab/Members/Memberships.php Maglab/Members/Memberships.php
-put templates/members/memberships/index.php templates/members/memberships/index.php
+!echo "Commit: b91965bdda6506837fd388ee73d56fe7d4937e3e 411d8c68d12481440ffd7ba79e46086a5544737a"
+put hal_helpers.php hal_helpers.php
+put haldor.php haldor.php
+put templates/hal/index.php templates/hal/index.php
