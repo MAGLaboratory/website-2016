@@ -1,0 +1,5 @@
+.container#main-container
+  %textarea.form-control{:rows => 50}
+    != php "foreach($members as $member){"
+    != say "$member['email'] . ',' . $member['first_name'] . ',' . $member['last_name'] . \"\n\""
+    != php "}"

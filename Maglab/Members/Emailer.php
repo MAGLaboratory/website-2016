@@ -5,10 +5,18 @@ class Emailer extends \Maglab\Controller {
     $admin_mw = [$this, 'require_admin'];
     $this->app->get('/members/emailer', $admin_mw, [$this, 'index']);
     $this->app->post('/members/emailer/send', $admin_mw, [$this, 'send']);
+    $this->app->get('/members/emailer/active_members', $admin_mw, [$this, 'active_members']);
   }
   
   function index(){
     $this->render('members/emailer/index.php', 'Emailer');
+  }
+  
+  function active_members(){
+    $query = $this->mysqli_prepare("SELECT id, role, email, first_name, last_name FROM users WHERE FIND_IN_SET('Keyholder', role) OR FIND_IN_SET('General', role) OR FIND_IN_SET('Guest', role) OR FIND_IN_SET('Backer', role)");
+    
+    $this->respond['members'] = $this->mysqli_results($query);
+    $this->render('members/emailer/active_members.php', 'Active Members');
   }
   
   function send(){
@@ -27,17 +35,20 @@ class Emailer extends \Maglab\Controller {
   
   /*
   function send_template($controller, $app){
-    $body = $this->render_to_sring('email/template.php', array());
+    $body = $this->render_to_string('email/template.php', array());
     $lines = explode("\n", $controller->params('payload'));
     
     $sent = [];
     foreach($lines as $i => $line){
       $csv = str_getcsv($line);
       
-      $name = $csv[0];
-      $email = $csv[1];
+      $email = $csv[0];
+      $first_name = $csv[1];
+      $last_name = $csv[2];
       
-      if(empty($csv) or $empty($email)){
+      $name = $first_name . ' ' . $last_name;
+      
+      if(empty($csv) or empty($email)){
         continue;
       }
       $to = "{$name} <{$email}>";
@@ -51,46 +62,32 @@ class Emailer extends \Maglab\Controller {
   }
   */
   
-  function send_desperate_price_increase($controller, $app){
-    $body = $this->render_to_string('email/mass/desperate_price_increase.php', array());
-    $lines = explode("\n", $controller->params('payload'));
-
-    $sent = [];
-    foreach($lines as $i => $line){
-      $email = str_getcsv($line);
-      if(!$email or count($email) < 2 or !$email[0] or !$email[1]){
-        continue;
-      }
-      
-      $to = "{$email[0]} <${email[1]}>";
-      $this->email_html($to, 'Greetings to All Members of MAG Laboratory', $body);
-      
-      array_push($sent, $to);
-    }
-    
-    $this->header('Content-Type', 'text/plain');
-    var_dump($sent);
-  }
   
-  function send_general_resubscribe($controller, $app){
-    $body = $this->render_to_string('email/mass/general_resubscribe.php', array());
+  function send_feb27_2016($controller, $app){
+    $body = $this->render_to_string('email/mass/feb27_2016.php', array());
     $lines = explode("\n", $controller->params('payload'));
     
     $sent = [];
     foreach($lines as $i => $line){
-      $email = str_getcsv($line);
-      if(!$email or count($email) < 2 or !$email[0] or !$email[1]){
+      $csv = str_getcsv($line);
+      
+      $email = $csv[0];
+      $first_name = $csv[1];
+      $last_name = $csv[2];
+      
+      $name = $first_name . ' ' . $last_name;
+      
+      if(empty($csv) or empty($email)){
         continue;
       }
-      $to = "{$email[0]} <{$email[1]}>";
-      $this->email_html($to, 'Happy New Year! Please Re-Subscribe to MAG Laboratory', $body);
+      $to = "{$name} <{$email}>";
+      $this->email_html($to, 'MAG Laboratory - Important Meeting on Saturday Feb 27, 2016', $body);
       
       array_push($sent, $to);
     }
     
-    $this->header('Content-Type', 'text/plain');
+    $this->header('Content-Type', 'text/plan');
     var_dump($sent);
-    
   }
   
 }
