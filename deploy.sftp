@@ -1,2 +1,6 @@
-!echo "Commit: 411d8c68d12481440ffd7ba79e46086a5544737a b8adf2527bcecbc23c96b82fe9c9439a36b97c27"
-put hal_helpers.php hal_helpers.php
+!echo "Commit: b8adf2527bcecbc23c96b82fe9c9439a36b97c27 2e9fbc74f00134baffb4fb750ea930be19e6c497"
+put Maglab/Members/Emailer.php Maglab/Members/Emailer.php
+put Maglab/base.php Maglab/base.php
+put templates/email/mass/feb27_2016.php templates/email/mass/feb27_2016.php
+put templates/email/mass/skeleton.php templates/email/mass/skeleton.php
+put templates/members/emailer/active_members.php templates/members/emailer/active_members.php
