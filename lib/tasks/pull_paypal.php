@@ -44,9 +44,6 @@ function payer_user_id($base, $email){
   return null;
 }
 
-$paid = array();
-$stmt = $stmt = $base->mysqli_prepare("INSERT INTO membership_payments (user_id, amount, paid_on, transaction_id, email) VALUES (?, ?, FROM_UNIXTIME(?), ?, ?)");
-
 foreach($response->PaymentTransactions as $transaction){
   if($transaction->Status == "Completed"){
     $amount = str_replace('.', '', $transaction->GrossAmount->value);
@@ -64,13 +61,11 @@ foreach($response->PaymentTransactions as $transaction){
       $user_id = payer_user_id($base, $email);
     }
     
-    if($stmt){
+    if($stmt = $base->mysqli_prepare("INSERT INTO membership_payments (user_id, amount, paid_on, transaction_id, email) VALUES (?, ?, FROM_UNIXTIME(?), ?, ?)")){
       $stmt->bind_param('iiiss', $user_id, $amount, $paid_on, $transid, $email);
       $stmt->execute();
+      $stmt->close();
     }
   }
 }
-
-$stmt->close();
-
 
