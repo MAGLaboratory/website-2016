@@ -104,6 +104,16 @@ External
 </nav>
 <div class='container' id='main-container'>
 <h1>Payments</h1>
+<?php if(isset($remind_nonpaid)){ ?>
+<div class='alert alert-success'>
+<strong>
+Successfully sent reminder to
+<?php echo filter_text($remind_nonpaid->email, true); ?>
+for month of
+<?php echo filter_text($remind_nonpaid_month, true); ?>
+</strong>
+</div>
+<?php } ?>
 <button class='btn btn-info' data-target='#pay-modal' data-toggle='modal' id='add-payment'>Add (Manual) Payment</button>
 <table class='table table-hover'>
 <thead>
@@ -157,6 +167,12 @@ External
 </td>
 <td>
 <?php echo filter_text($member['email'], true); ?>
+</td>
+<td>
+<a class='btn btn-primary' href='/members/memberships/remind_nonpaid?user_id=<?php echo filter_text($member['id'], true); ?>&month=<?php echo filter_text(date('F Y', time()-2628000), true); ?>'>
+Send payment reminder email for
+<?php echo filter_text(date('F Y', time()-2628000), true); ?>
+</a>
 </td>
 </tr>
 <?php } ?>

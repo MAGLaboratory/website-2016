@@ -1,0 +1,8 @@
+<Response>
+  <Speak language="en-US" voice="WOMAN">
+    MAG Laboratory is experiencing technical difficulties. Connecting you to our telephone line, but it might not work.
+  </Speak>
+  <Dial callerId="16262624522">
+    <User>sip:maglaboratory151005051333@phone.plivo.com</User>
+  </Dial>
+</Response>

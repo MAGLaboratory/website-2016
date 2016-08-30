@@ -5,6 +5,7 @@ class Memberships extends \Maglab\Controller {
     $admin_mw = [$this, 'require_admin'];
     $this->app->get('/members/memberships', $admin_mw, [$this, 'index']);
     $this->app->post('/members/memberships/payment', $admin_mw, [$this, 'add_payment']);
+    $this->app->get('/members/memberships/remind_nonpaid', $admin_mw, [$this, 'remind_nonpaid']);
   }
   
   function index(){
@@ -25,6 +26,16 @@ class Memberships extends \Maglab\Controller {
     $this->respond['members_map'] = $members_map;
     $this->respond['all_users'] = $this->all_users();
     $this->render('members/memberships/index.php', 'Membership Payments');
+  }
+  
+  function remind_nonpaid(){
+    $user_id = (int)$this->params('user_id');
+    $user = $this->get_user_info($user_id);
+    $month = $this->params('month');
+    $this->nonpayment_email($user_id, $month);
+    $this->respond['remind_nonpaid'] = $user;
+    $this->respond['remind_nonpaid_month'] = $month;
+    $this->index();
   }
   
   function add_payment(){
@@ -55,6 +66,11 @@ class Memberships extends \Maglab\Controller {
     $stmt = $this->mysqli_prepare("SELECT * FROM membership_payments WHERE paid_on > FROM_UNIXTIME(?)");
     $stmt->bind_param('i', $start);
     return $this->mysqli_results($stmt);
+  }
+  
+  protected function nonpayment_email($user, $month){
+    $body = $this->render_to_string('email/mass/feb27_2016.php', array('month' => $month, 'user' => $user));
+    $this->email_html($user->email, "MAGLab - Nonpayment Reminder for $month", $body);
   }
   
 }

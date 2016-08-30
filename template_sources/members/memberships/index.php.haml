@@ -1,5 +1,14 @@
 #main-container.container
   %h1 Payments
+  
+  != php "if(isset($remind_nonpaid)){"
+  .alert.alert-success
+    %strong
+      Successfully sent reminder to
+      != say("$remind_nonpaid->email")
+      for month of
+      != say("$remind_nonpaid_month")
+  != php "}"
   %button#add-payment.btn.btn-info{'data-toggle' => 'modal', 'data-target' => '#pay-modal'} Add (Manual) Payment
   %table.table.table-hover
     %thead
@@ -44,6 +53,10 @@
           != say "$member['first_name'] . ' ' . $member['last_name']"
         %td
           != say "$member['email']"
+        %td
+          %a.btn.btn-primary{:href => "/members/memberships/remind_nonpaid?user_id=#{say "$member['id']"}&month=#{say "date('F Y', time()-2628000)"}"}
+            Send payment reminder email for
+            != say "date('F Y', time()-2628000)"
       
       != php "}"
       
