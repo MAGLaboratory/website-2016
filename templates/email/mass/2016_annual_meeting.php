@@ -59,7 +59,7 @@ Regards,
 <br>
 Trenton Wilson
 <br>
-President <president@maglaboratory.org>
+President &gt;president@maglaboratory.org&lt;
 <br>
 MAG Lab
 </p>
