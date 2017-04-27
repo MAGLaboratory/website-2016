@@ -1,3 +1,2 @@
-!echo "Commit: eab6c1492678700f43ed5e84dd290e0faa888d81 e12b9826badbb45f21e159476405b160d769a90f"
+!echo "Commit: e12b9826badbb45f21e159476405b160d769a90f e490a1794b0a92532d77f853863f463870879a83"
 put Maglab/Members/Emailer.php Maglab/Members/Emailer.php
-put templates/email/mass/1023_bylaws.php templates/email/mass/1023_bylaws.php
