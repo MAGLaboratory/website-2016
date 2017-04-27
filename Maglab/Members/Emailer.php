@@ -77,7 +77,7 @@ class Emailer extends \Maglab\Controller {
         continue;
       }
       $to = "{$name} <{$email}>";
-      $this->email_html($to, 'MAG Laboratory - Proposed Bylaws Amendments', $body);
+      $this->email_html($to, 'MAG Laboratory - Vote on Proposed Bylaws Amendments', $body);
       
       array_push($sent, $to);
     }
@@ -113,34 +113,6 @@ class Emailer extends \Maglab\Controller {
     $this->header('Content-Type', 'text/plain');
     var_dump($sent);
     
-  }
-  
-  
-  function send_feb27_2016($controller, $app){
-    $body = $this->render_to_string('email/mass/feb27_2016.php', array());
-    $lines = explode("\n", $controller->params('payload'));
-    
-    $sent = [];
-    foreach($lines as $i => $line){
-      $csv = str_getcsv($line);
-      
-      $email = $csv[0];
-      $first_name = $csv[1];
-      $last_name = $csv[2];
-      
-      $name = $first_name . ' ' . $last_name;
-      
-      if(empty($csv) or empty($email)){
-        continue;
-      }
-      $to = "{$name} <{$email}>";
-      $this->email_html($to, 'MAG Laboratory - Important Meeting on Saturday Feb 27, 2016', $body);
-      
-      array_push($sent, $to);
-    }
-    
-    $this->header('Content-Type', 'text/plain');
-    var_dump($sent);
   }
   
 }
