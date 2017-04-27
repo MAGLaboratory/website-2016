@@ -80,7 +80,7 @@ class Emailer extends \Maglab\Controller {
         continue;
       }
       $to = "{$name} <{$email}>";
-      $this->email_html($to, 'MAG Laboratory - Annual Meeting 10/2/16 Reminder, Agenda, and Announcement', $body);
+      $this->email_html($to, 'MAG Laboratory - Proposed Bylaws Amendments', $body);
       
       array_push($sent, $to);
     }
