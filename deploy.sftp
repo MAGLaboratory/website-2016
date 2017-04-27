@@ -1,2 +1,3 @@
-!echo "Commit: aee30500ebe1fd4bdf4d3f65e3598e0d63dc4d79 eab6c1492678700f43ed5e84dd290e0faa888d81"
-put templates/email/mass/2016_annual_meeting.php templates/email/mass/2016_annual_meeting.php
+!echo "Commit: eab6c1492678700f43ed5e84dd290e0faa888d81 e12b9826badbb45f21e159476405b160d769a90f"
+put Maglab/Members/Emailer.php Maglab/Members/Emailer.php
+put templates/email/mass/1023_bylaws.php templates/email/mass/1023_bylaws.php
