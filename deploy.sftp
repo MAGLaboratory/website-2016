@@ -1,5 +1,4 @@
-!echo "Commit: e490a1794b0a92532d77f853863f463870879a83 7a1dcc7f99bd65d7cd95ed3752c5c2e5ec7d9f15"
+!echo "Commit: 7a1dcc7f99bd65d7cd95ed3752c5c2e5ec7d9f15 d3192544884cdcfa783c45ba2f5de07fb9b4911b"
 put Maglab/Members/Emailer.php Maglab/Members/Emailer.php
-put templates/email/mass/1023_bylaws.php templates/email/mass/1023_bylaws.php
-put templates/email/mass/2016_annual_meeting.php templates/email/mass/2016_annual_meeting.php
-put templates/email/mass/skeleton.php templates/email/mass/skeleton.php
+rm templates/email/mass/desperate_price_increase.php
+rm templates/email/mass/feb27_2016.php
