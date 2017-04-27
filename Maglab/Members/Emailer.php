@@ -70,11 +70,8 @@ class Emailer extends \Maglab\Controller {
     foreach($lines as $i => $line){
       $csv = str_getcsv($line);
       
-      $email = $csv[0];
-      $first_name = $csv[1];
-      $last_name = $csv[2];
-      
-      $name = $first_name . ' ' . $last_name;
+      $name = $csv[0];
+      $email = $csv[1];
       
       if(empty($csv) or empty($email)){
         continue;
