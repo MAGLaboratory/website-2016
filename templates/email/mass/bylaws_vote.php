@@ -26,9 +26,9 @@
 <p>This is an official ballot measure to adopt the new bylaws available here: https://groups.google.com/forum/?fromgroups#!topic/maglaboratory/-_zP7Nx3hpw</p>
 <p>
 The vote is open on
-<a href=''>Facebook Group</a>
+<a href='https://www.facebook.com/groups/MAGLaboratory/permalink/1291365954244775/'>Facebook Group</a>
 and
-<a href=''>Google Groups.</a>
+<a href='https://groups.google.com/forum/?fromgroups#!topic/maglaboratory/wVhd-OPzndI'>Google Groups.</a>
 The May 2nd general meeting will be used to collect paper ballots. You may also reply to this email to cast your vote.
 </p>
 <br>
