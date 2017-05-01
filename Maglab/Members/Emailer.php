@@ -87,6 +87,31 @@ class Emailer extends \Maglab\Controller {
     
   }
   
+  function send_bylaws_vote($controller, $app){
+    $body = $this->render_to_string('email/mass/bylaws_vote.php', array());
+    $lines = explode("\n", $controller->params('payload'));
+    
+    $sent = [];
+    foreach($lines as $i => $line){
+      $csv = str_getcsv($line);
+      
+      $name = $csv[0];
+      $email = $csv[1];
+      
+      if(empty($csv) or empty($email)){
+        continue;
+      }
+      $to = "{$name} <{$email}>";
+      $this->email_html($to, 'MAG Laboratory - Vote to Approve Bylaws Amendments', $body);
+      
+      array_push($sent, $to);
+    }
+    
+    $this->header('Content-Type', 'text/plain');
+    var_dump($sent);
+    
+  }
+  
   function send_2016_annual($controller, $app){
     $body = $this->render_to_string('email/mass/2016_annual_meeting.php', array());
     $lines = explode("\n", $controller->params('payload'));
