@@ -1,3 +1,3 @@
-!echo "Commit: 4d6c48e89ebc4331a927c413d6a1fa21d4714879 b33a024c5b163ea0e107cb5ec7478cb9a3230ffe"
+!echo "Commit: b33a024c5b163ea0e107cb5ec7478cb9a3230ffe 09b0a075bbf37b2d486073d9238ba214478a1755"
 put Maglab/Members/Emailer.php Maglab/Members/Emailer.php
-put templates/email/mass/2017_annual_meeting_tentative.php templates/email/mass/2017_annual_meeting_tentative.php
+put templates/email/mass/2017_annual_meeting.php templates/email/mass/2017_annual_meeting.php
