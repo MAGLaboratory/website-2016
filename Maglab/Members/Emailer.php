@@ -113,7 +113,7 @@ class Emailer extends \Maglab\Controller {
   }
   
   function send_2017_annual($controller, $app){
-    $body = $this->render_to_string('email/mass/2017_annual_meeting_tentative.php', array());
+    $body = $this->render_to_string('email/mass/2017_annual_meeting.php', array());
     $lines = explode("\n", $controller->params('payload'));
     
     $sent = [];
@@ -130,7 +130,7 @@ class Emailer extends \Maglab\Controller {
         continue;
       }
       $to = "{$name} <{$email}>";
-      $this->email_html($to, 'MAG Laboratory - Annual Meeting (pre-)Notice', $body);
+      $this->email_html($to, 'MAG Laboratory - Annual Meeting Notice', $body);
       
       array_push($sent, $to);
     }
@@ -139,5 +139,5 @@ class Emailer extends \Maglab\Controller {
     var_dump($sent);
     
   }
-  
+
 }
