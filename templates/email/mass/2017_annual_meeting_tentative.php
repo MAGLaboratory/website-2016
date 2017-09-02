@@ -82,9 +82,6 @@ A small note
 <h2 style='border: 1px solid black;text-align:center;'>
 <a href='http://www.maglaboratory.org/donate' style='text-decoration:none;color:'>Click here to Donate</a>
 </h2>
-<h2 style='border: 1px solid black;text-align:center;'>
-<a href='http://www.maglaboratory.org/subscribe' style='text-decoration:none;color:'>Subscribe to Mailing List</a>
-</h2>
 <h2 style='border: 1px solid black; text-align:center;'>
 <a href='https://groups.google.com/forum/?fromgroups#!forum/maglaboratory' style='text-decoration:none;'>Google Groups/Forum</a>
 </h2>
