@@ -25,13 +25,13 @@ The link will expire in 1 hour.
 </p>
 <br>
 <p>
-<a href='<?php echo filter_text($reset_url, true); ?>'>Click here</a>
+<a href='<?php echo $reset_url; ?>'>Click here</a>
 to reset your password.
 </p>
 <br>
 <p>
 If the link above doesn't work, copy and paste this into your browser:
-<?php echo filter_text($reset_url, true); ?>
+<?php echo $reset_url; ?>
 </p>
 
 </td>
