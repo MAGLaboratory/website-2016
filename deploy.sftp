@@ -1,7 +1,2 @@
-!echo "Commit: 09b0a075bbf37b2d486073d9238ba214478a1755 d584bb3f6c1dcddd8d1fd4be78707f3ba5479bbb"
-put templates/email/mass/1023_bylaws.php templates/email/mass/1023_bylaws.php
-put templates/email/mass/2016_annual_meeting.php templates/email/mass/2016_annual_meeting.php
-put templates/email/mass/2017_annual_meeting.php templates/email/mass/2017_annual_meeting.php
-put templates/email/mass/2017_annual_meeting_tentative.php templates/email/mass/2017_annual_meeting_tentative.php
-put templates/email/mass/bylaws_vote.php templates/email/mass/bylaws_vote.php
-put templates/email/mass/skeleton.php templates/email/mass/skeleton.php
+!echo "Commit: d584bb3f6c1dcddd8d1fd4be78707f3ba5479bbb 92545be205dcb18346c0f21da9dda101f0a681fc"
+put templates/email/login/reset_password.php templates/email/login/reset_password.php
