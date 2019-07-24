@@ -116,10 +116,10 @@ External
 <tbody>
 <?php foreach($payments as $payment){ ?>
 <tr>
-<td>&lt;?php echo filter_text($payment-&gt;TransactionID, true); ?&gt;</td>
-<td>&lt;?php echo filter_text($payment-&gt;Status, true); ?&gt;</td>
-<td>&lt;?php echo filter_text(date('m/d/Y', strtotime($payment-&gt;Timestamp)), true); ?&gt;</td>
-<td>&lt;?php echo filter_text($payment-&gt;GrossAmount-&gt;Value, true); ?&gt;</td>
+<td><?php echo filter_text($payment->TransactionID, true); ?></td>
+<td><?php echo filter_text($payment->Status, true); ?></td>
+<td><?php echo filter_text(date('m/d/Y', strtotime($payment->Timestamp)), true); ?></td>
+<td><?php echo filter_text($payment->GrossAmount->Value, true); ?></td>
 </tr>
 <?php } ?>
 </tbody>

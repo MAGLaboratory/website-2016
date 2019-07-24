@@ -1,8 +1,8 @@
 require 'haml'
 require 'pathname'
 
-{:format => :html5, :encoding => 'UTF-8', :escape_html => true, :ugly => true, :escape_attrs => false
-}.each_pair { |k, v| Haml::Options.defaults[k] = v }
+DEFAULT_HAML_OPTIONS = {:format => :html5, :encoding => 'UTF-8', :escape_html => false, :remove_whitespace => false, :escape_attrs => false}
+DEFAULT_HAML_OPTIONS.each_pair { |k, v| Haml::Options.defaults[k] = v }
 
 module Haml::Filters::Php
   include Haml::Filters::Base
@@ -25,7 +25,7 @@ class Renderer
 
   def partial(name)
     partial_path = (@file_path.split('/')[0..-2] + ["_#{name}.haml"]).join('/')
-    Haml::Engine.new(File.read(partial_path)).render(self)
+    Haml::Engine.new(File.read(partial_path), DEFAULT_HAML_OPTIONS).render(self)
   end
   
   def php(code)
@@ -72,7 +72,7 @@ Dir.glob('template_sources/**/*.haml').each do |file|
   until layout or layout_paths.length == 0 do
     layout_file = layout_paths.join('/')+'.layout.haml'
     if File.exist?(layout_file)
-      layout = Haml::Engine.new(File.read(layout_file))
+      layout = Haml::Engine.new(File.read(layout_file), DEFAULT_HAML_OPTIONS)
       #puts "\tlayout: #{layout_file}"
     else
       layout_paths.pop()
@@ -80,7 +80,7 @@ Dir.glob('template_sources/**/*.haml').each do |file|
   end
   
   scope = Renderer.new(file)
-  page = Haml::Engine.new(File.read(file)).render(scope)
+  page = Haml::Engine.new(File.read(file), DEFAULT_HAML_OPTIONS).render(scope)
   
   output = scope.flag('no_layout') ? page : (layout.render(scope) do page; end)
   target.write output
